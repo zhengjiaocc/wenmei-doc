@@ -12,19 +12,19 @@ hero:
   actions:
     - theme: brand
       text: 简介
-      link: docs/info/into
+      link: /docs/info/into
     - theme: alt
       text: 重大事记
-      link: docs/info/record
+      link: /docs/info/record
     - theme: alt
       text: 档案库
-      link: docs/info/lib
+      link: /docs/info/lib
     - theme: alt
       text: 经典语录
-      link: docs/info/echoes
+      link: /docs/info/echoes
     - theme: alt
       text: 小说世界
-      link: docs/info/life
+      link: /docs/info/life
 
 features:
   - icon: ⚡
