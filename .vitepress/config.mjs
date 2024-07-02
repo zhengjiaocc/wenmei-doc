@@ -48,6 +48,7 @@ export default defineConfig({
       //     </a>
       //   </p>
       // `,
+      message: "123",
       copyright: "Copyright © 2024-present ZhangHanxiao",
     },
 
