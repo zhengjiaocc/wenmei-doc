@@ -37,8 +37,19 @@ export default defineConfig({
 
     ],
 
+
     footer:{
+      message: `
+        <p style="text-align: center; line-height: 30px; display: flex; justify-content: center; align-items: center;">
+          <a href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral" style="text-decoration: none; display: flex; align-items: center;">
+            <span>本网站由</span>
+            <img src="up.png" width="50" style="margin: 0 5px;">
+            <span>提供加速服务</span>
+          </a>
+        </p>
+      `,
       copyright: "Copyright © 2024-present ZhangHanxiao",
+  
     },
 
     socialLinks: [
