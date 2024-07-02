@@ -13,7 +13,6 @@ export default defineConfig({
     logo: "logo_cut-modified.png",
     nav: [
       { text: '主页', link: '/' },
-      { text: '缘盟', link: '/docs/info/link' },
       { text: '关于我们', link: '/docs/info/about' },
       { text: '项目地址', link: 'https://github.com/zhengjiaocc/wenmei-doc.git' },
 

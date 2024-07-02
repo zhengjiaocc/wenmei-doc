@@ -14,14 +14,18 @@ hero:
       text: 简介
       link: /docs/info/into
     - theme: alt
+      text: 缘盟
+      link: /docs/info/link
+    - theme: alt
       text: 重大事记
       link: /docs/info/record
     - theme: alt
-      text: 档案库
-      link: /docs/info/lib
-    - theme: alt
       text: 经典语录
       link: /docs/info/echoes
+    - theme: alt
+      text: 档案库
+      link: /docs/info/lib
+
 
 
 features:
