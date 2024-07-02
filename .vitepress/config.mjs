@@ -2,7 +2,7 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({ 
-  base: "/",
+  base: "/path/",
   head: [["link", { rel: "icon", href: "wtmmlsw.svg" }]],
   title: "《问题妹妹恋上我》—— 负是非",
   description: "小说《问题妹妹恋上我》的文档站",
