@@ -52,7 +52,7 @@ export default defineConfig({
     <span>提供加速服务</span>
     </a>
       `,
-      copyright: "Copyright © 2024-present ZhangHanxiao",
+      copyright: "Copyright © 2024-present ZhangHanXiao",
     },
 
     socialLinks: [
