@@ -35,7 +35,7 @@ export default defineConfig({
         collapsed: false,
         text: '档案库',
         items: [
-          { text: '人物关系', link: 'docs/info/into' },
+          { text: '人物关系', link: 'docs/info/relationship' },
           { text: '角色档案', link: 'docs/info/echoes'},
           { text: '初绽瞬间', link: 'docs/info/first'},
           { text: '重复之章', link: 'docs/info/count'},
