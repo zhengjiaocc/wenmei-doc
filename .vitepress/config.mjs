@@ -22,10 +22,11 @@ export default defineConfig({
     sidebar: [
       {
         collapsed: false,
-        text: '小说资料',
+        text: '相关',
         items: [
           { text: '简介', link: 'docs/info/into' },
-          { text: '重大事记', link: 'docs/info/record' },
+          { text: '缘盟', link: 'docs/info/link' },
+          { text: '重大事记', link: 'docs/info/record'},
           { text: '经典语录', link: 'docs/info/echoes'},
         ],
       },
