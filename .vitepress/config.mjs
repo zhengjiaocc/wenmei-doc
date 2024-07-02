@@ -11,8 +11,8 @@ export default defineConfig({
     logo: "logo_cut-modified.png",
     nav: [
       { text: '主页', link: '/' },
-      { text: '项目地址', link: '/markdown-examples' },
-      { text: '关于我们', link: '/markdown-examples' }
+      { text: '项目地址', link: 'https://github.com/zhengjiaocc/wenmei-doc.git' },
+      { text: '关于我们', link: '/wenmei-doc/info/about' }
 
     ],
 
@@ -20,9 +20,9 @@ export default defineConfig({
       {
         text: '小说资料',
         items: [
-          { text: '简介', link: 'info/into' },
-          { text: '重大事记', link: 'info/record' },
-          { text: '经典语录', link: 'info/echoes'},
+          { text: '简介', link: '/wenmei-doc/info/into' },
+          { text: '重大事记', link: '/wenmei-doc/info/record' },
+          { text: '经典语录', link: '/wenmei-doc/info/echoes'},
         ],
       },
       // {
