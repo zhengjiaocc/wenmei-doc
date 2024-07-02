@@ -12,7 +12,7 @@ export default defineConfig({
     nav: [
       { text: '主页', link: '/' },
       { text: '项目地址', link: 'https://github.com/zhengjiaocc/wenmei-doc.git' },
-      { text: '关于我们', link: '/wenmei-doc/info/about' }
+      { text: '关于我们', link: '/docs/info/about' }
 
     ],
 
@@ -20,9 +20,9 @@ export default defineConfig({
       {
         text: '小说资料',
         items: [
-          { text: '简介', link: '/wenmei-doc/info/into' },
-          { text: '重大事记', link: '/wenmei-doc/info/record' },
-          { text: '经典语录', link: '/wenmei-doc/info/echoes'},
+          { text: '简介', link: 'docs/info/into' },
+          { text: '重大事记', link: 'docs/info/record' },
+          { text: '经典语录', link: 'docs/info/echoes'},
         ],
       },
       // {
