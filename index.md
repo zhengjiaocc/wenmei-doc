@@ -7,24 +7,24 @@ hero:
   text: "文档站"
   tagline: 十年相伴，即将完结...
   image:
-      src: banner.png
+      src: banner-zip.png
       alt: 背景图
   actions:
     - theme: brand
       text: 简介
-      link: /info/into
+      link: docs/info/into
     - theme: alt
       text: 重大事记
-      link: /info/record
+      link: docs/info/record
     - theme: alt
       text: 档案库
-      link: /info/record
+      link: docs/info/lib
     - theme: alt
       text: 经典语录
-      link: /info/echoes
+      link: docs/info/echoes
     - theme: alt
       text: 小说世界
-      link: /api-examples
+      link: docs/info/life
 
 features:
   - icon: ⚡

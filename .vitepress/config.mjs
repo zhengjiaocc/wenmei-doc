@@ -3,12 +3,12 @@ import { defineConfig } from 'vitepress'
 // https://vitepress.dev/reference/site-config
 export default defineConfig({ 
   base: "/wtmmlsw-doc/",
-  head: [["link", { rel: "icon", href: "logo.svg" }]],
+  head: [["link", { rel: "icon", href: "wtmmlsw.svg" }]],
   title: "《问题妹妹恋上我》—— 负是非",
   description: "小说《问题妹妹恋上我》的文档站",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
-    logo: "/banner.png",
+    logo: "logo_cut-modified.png",
     nav: [
       { text: '主页', link: '/' },
       { text: '项目地址', link: '/markdown-examples' },
@@ -20,9 +20,9 @@ export default defineConfig({
       {
         text: '小说资料',
         items: [
-          { text: '简介', link: '/info/into' },
-          { text: '重大事记', link: '/info/record' },
-          {text: '经典语录', link: '/info/echoes.md'},
+          { text: '简介', link: 'docs/info/into' },
+          { text: '重大事记', link: 'docs/info/record' },
+          {text: '经典语录', link: 'docs/info/echoes.md'},
         ],
       },
       // {
