@@ -3,21 +3,26 @@ import { defineConfig } from 'vitepress'
 // https://vitepress.dev/reference/site-config
 export default defineConfig({ 
   // base: "/wenmei-doc/",
-  head: [["link", { rel: "icon", href: "wtmmlsw.svg" }]],
-  title: "《问题妹妹恋上我》—— 负是非",
+  head: [["link", { rel: "icon", href: "wtmmlsw.svg" }],
+  ],
+
+  title: "《问题妹妹恋上我》",
   description: "小说《问题妹妹恋上我》的文档站",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     logo: "logo_cut-modified.png",
     nav: [
       { text: '主页', link: '/' },
+      { text: '缘盟', link: '/docs/info/link' },
+      { text: '关于我们', link: '/docs/info/about' },
       { text: '项目地址', link: 'https://github.com/zhengjiaocc/wenmei-doc.git' },
-      { text: '关于我们', link: '/docs/info/about' }
+
 
     ],
 
     sidebar: [
       {
+        collapsed: false,
         text: '小说资料',
         items: [
           { text: '简介', link: 'docs/info/into' },
@@ -25,15 +30,16 @@ export default defineConfig({
           { text: '经典语录', link: 'docs/info/echoes'},
         ],
       },
-      // {
-      //   text: '小说章节',
-      //   items: [
-      //     { text: '第1章 后妈如妹，妹似后妈', link: '/doc/1' },
-      //     { text: '500-1000章', link: '/api-examples' },
-      //     {text: '1000-1500章', link: '/api-examples'},
-      //     {text: '1500-2000章', link: '/api-examples'},
-      //   ],
-      // },
+      {
+        collapsed: false,
+        text: '档案库',
+        items: [
+          { text: '人物关系', link: 'docs/info/into' },
+          { text: '角色档案', link: 'docs/info/echoes'},
+        ],
+      },
+      
+
 
     ],
 
@@ -75,6 +81,5 @@ export default defineConfig({
           },
         },
       },
-  }
-  
+  },
 })
