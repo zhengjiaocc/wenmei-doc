@@ -1,6 +1,4 @@
----
-layout: doc
----
+
 
 # <center>加入我们</center>
 
