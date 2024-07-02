@@ -37,6 +37,10 @@ export default defineConfig({
         items: [
           { text: '人物关系', link: 'docs/info/into' },
           { text: '角色档案', link: 'docs/info/echoes'},
+          { text: '初绽瞬间', link: 'docs/info/first'},
+          { text: '重复之章', link: 'docs/info/count'},
+          { text: '巅峰角逐', link: 'docs/info/sort'},
+          { text: '角色尺度大公开', link: 'docs/info/reveal'},
         ],
       },
       
