@@ -22,9 +22,7 @@ hero:
     - theme: alt
       text: 经典语录
       link: /docs/info/echoes
-    - theme: alt
-      text: 小说世界
-      link: /docs/info/life
+
 
 features:
   - icon: ⚡
