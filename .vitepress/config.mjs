@@ -9,11 +9,11 @@ export default defineConfig({
   ],
 
 
-
+  appearance:false, // 默认配置，可以切换
   title: "《问题妹妹恋上我》",
   description: "小说《问题妹妹恋上我》的文档站",
   themeConfig: {
-
+   
 
     // https://vitepress.dev/reference/default-theme-config
     "lastUpdatedText": "最近更新",
