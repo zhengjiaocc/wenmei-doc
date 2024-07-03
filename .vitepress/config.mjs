@@ -17,6 +17,10 @@ export default defineConfig({
       "prev": "前一篇",
       "next": "后一篇"
     },
+
+    outline: {
+      label: '当前页'
+    },
     
     logo: "logo_cut-modified.png",
     nav: [
