@@ -51,7 +51,7 @@ features:
     # link: /api-examples
   - icon: 🍸
     title: 都市风情，橘香四溢
-    details: 《妹妹》作品，在是非的笔下洋溢着独特的都市气息，如同清爽的橘子汽水，沁人心脾，令人陶醉。
+    details: 《问妹》作品，在是非的笔下洋溢着独特的都市气息，如同清爽的橘子汽水，沁人心脾，令人陶醉。
     # link: /api-examples
 
 

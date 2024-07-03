@@ -4,6 +4,16 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({ 
   // base: "/wenmei-doc/",
   head: [["link", { rel: "icon", href: "wtmmlsw.svg" }],
+ // 添加51la统计代码
+ [
+  "script",
+  { src: "https://sdk.51.la/perf/js-sdk-perf.min.js", crossorigin: "anonymous" }
+],
+[
+  "script",
+  {},
+  `new LingQue.Monitor().init({id:"3IvoPPmE0AosBws2"});`
+]
   ],
 
   title: "《问题妹妹恋上我》",
@@ -28,6 +38,7 @@ export default defineConfig({
       { text: '主页', link: '/' },
       { text: '负是非', link: '/docs/info/author' },
       { text: '关于我们', link: '/docs/info/about' },
+      { text: '日志', link: '/docs/logs/logs' },
       { text: '项目地址', link: 'https://github.com/zhengjiaocc/wenmei-doc.git' },
 
 
