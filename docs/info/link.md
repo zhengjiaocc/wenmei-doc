@@ -1,6 +1,7 @@
 # <center>加入我们 </center> 
 
 ## 书迷QQ群
+最后更新：2024/7/3
 
 | 群名称                 | 群号              | 备注       |
 |----------------------|---------------|------------|
@@ -10,7 +11,9 @@
 | 缘盟四群               | 546542165    |            |
 | 缘盟五群               | 522681373    |            |
 | 缘盟六群               | 458281450    |            |
-| 缘盟七群               | 829327576    | 可加此群   |
+| 缘盟七群               | 829327576    | 已满   |
+| 缘盟八群               | 661616789    |    1985人        |
+| 缘盟九群               | 717666809    | 1986人   |
 | 缘盟交流群             | 248157094    |            |
 | 潜水看书群             | 564283965    | 已满       |
 
@@ -19,7 +22,7 @@
 | 群名称         | 群号         | 备注                      |
 |--------------|------------|------------------------|
 | 妹妹实体书一期意向群 | 已结束  | 已结束      |
-| 妹妹实体书二期意向群 | 950337837   | 即将启动，敬请期待！      |
+| 妹妹实体书二期意向群 | 950337837   | 进行中      |
 
 <div id="declaration">
    <h2>重要声明：</h2>
@@ -69,13 +72,13 @@
   <div style="margin-right: 20px; text-align: center;">
     <div>缘盟吧</div>
     <a href="http://tieba.baidu.com/" style="display: block; width: 150px; height: 150px;">
-      <img src="https://hexo-blog-anzhiyu-zhengjiao.oss-cn-hongkong.aliyuncs.com/img/202407030343305.jpg" alt="缘盟吧" style="width: 100%; height: 100%; object-fit: cover; border: 3px solid gray;">
+      <img src="/ymb.jpg" alt="缘盟吧" style="width: 100%; height: 100%; object-fit: cover; border: 3px solid gray;">
     </a>
   </div>
   <div style="text-align: center;">
     <div>问题妹妹恋上我吧</div>
     <a href="http://tieba.baidu.com/" style="display: block; width: 150px; height: 150px;">
-      <img src="https://hexo-blog-anzhiyu-zhengjiao.oss-cn-hongkong.aliyuncs.com/img/202407030343852.jpg" alt="问题妹妹恋上我吧" style="width: 100%; height: 100%; object-fit: cover; border: 3px solid gray;">
+      <img src="/wtmmlsw.jpg" alt="问题妹妹恋上我吧" style="width: 100%; height: 100%; object-fit: cover; border: 3px solid gray;">
     </a>
   </div>
 </div>
