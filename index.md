@@ -24,7 +24,7 @@ hero:
       link: /docs/info/echoes
     - theme: alt
       text: 档案库
-      link: /docs/lib/relationship
+      link: /docs/lib/count
 
 
 

@@ -1,6 +1,6 @@
 <template>  
   <div class="twikoo-container">  
-     <h2 class="title">🏳‍🌈留言须知</h2>
+     <p class="title">🏳‍🌈留言须知</p>
      
     <div class="notice">  
         
@@ -53,8 +53,8 @@ export default {
   
 <style scoped>  
 .twikoo-container {  
-  padding: 20px;  
-  margin: 20px auto;  
+  padding:  20px;  
+  margin: 30px auto;  
   /* max-width: 800px;   */
   font-family: Arial, sans-serif;  
   background-color: #fff;  
