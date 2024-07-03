@@ -3,7 +3,7 @@
 layout: home
 
 hero:
-  name: 《问题妹妹恋上我》
+  name: "问题妹妹恋上我"
   text: "文档站"
   tagline: 十年相伴，即将完结...
   image:
