@@ -4,6 +4,8 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({ 
   // base: "/wenmei-doc/",
   head: [["link", { rel: "icon", href: "wtmmlsw.svg" }],
+  ['script', { charset: 'UTF-8', src: '//sdk.51.la/js-sdk-pro.min.js' }],
+  ['script', { defer: true }, 'LA.init({ id: "3Ivp74LsSjfO1pXU", ck: "3Ivp74LsSjfO1pXU" });'],
   ],
 
 
