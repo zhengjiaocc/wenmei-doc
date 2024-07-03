@@ -21,6 +21,7 @@ export default defineConfig({
     outline: {
       label: '当前页'
     },
+
     
     logo: "logo_cut-modified.png",
     nav: [
@@ -37,6 +38,8 @@ export default defineConfig({
     sidebar: [
       {
         text: '相关',
+        collapsible: true,
+        collapsed: false,
         items: [
           { text: '简介', link: '/docs/info/into' },
           { text: '缘盟', link: '/docs/info/link' },
@@ -46,6 +49,8 @@ export default defineConfig({
       },
       {
         text: '档案库',
+        collapsible: true,
+        collapsed: false,
         items: [
           { text: '人物关系', link: '/docs/lib/relationship' },
           { text: '角色档案', link: '/docs/lib/relationship'},
