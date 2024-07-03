@@ -9,7 +9,15 @@ export default defineConfig({
   title: "《问题妹妹恋上我》",
   description: "小说《问题妹妹恋上我》的文档站",
   themeConfig: {
+
+
     // https://vitepress.dev/reference/default-theme-config
+    "lastUpdatedText": "最近更新",
+    "docFooter": {
+      "prev": "前一篇",
+      "next": "后一篇"
+    },
+    
     logo: "logo_cut-modified.png",
     nav: [
       { text: '主页', link: '/' },
@@ -20,32 +28,29 @@ export default defineConfig({
 
     ],
 
+    
+
     sidebar: [
       {
-        collapsed: false,
         text: '相关',
         items: [
-          { text: '简介', link: 'docs/info/into' },
-          { text: '缘盟', link: 'docs/info/link' },
-          { text: '重大事记', link: 'docs/info/record'},
-          { text: '经典语录', link: 'docs/info/echoes'},
+          { text: '简介', link: '/docs/info/into' },
+          { text: '缘盟', link: '/docs/info/link' },
+          { text: '重大事记', link: '/docs/info/record'},
+          { text: '经典语录', link: '/docs/info/echoes'},
         ],
       },
       {
-        collapsed: false,
         text: '档案库',
         items: [
-          { text: '人物关系', link: 'docs/info/relationship' },
-          { text: '角色档案', link: 'docs/info/echoes'},
-          { text: '初绽瞬间', link: 'docs/info/first'},
-          { text: '重复之章', link: 'docs/info/count'},
-          { text: '巅峰角逐', link: 'docs/info/sort'},
-          { text: '角色尺度大公开', link: 'docs/info/reveal'},
+          { text: '人物关系', link: '/docs/lib/relationship' },
+          { text: '角色档案', link: '/docs/lib/relationship'},
+          { text: '初绽瞬间', link: '/docs/lib/first'},
+          { text: '重复之章', link: '/docs/lib/count'},
+          { text: '巅峰角逐', link: '/docs/lib/sort'},
+          { text: '角色尺度大公开', link: '/docs/lib/reveal'},
         ],
       },
-      
-
-
     ],
 
 
