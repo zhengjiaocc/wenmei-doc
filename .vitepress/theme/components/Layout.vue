@@ -19,10 +19,11 @@ const { Layout } = DefaultTheme
 </template>
 
 <style>
+
+
 .home-comment-container {
   position: relative;
   margin-top: 64px;
-  padding: 0 24px;
 }
 
 @media (min-width: 640px) {
@@ -46,4 +47,7 @@ const { Layout } = DefaultTheme
   margin-left: auto;
   margin-right: auto;
 }
+
+
+
 </style>
