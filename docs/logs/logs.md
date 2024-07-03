@@ -1,7 +1,14 @@
-# 访问统计
-<script id="3Ivp74LsSjfO1pXU" crossorigin="anonymous" charset="UTF-8" src="https://v6-widget.51.la/v6/3Ivp74LsSjfO1pXU/quote.js?theme=0&col=true&f=12&badge=icon_0&icon=center"></script>
+# 日志
 
-# 更新日志
+
+
+## 1.访问统计
+
+~~正在努力开发中...~~
+
+PS:遇到无法解决的问题暂停此功能开发
+
+## 2.更新日志
 
 | 更新日期 | 维护人 | 更新内容 |
 | ----------------------- | --------------- | ---------------- |
