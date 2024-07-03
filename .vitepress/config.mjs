@@ -29,6 +29,7 @@ export default defineConfig({
     nav: [
       { text: '主页', link: '/' },
       { text: '负是非', link: '/docs/info/author' },
+      { text: '留言板', link: '/docs/info/message' },
       { text: '关于我们', link: '/docs/info/about' },
       { text: '日志', link: '/docs/logs/logs' },
       { text: '项目地址', link: 'https://github.com/zhengjiaocc/wenmei-doc.git' },
