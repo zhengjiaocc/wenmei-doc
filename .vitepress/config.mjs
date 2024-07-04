@@ -6,9 +6,9 @@ export default defineConfig({
   head: [["link", { rel: "icon", href: "wtmmlsw.svg" }],
   ['meta', { name: 'description', content: '《问题妹妹恋上我》文档库，负是非' }],
   ],
-  // sitemap: {
-  //   hostname: 'https://www.wtmmlsw.cn'
-  // },
+  sitemap: {
+    hostname: 'https://www.wtmmlsw.cn'
+  },
 
   appearance:false, // 默认配置，可以切换
   title: "《问题妹妹恋上我》",
