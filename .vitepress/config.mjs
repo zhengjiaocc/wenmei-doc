@@ -75,8 +75,8 @@ export default defineConfig({
       },
       {
         text: '资源',
-        collapsible: true,
-        collapsed: false,
+        collapsible: false,
+        collapsed: true,
         items: [
           { text: '资源', link: '/docs/resources/resources.md' },
         ],
