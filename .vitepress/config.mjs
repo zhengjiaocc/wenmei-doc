@@ -65,7 +65,7 @@ export default defineConfig({
         collapsed: false,
         items: [
           { text: '人物关系', link: '/docs/lib/relationship' },
-          { text: '角色档案', link: '/docs/lib/relationship'},
+          { text: '角色档案', link: '/docs/lib/role'},
           { text: '初绽瞬间', link: '/docs/lib/first'},
           { text: '重复之章', link: '/docs/lib/count'},
           { text: '巅峰角逐', link: '/docs/lib/sort'},
