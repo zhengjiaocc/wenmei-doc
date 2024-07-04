@@ -43,6 +43,7 @@ export default defineConfig({
     
 
     sidebar: [
+
       {
         text: '相关',
         collapsible: true,
@@ -66,7 +67,20 @@ export default defineConfig({
           { text: '巅峰角逐', link: '/docs/lib/sort'},
           { text: '角色尺度大公开', link: '/docs/lib/reveal'},
         ],
+        
       },
+      {
+        text: '资源',
+        collapsible: true,
+        collapsed: false,
+        items: [
+          { text: '资源', link: '/docs/resources/resources.md' },
+        ],
+        
+      },
+
+      
+
     ],
 
 
