@@ -28,6 +28,10 @@
       温馨提示：建议使用QQ邮箱，QQ邮箱能正确显示头像，其他邮箱大概率头像空白！  
     </p>  
 
+ <p class="warm-tip-text2">  
+      疑问解答：留言的实现用的是Twikoo，部署在国外，会有延迟，请稍等一会...  
+    </p>  
+
 
     <div class="comment-section">  
       <!-- 假设Twikoo是一个Vue组件，用于显示和提交评论 -->  
@@ -118,6 +122,17 @@ export default {
   background-color: #f9f9f9; /* 浅灰色背景，可选 */  
   border-left: 4px solid #ff0000; /* 红色左边框，作为高亮，可选 */  
   margin-top: 10px; /* 与上方内容的间距 */  
+  /* border-radius: 4px; 边框圆角，可选   */
+}  
+
+.warm-tip-text2 {  
+  color: #666; /* 灰色文本 */  
+  font-size: 14px; /* 字体大小 */  
+  line-height: 1.6; /* 行高，使文本更易读 */  
+  padding: 10px; /* 内边距，为文本周围添加一些空间 */  
+  background-color: #f9f9f9; /* 浅灰色背景，可选 */  
+  border-left: 4px solid #00d5ff; /* 红色左边框，作为高亮，可选 */  
+  margin-top: 5px; /* 与上方内容的间距 */  
   /* border-radius: 4px; 边框圆角，可选   */
 }  
 
