@@ -21,7 +21,7 @@ hero:
       link: /docs/info/record
     - theme: alt
       text: 经典语录
-      link: /docs/info/echoes
+      link: /docs/lib/echoes/cy
     - theme: alt
       text: 档案库
       link: /docs/lib/count
