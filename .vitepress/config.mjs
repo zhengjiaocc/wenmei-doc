@@ -4,6 +4,7 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({ 
   // base: "/wenmei-doc/",
   head: [["link", { rel: "icon", href: "wtmmlsw.svg" }],
+  ['meta', { name: 'description', content: '《问题妹妹恋上我》文档库，负是非' }],
   ],
 
 
