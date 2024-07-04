@@ -31,8 +31,6 @@
  <p class="warm-tip-text2">  
       疑问解答：留言的实现用的是Twikoo，部署在国外，会有延迟，请稍等一会...  
     </p>  
-    <span id="twikoo_visitors">0</span>
-
     <div class="comment-section">  
       <!-- 假设Twikoo是一个Vue组件，用于显示和提交评论 -->  
       <Twikoo/>  
