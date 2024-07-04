@@ -7,6 +7,7 @@ export default defineConfig({
   ['meta', { name: 'description', content: '《问题妹妹恋上我》文档库，负是非' }],
   ],
   sitemap: {
+    base: '/my-site/',
     hostname: 'https://www.wtmmlsw.cn'
   },
 
