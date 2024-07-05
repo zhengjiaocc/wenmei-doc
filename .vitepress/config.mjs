@@ -92,7 +92,7 @@ export default defineConfig({
         collapsible: false,
         collapsed: true,
         items: [
-          { text: '资源', link: '/docs/resources/resources.md' },
+          { text: '小说资源', link: '/docs/resources/resources.md' },
         ],
         
       },
