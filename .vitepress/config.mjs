@@ -100,7 +100,7 @@ export default defineConfig({
       {
         text: '资源库',
         collapsible: true,
-        collapsed: false,
+        collapsed: true,
         items: [
           { text: '小说资源', link: '/docs/resources/resources.md' },
         ],
