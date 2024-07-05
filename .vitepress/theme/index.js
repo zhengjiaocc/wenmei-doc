@@ -19,7 +19,6 @@ export default {
     app.component("Twikoo", Twikoo);
     app.component("Comment", Comment);
 
-
   }
 }
 
