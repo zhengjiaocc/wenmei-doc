@@ -81,7 +81,7 @@ export default defineConfig({
           { text: '人物关系', link: '/docs/lib/role' },
           { text: '角色档案', 
             collapsible: true,
-            collapsed: false, items: [
+            collapsed: true, items: [
             { text: '楚缘', link: '/docs/lib/role-doc/chuyaun.md' },
             { text: '楚南', link: '/docs/lib/role-doc/chunan.md'},
             { text: '萧一可', link: '/docs/lib/role-doc/xiaoyike.md'},
