@@ -88,7 +88,7 @@ export default defineConfig({
         
       },
       {
-        text: '资源',
+        text: '资源库',
         collapsible: true,
         collapsed: false,
         items: [
