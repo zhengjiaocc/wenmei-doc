@@ -4,7 +4,7 @@
       <!-- 顶部状态栏 -->
       <div class="top-bar">
         <div class="left-section" v-if="isDesktop">
-          《问题妹妹脸上我》 <!-- 书名 -->
+          《问题妹妹恋上我》——负是非 <!-- 书名 -->
         </div>
         <div class="center">
           {{ currentChapter.title }} <!-- 当前章节 -->
