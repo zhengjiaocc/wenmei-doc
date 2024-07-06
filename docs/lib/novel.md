@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: false
 sidebar: false
 ---
 <NovelReader/>
