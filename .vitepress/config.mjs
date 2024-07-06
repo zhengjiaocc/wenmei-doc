@@ -55,11 +55,15 @@ export default defineConfig({
     logo: "logo_cut-modified.png",
     nav: [
       { text: '主页', link: '/' },
+      { text: '小说', link: '/docs/lib/novel.md' },
       { text: '负是非', link: '/docs/info/author' },
       { text: '留言板', link: '/docs/info/message' },
-      { text: '关于我们', link: '/docs/info/about' },
-      { text: '日志', link: '/docs/logs/logs' },
-      { text: '项目地址', link: 'https://github.com/zhengjiaocc/wenmei-doc.git' },
+      { text: '关于', 
+       items: [
+        { text: '关于我们', link: '/docs/info/about.md' },
+        { text: '日志', link: '/docs/logs/logs' },
+        { text: '项目地址', link: 'https://github.com/zhengjiaocc/wenmei-doc.git' },
+      ], },
     ],
 
     // 合并自动生成的侧边栏和手动配置的侧边栏项
