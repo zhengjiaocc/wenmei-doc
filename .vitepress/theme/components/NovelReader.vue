@@ -28,12 +28,6 @@
           </ul>
         </div>
         
-        <!-- 字号调节 -->
-        <div class="font-size">
-          <h3>字号</h3>
-          <input type="range" min="14" max="24" v-model="fontSize" />
-          <span>{{ fontSize }}px</span>
-        </div>
       </div>
     </div>
     
@@ -77,7 +71,6 @@ export default {
       currentIndex: 0,
       isSidebarOpen: false,
       isLoading: false,
-      fontSize: 16 // 初始字号
     };
   },
   computed: {
@@ -122,6 +115,7 @@ export default {
   }
 };
 </script>
+
 
 <style scoped>
 /* 顶部导航栏样式 */
