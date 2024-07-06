@@ -3,15 +3,15 @@
     <!-- 顶部导航栏 -->
     <div class="top-bar">
       <h1 class="novel-title">{{ novelTitle }}</h1>
-      <div class="chapter-info">
-       <span>{{ currentChapter.title.replace(/\s+第/g, '第') }}</span>
+      <!-- 在手机端显示章节名称和字数 -->
+      <div class="chapter-info" v-if="isMobile">
+        <span>{{ currentChapter.title.replace(/\s+第/g, '第') }}</span>
+        <span>{{ currentChapter.wordCount }}字</span>
       </div>
-
-      <div class="word-count">{{ currentChapter.wordCount }}字</div>
     </div>
     
     <!-- 侧边栏 -->
-    <div class="sidebar" :class="{ 'sidebar-open': isSidebarOpen }">
+    <div class="sidebar" :class="{ 'sidebar-open': isSidebarOpen }" ref="sidebar">
       <div class="sidebar-header">
         <h2>目录</h2>
         <button @click="closeSidebar">
@@ -41,8 +41,8 @@
       </div>
     </div>
     
-    <!-- 竖向浮动工具栏 -->
-    <div class="floating-toolbar">
+    <!-- 竖向浮动工具栏，仅在非手机端显示 -->
+    <div class="floating-toolbar" v-if="!isMobile">
       <button class="toolbar-btn" @click="prevChapter" :disabled="currentIndex === 0">
         <i class="fas fa-arrow-up"></i>
         <span>上一章</span>
@@ -71,6 +71,8 @@ export default {
       currentIndex: 0,
       isSidebarOpen: false,
       isLoading: false,
+      fontSize: 16, // 初始字号
+      isMobile: false // 标记是否为手机端
     };
   },
   computed: {
@@ -84,6 +86,11 @@ export default {
   },
   created() {
     this.chapters = novelData; // 设置章节数据
+    this.checkIfMobile(); // 初始化检测是否为手机端
+    window.addEventListener('resize', this.checkIfMobile); // 监听窗口大小变化
+  },
+  destroyed() {
+    window.removeEventListener('resize', this.checkIfMobile); // 移除窗口大小变化监听
   },
   methods: {
     nextChapter() {
@@ -111,11 +118,13 @@ export default {
       if (this.isSidebarOpen && !this.$refs.sidebar.contains(event.target)) {
         this.closeSidebar();
       }
+    },
+    checkIfMobile() {
+      this.isMobile = window.innerWidth <= 768; // 媒体查询中使用的手机端宽度
     }
   }
 };
 </script>
-
 
 <style scoped>
 /* 顶部导航栏样式 */
@@ -291,18 +300,31 @@ export default {
   color: #000000;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
-.chapter-content {
-  padding: 20px 60px 20px 20px; /* 20px为顶部和底部内边距，60px为右侧内边距，20px为左侧内边距 */
-  margin: 20px;
-  background-color: #f2f2f2;
-  flex: 1;
-  overflow-y: auto;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-}
 
-.novel-reader-wrapper {
-  margin: 20px; /* 添加外边距 */
-  min-width: 800px; /* 设置最小宽度 */
+/* 媒体查询：在小于等于768px宽度时应用以下样式 */
+@media (max-width: 768px) {
+  .chapter-info {
+    display: none; /* 隐藏章节信息 */
+  }
+  .top-bar {
+    justify-content: center; /* 中心对齐 */
+  }
+  .sidebar {
+    width: 100%; /* 在手机端占据整个宽度 */
+    left: -100%; /* 隐藏侧边栏 */
+    border-radius: 0; /* 移除圆角 */
+  }
+  .sidebar-open {
+    left: 0; /* 打开时从左侧滑出 */
+  }
+  .sidebar-header {
+    padding: 0 10px; /* 减小侧边栏头部内边距 */
+  }
+  .directory {
+    width: 100%; /* 目录宽度占满 */
+  }
+  .floating-toolbar {
+    display: none; /* 隐藏竖向浮动工具栏 */
+  }
 }
 </style>

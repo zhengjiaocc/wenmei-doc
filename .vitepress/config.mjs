@@ -65,7 +65,19 @@ export default defineConfig({
         { text: '项目地址', link: 'https://github.com/zhengjiaocc/wenmei-doc.git' },
       ], },
     ],
-
+    footer: {
+      message: `
+        <a href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral" style="text-decoration: none; display: inline-flex; align-items: center;">
+          <span>本站由</span>
+          <img src="up.png" width="60" style="margin: 0 5px;">
+          <span>提供加速服务</span>
+        </a>
+      `,
+      copyright: "Copyright © 2024-present ZhangHanXiao",
+    },
+    socialLinks: [
+      { icon: 'github', link: 'https://github.com/vuejs/vitepress' },
+    ],
     // 合并自动生成的侧边栏和手动配置的侧边栏项
     sidebar: [
       {
@@ -124,38 +136,17 @@ export default defineConfig({
     items: [
       { text: '相关资源', link: '/docs/resources/resources.md' },
       // 新增小说全集目录
-      // {
-      //   text: '小说全集',
-      //   collapsible: true,
-      //   collapsed: true,
-      //   items: [
-      //     // 自动生成的侧边栏
-      //     ...set_sidebar('/docs/novel'),
-      //   ],
-      // },
-    ],
-  },
-
-      // footer
       {
-        footer: {
-          message: `
-            <a href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral" style="text-decoration: none; display: inline-flex; align-items: center;">
-              <span>本站由</span>
-              <img src="up.png" width="60" style="margin: 0 5px;">
-              <span>提供加速服务</span>
-            </a>
-          `,
-          copyright: "Copyright © 2024-present ZhangHanXiao",
-        },
-      },
-
-      // socialLinks
-      {
-        socialLinks: [
-          { icon: 'github', link: 'https://github.com/vuejs/vitepress' },
+        text: '小说全集',
+        collapsible: true,
+        collapsed: true,
+        items: [
+          // 自动生成的侧边栏
+          ...set_sidebar('/docs/novel'),
         ],
       },
+    ],
+  },
 
     ],
   },
