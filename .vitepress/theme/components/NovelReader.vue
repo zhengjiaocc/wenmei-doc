@@ -408,6 +408,7 @@ export default {
     padding: 0;
     background-color: rgb(250, 250, 250);
     overflow: hidden;
+     overflow-y: hidden; /* 隐藏垂直方向滚动条 */
   }
 
   .top-bar {
@@ -425,6 +426,7 @@ export default {
   }
 
   .content-wrapper {
+    overflow-y: hidden; /* 隐藏垂直方向滚动条 */
     padding: 0 20px;
     width: 100%;
     max-width: 900px;
@@ -444,6 +446,14 @@ export default {
   .drawer-content {
     height: 100%;
     background-color: whitesmoke;
+  }
+
+  .novel-reader-container{
+     overflow-y: hidden; /* 隐藏垂直方向滚动条 */
+  }
+
+  .novel-reader{
+     overflow-y: hidden; /* 隐藏垂直方向滚动条 */
   }
 }
 </style>
