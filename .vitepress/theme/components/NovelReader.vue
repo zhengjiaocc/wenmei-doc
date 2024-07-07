@@ -341,7 +341,7 @@ export default {
   }
 
 .content-area{
-  font-size: 16px;
+  font-size: 20px;
   color: rgba(37, 34, 27);
   padding: 0;
   /* background-color: red; */
