@@ -262,7 +262,7 @@ export default {
   min-width: 40px;
   height: 2em;
   /* background-color: #f0f0f0; */
-  color: #333;
+  color: #333333b7;
   border: none;
   cursor: pointer;
   font-size: 1em;
@@ -270,7 +270,6 @@ export default {
   justify-content: center;
   align-items: center;
   border-radius: 8px;
-  /* box-shadow: 0 2px 5px rgba(0,0,0,0.1); */
 }
 
 .content-area {
@@ -299,6 +298,7 @@ export default {
 
 .drawer {
   position: fixed;
+  border: 2px solid rgba(0, 0, 0, 0.212);
   top: 88px;
   left: 0;
   bottom: 40px;
@@ -355,6 +355,7 @@ export default {
     bottom: 0;
     /* border-color: red; */
     border-radius: 8PX;
+    color: red;
   }
 
   /* .content-area {
@@ -369,6 +370,7 @@ export default {
     border-radius: 0;
     transform: translateX(-100%);
     /* box-shadow: 4px 0 8px rgba(0,0,0,0.1); */
+      top: 64px;
   }
 
 
