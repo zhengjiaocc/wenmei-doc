@@ -399,7 +399,7 @@ export default {
     margin-top: 64px; /* 顶部栏高度 */
     margin-bottom: 40px; /* 底部工具栏高度 */
     font-family: "SimSun", "宋体", serif; /* 添加宋体字体 */
-    font-size: 20px;
+    font-size: 19px;
     color: rgba(37, 34, 27);
     padding: 0;
     background-color: rgb(250, 250, 250);
