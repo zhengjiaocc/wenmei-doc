@@ -322,6 +322,8 @@ export default {
   .mobile-toolbar {
     top: auto;
     bottom: 0;
+    /* border-color: red; */
+    border-radius: 8PX;
   }
 
   /* .content-area {
@@ -339,7 +341,8 @@ export default {
   }
 
 .content-area{
-  font-size: 15px;
+  font-size: 16px;
+  color: rgba(37, 34, 27);
   padding: 0;
   /* background-color: red; */
 
@@ -352,8 +355,8 @@ export default {
  
 }
 .top-bar .center{
-  color: #4A2C2A;
-  font-size: 14px;
+  color:rgba(149, 139, 127);
+  font-size: 12px;
 }
 
 .top-bar .count{
