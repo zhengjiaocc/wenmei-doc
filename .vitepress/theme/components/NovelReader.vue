@@ -6,9 +6,13 @@
         <div class="left-section" v-if="isDesktop">
           《问题妹妹恋上我》 <!-- 书名 -->
         </div>
-        <div class="center">
-          {{ currentChapter.title }} <!-- 当前章节 -->
-        </div>
+<div class="center">
+  <!-- 使用条件渲染和字符串处理来调整标题显示 -->
+  {{ processTitle(currentChapter.title) }}
+</div>
+
+
+        
         <!-- 添加额外的导航按钮（仅在电脑端显示） -->
         <div class="extra-navigation" v-if="isDesktop">
           <a href="/">主页</a>
@@ -87,6 +91,16 @@ export default {
     }
   },
   methods: {
+processTitle(title) {
+  // 如果是手机端，去除 "第" 字前面的空格
+  if (!this.isDesktop) {
+    return title.replace(/\s*(第)/g, '$1');
+  } else {
+    // 如果是电脑端，直接返回原始标题
+    return title;
+  }
+}
+,
     prevChapter() {
       if (this.currentChapterIndex > 0) {
         this.currentChapterIndex--;
