@@ -132,7 +132,6 @@ export default {
     scrollToTop() {
       window.scrollTo({
         top: 0,
-        behavior: "smooth",
       });
     },
     saveCurrentChapterIndex() {
@@ -253,6 +252,7 @@ export default {
 }
 
 .mobile-toolbar {
+
   position: fixed;
   bottom: 0;
   left: 0;
@@ -261,7 +261,7 @@ export default {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  height: 40px;
+  height: 45px;
   /* box-shadow: 0 -4px 8px rgba(0,0,0,0.1); */
   border-top: 1px solid #e0e0e0;
   z-index: 1000; /* 确保在其他元素之上 */
@@ -385,14 +385,14 @@ export default {
     background-color:whitesmoke;
     padding: 8px 0px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.1s ease;
   }
 
     .drawer ul li:nth-child(odd) {
     background-color:rgba(245, 245, 245, 0.633);
     padding: 8px 0px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.1s ease;
   }
 
   .content-area {
