@@ -269,6 +269,9 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* 移除点击效果 */
+  outline: none; /* 移除点击时的轮廓 */
+  background-color: transparent; /* 确保背景色透明 */
 }
 
 .content-area {
