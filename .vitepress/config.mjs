@@ -7,12 +7,6 @@ export default defineConfig({
   head: [
     ["link", { rel: "icon", href: "wtmmlsw.svg" }],
     ['meta', { name: 'description', content: '《问题妹妹恋上我》文档库，负是非' }],
-    ['script', {
-      charset: 'UTF-8',
-      id: 'LA_COLLECT',
-      src: '//sdk.51.la/js-sdk-pro.min.js',
-      onload: `LA.init({id:"3Iyfpiu76v1utPQC",ck:"3Iyfpiu76v1utPQC"})`
-    }],
   ],
   sitemap: {
     hostname: 'https://www.wtmmlsw.cn'
