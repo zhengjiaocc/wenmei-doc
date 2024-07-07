@@ -356,7 +356,7 @@ export default {
 }
 .top-bar .center{
   color:rgba(149, 139, 127);
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .top-bar .count{
@@ -367,6 +367,9 @@ export default {
 .content-wrapper{
   background-color: #FFFAE1;
   padding: 0 20px;
+}
+.content-wrapper pre {
+  font-size: 22px; /* 调整字体大小 */
 }
 
 }
