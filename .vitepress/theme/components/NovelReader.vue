@@ -6,9 +6,9 @@
         <div class="left-section" v-if="isDesktop">
           《问题妹妹恋上我》 <!-- 书名 -->
         </div>
-        <div class="center">
-          {{ currentChapter.title }} <!-- 当前章节 -->
-        </div>
+ <div class="center">
+    {{ currentChapter.title.trim().replace('第', '第') }} <!-- 当前章节 -->
+  </div>
         <!-- 添加额外的导航按钮（仅在电脑端显示） -->
         <div class="extra-navigation" v-if="isDesktop">
           <a href="/">主页</a>
@@ -350,7 +350,7 @@ export default {
 
 .top-bar{
      box-shadow: none; /* 移除阴影 */
-       background-color: rgb(250, 250, 250);
+       background-color: rgb(red, green, blue);
 }
 .top-bar .center{
   color:rgba(149, 139, 127);
