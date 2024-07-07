@@ -375,7 +375,7 @@ export default {
 
   .drawer ul {
     color: rgb(236, 142, 54);
-    font-size: 14px;
+    font-size: 16px;
     list-style-type: none;
     padding: 0;
     /* margin: 10px; */
