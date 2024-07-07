@@ -7,16 +7,6 @@ export default defineConfig({
   head: [
     ["link", { rel: "icon", href: "wtmmlsw.svg" }],
     ['meta', { name: 'description', content: '《问题妹妹恋上我》文档库，负是非' }],
-    // 添加第三方统计服务的 JavaScript 脚本
-    ['script', { charset: 'UTF-8', id: 'LA_COLLECT', src: '/js-sdk-pro.min.js' }],
-    // 异步加载初始化脚本
-    ['script', {},
-      `
-      document.getElementById('LA_COLLECT').onload = function() {
-        LA.init({id:"3Iyfpiu76v1utPQC",ck:"3Iyfpiu76v1utPQC"});
-      }
-      `
-    ]
   ],
   sitemap: {
     hostname: 'https://www.wtmmlsw.cn'
