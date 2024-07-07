@@ -41,21 +41,21 @@
         </button>
       </div>
 
-      <!-- 手机端工具栏 -->
-      <div class="mobile-toolbar" v-else>
-        <a href="/" class="toolbar-button">
-          主页
-        </a>
-        <button @click="toggleDrawer('catalog')" class="toolbar-button">
-          目录
-        </button>
-        <button @click="prevChapter" class="toolbar-button">
-          上一章
-        </button>
-        <button @click="nextChapter" class="toolbar-button">
-          下一章
-        </button>
-      </div>
+<!-- 手机端工具栏 -->
+  <div class="mobile-toolbar" v-if="!hideMobileToolbar" @click="showMobileToolbar = true">
+    <a href="/" class="toolbar-button">
+      主页
+    </a>
+    <button @click="toggleDrawer('catalog')" class="toolbar-button">
+      目录
+    </button>
+    <button @click="prevChapter" class="toolbar-button">
+      上一章
+    </button>
+    <button @click="nextChapter" class="toolbar-button">
+      下一章
+    </button>
+  </div>
 
       <!-- 小说内容区域 -->
       <div class="content-area">
@@ -78,7 +78,9 @@ export default {
       currentChapterIndex: 0, // 当前章节索引
       drawer: null, // 当前展开的侧边栏
       drawerOpen: false, // 侧边栏是否展开
-      isDesktop: false // 是否为电脑端（用于决定是否显示竖向工具栏和侧边栏）
+      isDesktop: false ,// 是否为电脑端（用于决定是否显示竖向工具栏和侧边栏）
+            hideMobileToolbar: true, // 控制手机端工具栏的显示与隐藏
+      showMobileToolbar: false // 用于点击屏幕时显示工具栏
     };
   },
   computed: {
@@ -87,6 +89,7 @@ export default {
     }
   },
   methods: {
+    
     prevChapter() {
       if (this.currentChapterIndex > 0) {
         this.currentChapterIndex--;
@@ -123,6 +126,11 @@ export default {
   },
   mounted() {
     this.isDesktop = window.innerWidth >= 1024;
+    document.addEventListener('click', this.handleClickOutside);
+  },
+
+    destroyed() {
+    document.removeEventListener('click', this.handleClickOutside);
   }
 };
 </script>
@@ -220,12 +228,12 @@ export default {
   left: 0;
   right: 0;
   background-color: #fff;
-  display: flex;
+  /* display: flex; */
   justify-content: space-around;
   align-items: center;
   height: 40px;
   /* box-shadow: 0 -4px 8px rgba(0,0,0,0.1); */
-  border-top: 1px solid #e0e0e0;
+  /* border-top: 1px solid #e0e0e0; */
   z-index: 1000; /* 确保在其他元素之上 */
 }
 
@@ -271,7 +279,7 @@ export default {
   top: 64px;
   left: 0;
   bottom: 40px;
-  width: 25%;
+  width: 30%;
   max-width: 100vw;
   background-color: #f0f0f0;
   box-shadow: 4px 0 8px rgba(0,0,0,0.1);
@@ -350,9 +358,7 @@ export default {
 
 .top-bar{
      box-shadow: none; /* 移除阴影 */
-       background-color: #FFFAE1;
-       padding: 0;
- 
+       background-color: rgb(250, 250, 250);
 }
 .top-bar .center{
   color:rgba(149, 139, 127);
@@ -365,7 +371,7 @@ export default {
 }
 
 .content-wrapper{
-  background-color: #FFFAE1;
+  background-color: rgb(250, 250, 250);
   padding: 0 20px;
 }
 .content-wrapper pre {
