@@ -91,25 +91,26 @@ export default {
     }
   },
   methods: {
-processTitle(title) {
-  // 如果是手机端，去除 "第" 字前面的空格
-  if (!this.isDesktop) {
-    return title.replace(/\s*(第)/g, '$1');
-  } else {
-    // 如果是电脑端，直接返回原始标题
-    return title;
-  }
-}
-,
+    processTitle(title) {
+      // 如果是手机端，去除 "第" 字前面的空格
+      if (!this.isDesktop) {
+        return title.replace(/\s*(第)/g, '$1');
+      } else {
+        // 如果是电脑端，直接返回原始标题
+        return title;
+      }
+    },
     prevChapter() {
       if (this.currentChapterIndex > 0) {
         this.currentChapterIndex--;
+        this.saveCurrentChapterIndex();
         this.scrollToTop();
       }
     },
     nextChapter() {
       if (this.currentChapterIndex < this.chapters.length - 1) {
         this.currentChapterIndex++;
+        this.saveCurrentChapterIndex();
         this.scrollToTop();
       }
     },
@@ -124,6 +125,7 @@ processTitle(title) {
     },
     selectChapter(chapter) {
       this.currentChapterIndex = this.chapters.findIndex(ch => ch.id === chapter.id);
+      this.saveCurrentChapterIndex();
       this.drawerOpen = false;
       this.drawer = null;
       this.scrollToTop();
@@ -133,13 +135,27 @@ processTitle(title) {
         top: 0,
         behavior: 'smooth'
       });
+    },
+    saveCurrentChapterIndex() {
+      // 使用localStorage存储当前章节索引
+      localStorage.setItem('currentChapterIndex', this.currentChapterIndex.toString());
+    },
+    loadSavedChapterIndex() {
+      // 从localStorage加载保存的当前章节索引
+      const savedIndex = localStorage.getItem('currentChapterIndex');
+      if (savedIndex !== null) {
+        this.currentChapterIndex = parseInt(savedIndex);
+        this.scrollToTop(); // 加载后滚动到章节顶部
+      }
     }
   },
   mounted() {
     this.isDesktop = window.innerWidth >= 1024;
+    this.loadSavedChapterIndex(); // 组件加载时加载保存的阅读进度
   }
 };
 </script>
+
 
 <style scoped>
 .novel-reader-container {
