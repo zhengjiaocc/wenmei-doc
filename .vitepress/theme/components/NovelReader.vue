@@ -223,9 +223,10 @@ export default {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  height: 50px;
-  box-shadow: 0 -4px 8px rgba(0,0,0,0.1);
-  border-radius: 8px 8px 0 0;
+  height: 40px;
+  /* box-shadow: 0 -4px 8px rgba(0,0,0,0.1); */
+  border-top: 1px solid #e0e0e0;
+  z-index: 1000; /* 确保在其他元素之上 */
 }
 
 .mobile-toolbar .toolbar-button {
@@ -240,7 +241,7 @@ export default {
   justify-content: center;
   align-items: center;
   border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  /* box-shadow: 0 2px 5px rgba(0,0,0,0.1); */
 }
 
 .content-area {
@@ -269,7 +270,7 @@ export default {
   position: fixed;
   top: 64px;
   left: 0;
-  bottom: 50px;
+  bottom: 40px;
   width: 25%;
   max-width: 100vw;
   background-color: #f0f0f0;
@@ -334,8 +335,10 @@ export default {
     right: 0;
     border-radius: 0;
     transform: translateX(-100%);
-    box-shadow: 4px 0 8px rgba(0,0,0,0.1);
+    /* box-shadow: 4px 0 8px rgba(0,0,0,0.1); */
   }
+
+
 
 .content-area{
   font-size: 20px;
@@ -367,6 +370,11 @@ export default {
 }
 .content-wrapper pre {
   font-size: 19px; /* 调整字体大小 */
+}
+
+.drawer-content{
+  height: 100%;
+  background-color: #fffae1cb;
 }
 
 
