@@ -378,7 +378,7 @@ export default {
   font-size: 20px;
   color: rgba(37, 34, 27);
   padding: 0;
-  /* background-color: red; */
+  background-color: rgb(250, 250, 250);
 
 
 }
@@ -386,6 +386,7 @@ export default {
 .top-bar{
   box-shadow: none; /* 移除阴影 */
   background-color: rgb(250, 250, 250);
+
 }
 .top-bar .center{
   color:rgba(149, 139, 127);
