@@ -66,6 +66,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import novelData from '/docs/novel/chapters.json'; // 导入小说数据
 
@@ -77,8 +78,7 @@ export default {
       currentChapterIndex: 0, // 当前章节索引
       drawer: null, // 当前展开的侧边栏
       drawerOpen: false, // 侧边栏是否展开
-      isDesktop: false ,// 是否为电脑端（用于决定是否显示竖向工具栏和侧边栏）
-      chapterWordCount: 0 // 当前章节字数
+      isDesktop: false // 是否为电脑端（用于决定是否显示竖向工具栏和侧边栏）
     };
   },
   computed: {
@@ -108,14 +108,12 @@ export default {
         this.drawerOpen = true;
       }
     },
- // 选择章节
-  selectChapter(chapter) {
-    this.currentChapterIndex = this.chapters.findIndex(ch => ch.id === chapter.id);
-    this.drawerOpen = false;
-    this.drawer = null;
-    this.calculateChapterWordCount(); // 更新章节字数
-    this.scrollToTop();
-  },
+    selectChapter(chapter) {
+      this.currentChapterIndex = this.chapters.findIndex(ch => ch.id === chapter.id);
+      this.drawerOpen = false;
+      this.drawer = null;
+      this.scrollToTop();
+    },
     scrollToTop() {
       window.scrollTo({
         top: 0,
@@ -128,25 +126,22 @@ export default {
   }
 };
 </script>
+
 <style scoped>
-/* 整个页面背景为浅黄色，提供温暖和舒适的阅读体验 */
 .novel-reader-container {
   position: relative;
   z-index: 1;
-  background-color: #FFFAE1;
 }
 
-/* 字体颜色为深棕色或黑色 */
 .novel-reader {
   width: 100%;
   position: relative;
   font-family: 'Arial', sans-serif;
-  color: #4A2C2A; /* 深棕色 */
 }
 
 .top-bar {
   background-color: #fff;
-  color: #4A2C2A;
+  color: #333;
   height: 64px;
   padding: 0 20px;
   position: fixed;
@@ -158,6 +153,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  border-radius: 8px 8px 0 0;
 }
 
 .top-bar .left-section {
@@ -168,8 +164,6 @@ export default {
 .top-bar .center {
   text-align: center;
   line-height: 1;
-  font-weight: bold;
-  font-size: 18px; /* 突出章节信息 */
 }
 
 .extra-navigation {
@@ -180,7 +174,7 @@ export default {
 .extra-navigation a {
   margin-left: 20px;
   text-decoration: none;
-  color: #4A2C2A;
+  color: #333;
   font-size: 14px;
   font-weight: 500;
 }
@@ -198,15 +192,17 @@ export default {
   align-items: flex-end;
   padding: 10px;
   z-index: 1000;
+  border-radius: 8px;
   background-color: #fff;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  margin-top: 30px;
 }
 
 .vertical-toolbar .toolbar-button {
   width: 55px;
   height: 55px;
   background-color: #f0f0f0;
-  color: #4A2C2A;
+  color: #333;
   border: none;
   cursor: pointer;
   font-size: 1em;
@@ -229,24 +225,26 @@ export default {
   align-items: center;
   height: 50px;
   box-shadow: 0 -4px 8px rgba(0,0,0,0.1);
-  border-top: 1px solid #e0e0e0;
+  border-radius: 8px 8px 0 0;
 }
 
 .mobile-toolbar .toolbar-button {
   min-width: 40px;
-  height: 40px;
-  color: #4A2C2A;
+  height: 2em;
+  /* background-color: #f0f0f0; */
+  color: #333;
   border: none;
   cursor: pointer;
   font-size: 1em;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .content-area {
   margin-top: 64px;
-  margin-bottom: 50px; /* 确保内容不会被底部工具栏遮挡 */
   padding: 20px;
   line-height: 1.8;
   display: flex;
@@ -265,23 +263,22 @@ export default {
 .content-area pre {
   white-space: pre-wrap;
   overflow-x: auto;
-  font-size: 16px; /* 字体适中 */
-  line-height: 1.6; /* 行距适中 */
-  color: #4A2C2A;
 }
 
 .drawer {
   position: fixed;
   top: 64px;
   left: 0;
-  bottom: 50px; /* 确保目录不会被底部工具栏遮挡 */
-  width: 100%;
+  bottom: 50px;
+  width: 25%;
   max-width: 100vw;
-  background-color: #FFFAE1;
+  background-color: #f0f0f0;
   box-shadow: 4px 0 8px rgba(0,0,0,0.1);
+  /* overflow-y: auto; */
   transform: translateX(-100%);
   transition: transform 0.3s ease;
   z-index: 999;
+  border-radius: 0;
 }
 
 .drawer.open {
@@ -371,6 +368,7 @@ export default {
 .content-wrapper pre {
   font-size: 19px; /* 调整字体大小 */
 }
+
 
 }
 </style>
