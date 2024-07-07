@@ -267,9 +267,9 @@ export default {
 
 .drawer {
   position: fixed;
-  top: 80px;
+  top: 64px;
   left: 0;
-  bottom: 60px;
+  bottom: 50px;
   width: 25%;
   max-width: 100vw;
   background-color: #f0f0f0;
@@ -286,8 +286,13 @@ export default {
 }
 
 .drawer-content {
-  height: calc(100vh - 124px);
+  height: calc(100vh - 114px);
   overflow-y: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 .drawer ul {
@@ -318,7 +323,7 @@ export default {
   }
 
   .content-area {
-    margin-top: 50px;
+    margin-top: 64px;
   }
 
   .drawer {
