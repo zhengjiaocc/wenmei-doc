@@ -369,7 +369,7 @@ export default {
   padding: 0 20px;
 }
 .content-wrapper pre {
-  font-size: 22px; /* 调整字体大小 */
+  font-size: 19px; /* 调整字体大小 */
 }
 
 }
