@@ -4,15 +4,14 @@
       <!-- 顶部状态栏 -->
       <div class="top-bar">
         <div class="left-section" v-if="isDesktop">
-          《问题妹妹恋上我》 <!-- 书名 -->
+          《问题妹妹恋上我》
+          <!-- 书名 -->
         </div>
-<div class="center">
-  <!-- 使用条件渲染和字符串处理来调整标题显示 -->
-  {{ processTitle(currentChapter.title) }}
-</div>
+        <div class="center">
+          <!-- 使用条件渲染和字符串处理来调整标题显示 -->
+          {{ processTitle(currentChapter.title) }}
+        </div>
 
-
-        
         <!-- 添加额外的导航按钮（仅在电脑端显示） -->
         <div class="extra-navigation" v-if="isDesktop">
           <a href="/">主页</a>
@@ -22,10 +21,18 @@
       </div>
 
       <!-- 目录侧边栏 -->
-      <div class="drawer" :class="{ 'open': drawerOpen }" v-if="drawer === 'catalog'">
+      <div
+        class="drawer"
+        :class="{ open: drawerOpen }"
+        v-if="drawer === 'catalog'"
+      >
         <div class="drawer-content">
           <ul>
-            <li v-for="chapter in chapters" :key="chapter.id" @click="selectChapter(chapter)">
+            <li
+              v-for="chapter in chapters"
+              :key="chapter.id"
+              @click="selectChapter(chapter)"
+            >
               {{ chapter.title }}
             </li>
           </ul>
@@ -37,28 +44,18 @@
         <button @click="toggleDrawer('catalog')" class="toolbar-button">
           目录
         </button>
-        <button @click="prevChapter" class="toolbar-button">
-          上一章
-        </button>
-        <button @click="nextChapter" class="toolbar-button">
-          下一章
-        </button>
+        <button @click="prevChapter" class="toolbar-button">上一章</button>
+        <button @click="nextChapter" class="toolbar-button">下一章</button>
       </div>
 
       <!-- 手机端工具栏 -->
       <div class="mobile-toolbar" v-else>
-        <a href="/" class="toolbar-button">
-          主页
-        </a>
+        <a href="/" class="toolbar-button"> 主页 </a>
         <button @click="toggleDrawer('catalog')" class="toolbar-button">
           目录
         </button>
-        <button @click="prevChapter" class="toolbar-button">
-          上一章
-        </button>
-        <button @click="nextChapter" class="toolbar-button">
-          下一章
-        </button>
+        <button @click="prevChapter" class="toolbar-button">上一章</button>
+        <button @click="nextChapter" class="toolbar-button">下一章</button>
       </div>
 
       <!-- 小说内容区域 -->
@@ -72,29 +69,29 @@
 </template>
 
 <script>
-import novelData from '/docs/novel/chapters.json'; // 导入小说数据
+import novelData from "/docs/novel/chapters.json"; // 导入小说数据
 
 export default {
-  name: 'NovelReader',
+  name: "NovelReader",
   data() {
     return {
       chapters: novelData, // 小说章节数据
       currentChapterIndex: 0, // 当前章节索引
       drawer: null, // 当前展开的侧边栏
       drawerOpen: false, // 侧边栏是否展开
-      isDesktop: false // 是否为电脑端（用于决定是否显示竖向工具栏和侧边栏）
+      isDesktop: false, // 是否为电脑端（用于决定是否显示竖向工具栏和侧边栏）
     };
   },
   computed: {
     currentChapter() {
       return this.chapters[this.currentChapterIndex];
-    }
+    },
   },
   methods: {
     processTitle(title) {
       // 如果是手机端，去除 "第" 字前面的空格
       if (!this.isDesktop) {
-        return title.replace(/\s*(第)/g, '$1');
+        return title.replace(/\s*(第)/g, "$1");
       } else {
         // 如果是电脑端，直接返回原始标题
         return title;
@@ -124,7 +121,9 @@ export default {
       }
     },
     selectChapter(chapter) {
-      this.currentChapterIndex = this.chapters.findIndex(ch => ch.id === chapter.id);
+      this.currentChapterIndex = this.chapters.findIndex(
+        (ch) => ch.id === chapter.id
+      );
       this.saveCurrentChapterIndex();
       this.drawerOpen = false;
       this.drawer = null;
@@ -133,26 +132,29 @@ export default {
     scrollToTop() {
       window.scrollTo({
         top: 0,
-        behavior: 'smooth'
+        behavior: "smooth",
       });
     },
     saveCurrentChapterIndex() {
       // 使用localStorage存储当前章节索引
-      localStorage.setItem('currentChapterIndex', this.currentChapterIndex.toString());
+      localStorage.setItem(
+        "currentChapterIndex",
+        this.currentChapterIndex.toString()
+      );
     },
     loadSavedChapterIndex() {
       // 从localStorage加载保存的当前章节索引
-      const savedIndex = localStorage.getItem('currentChapterIndex');
+      const savedIndex = localStorage.getItem("currentChapterIndex");
       if (savedIndex !== null) {
         this.currentChapterIndex = parseInt(savedIndex);
         this.scrollToTop(); // 加载后滚动到章节顶部
       }
-    }
+    },
   },
   mounted() {
     this.isDesktop = window.innerWidth >= 1024;
     this.loadSavedChapterIndex(); // 组件加载时加载保存的阅读进度
-  }
+  },
 };
 </script>
 
@@ -165,8 +167,10 @@ export default {
 
 .novel-reader {
   width: 100%;
+  height: 100%;
   position: relative;
-  font-family: 'Arial', sans-serif;
+  display: flex;
+  flex-direction: column;
 }
 
 .top-bar {
@@ -183,7 +187,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   border-radius: 8px 8px 0 0;
 }
 
@@ -221,11 +225,11 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  padding:10px;
+  padding: 10px;
   z-index: 1000;
   border-radius: 8px;
   background-color: #fff;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-top: 30px;
 }
 
@@ -240,7 +244,7 @@ export default {
   justify-content: center;
   align-items: center;
   border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   margin-bottom: 10px;
 }
 
@@ -284,13 +288,13 @@ export default {
 }
 
 .content-wrapper {
-   font-family: "SimSun", "宋体", serif; /* 添加宋体字体 */
+  font-family: "SimSun", "宋体", serif; /* 添加宋体字体 */
   max-width: 900px;
   width: 100%;
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   color: rgb(37, 37, 37);
 }
 
@@ -308,7 +312,7 @@ export default {
   width: 35%;
   max-width: 100vw;
   background-color: #f0f0f0;
-  box-shadow: 4px 0 8px rgba(0,0,0,0.1);
+  box-shadow: 4px 0 8px rgba(0, 0, 0, 0.1);
   /* overflow-y: auto; */
   transform: translateX(-100%);
   transition: transform 0.3s ease;
@@ -353,11 +357,6 @@ export default {
     display: none;
   }
 
-  .mobile-toolbar {
-    top: auto;
-    bottom: 0;
-  }
-
   .drawer {
     width: 100%;
     max-width: 100vw;
@@ -366,52 +365,54 @@ export default {
     border-radius: 0;
     transform: translateX(-100%);
     /* box-shadow: 4px 0 8px rgba(0,0,0,0.1); */
-      top: 64px;
-      border: 0;
+    top: 64px;
+    border: 0;
   }
 
+  .content-area {
+    margin-top: 64px; /* 顶部栏高度 */
+    margin-bottom: 40px; /* 底部工具栏高度 */
+    font-family: "SimSun", "宋体", serif; /* 添加宋体字体 */
+    font-size: 20px;
+    color: rgba(37, 34, 27);
+    padding: 0;
+    background-color: rgb(250, 250, 250);
+  }
 
-
-.content-area{
-  font-family: "SimSun", "宋体", serif; /* 添加宋体字体 */
-  font-size: 20px;
-  color: rgba(37, 34, 27);
-  padding: 0;
-  background-color: rgb(250, 250, 250);
-
-
-}
-
-.top-bar{
-  box-shadow: none; /* 移除阴影 */
-  background-color: rgb(250, 250, 250);
-
-}
-.top-bar .center{
+  .top-bar {
+    box-shadow: none;
+    background-color: rgb(250, 250, 250);
+    height: 64px;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .top-bar .center {
   color:rgba(149, 139, 127);
   font-size: 14px;
-}
+  }
 
+  .content-wrapper {
+    padding: 0 20px;
+    width: 100%;
+    max-width: 900px;
+    background-color: rgb(250, 250, 250);
+    /* padding: 20px; */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: rgb(37, 37, 37);
+    overflow: hidden;
+  }
+  .content-wrapper pre {
+    margin-top: 0;
+    font-size: 19px; /* 调整字体大小 */
+    padding: 0;
+  }
 
-.content-wrapper{
-  padding: 0 20px;
-  overflow: hidden;
-  margin-bottom: 40px;
-  background-color: rgb(250, 250, 250);
-
-
-}
-.content-wrapper pre {
-  margin-top: 0;
-  font-size: 19px; /* 调整字体大小 */
-  padding: 0;
-}
-
-.drawer-content{
-  height: 100%;
-  background-color: #fffae1cb;
-}
-
-
+  .drawer-content {
+    height: 100%;
+    background-color: whitesmoke;
+  }
 }
 </style>
