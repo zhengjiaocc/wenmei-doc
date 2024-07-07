@@ -171,7 +171,8 @@ export default {
 
 .top-bar {
   background-color: #fff;
-  color: #333;
+  /* color: #333; */
+  color: gray;
   height: 64px;
   padding: 0 20px;
   position: fixed;
@@ -204,7 +205,7 @@ export default {
 .extra-navigation a {
   margin-left: 20px;
   text-decoration: none;
-  color: #333;
+  color: gray;
   font-size: 14px;
   font-weight: 500;
 }
