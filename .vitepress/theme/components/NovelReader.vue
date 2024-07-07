@@ -361,6 +361,7 @@ processTitle(title) {
   padding: 0;
   /* background-color: red; */
 
+
 }
 
 .top-bar{
@@ -378,8 +379,11 @@ processTitle(title) {
 }
 
 .content-wrapper{
-  background-color: rgb(250, 250, 250);
   padding: 0 20px;
+  overflow: hidden;
+  margin-bottom: 40px;
+
+
 }
 .content-wrapper pre {
   margin-top: 0;
