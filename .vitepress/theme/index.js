@@ -18,19 +18,21 @@ export default {
     app.component("Twikoo", Twikoo);
     app.component("Comment", Comment);
     app.component('NovelReader', NovelReader)
-    // 插入统计代码
-    const scriptElement1 = document.createElement('script');
-    scriptElement1.setAttribute('charset', 'UTF-8');
-    scriptElement1.setAttribute('id', 'LA_COLLECT');
-    scriptElement1.setAttribute('src', '//sdk.51.la/js-sdk-pro.min.js');
+    // 仅在客户端执行统计代码
+    if (!import.meta.env.SSR) {
+      const scriptElement1 = document.createElement('script');
+      scriptElement1.setAttribute('charset', 'UTF-8');
+      scriptElement1.setAttribute('id', 'LA_COLLECT');
+      scriptElement1.setAttribute('src', '//sdk.51.la/js-sdk-pro.min.js');
 
-    const scriptElement2 = document.createElement('script');
-    scriptElement2.textContent = `
-      LA.init({ id: "3Iyfpiu76v1utPQC", ck: "3Iyfpiu76v1utPQC" });
+      const scriptElement2 = document.createElement('script');
+      scriptElement2.textContent = `
+        LA.init({ id: "3Iyfpiu76v1utPQC", ck: "3Iyfpiu76v1utPQC" });
+      `;
 
-        document.head.appendChild(scriptElement1);
-    document.head.appendChild(scriptElement2);
-    `;
+      document.head.appendChild(scriptElement1);
+      document.head.appendChild(scriptElement2);
+    }
   }
 }
 
