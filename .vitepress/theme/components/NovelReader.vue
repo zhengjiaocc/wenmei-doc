@@ -220,7 +220,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  padding: 10px;
+  padding:10px;
   z-index: 1000;
   border-radius: 8px;
   background-color: #fff;
@@ -231,7 +231,6 @@ export default {
 .vertical-toolbar .toolbar-button {
   width: 55px;
   height: 55px;
-  background-color: #f0f0f0;
   color: #333;
   border: none;
   cursor: pointer;
@@ -299,10 +298,10 @@ export default {
 
 .drawer {
   position: fixed;
-  top: 64px;
+  top: 88px;
   left: 0;
   bottom: 40px;
-  width: 30%;
+  width: 35%;
   max-width: 100vw;
   background-color: #f0f0f0;
   box-shadow: 4px 0 8px rgba(0,0,0,0.1);
@@ -311,6 +310,8 @@ export default {
   transition: transform 0.3s ease;
   z-index: 999;
   border-radius: 0;
+  overflow: hidden;
+  border-radius: 0 10px 10px 0;
 }
 
 .drawer.open {
