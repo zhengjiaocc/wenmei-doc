@@ -165,7 +165,7 @@ export default {
   right: 0;
   left: 0;
   bottom: 0;
-  z-index: 1;
+  z-index: 999;
 }
 
 .novel-reader {
@@ -289,6 +289,7 @@ export default {
   line-height: 1.8;
   display: flex;
   justify-content: center;
+  overflow: hidden;
 }
 
 .content-wrapper {
@@ -300,12 +301,15 @@ export default {
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   color: rgb(37, 37, 37);
+  overflow: hidden;
 }
 
 .content-area pre {
   white-space: pre-wrap;
-  overflow-x: auto;
+  word-wrap: break-word; /* 兼容旧版本浏览器的换行 */
+  overflow-x: hidden; /* 隐藏横向滚动条 */
 }
+
 
 .drawer {
   position: fixed;
