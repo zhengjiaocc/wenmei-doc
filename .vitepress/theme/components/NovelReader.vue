@@ -231,7 +231,7 @@ export default {
 .vertical-toolbar .toolbar-button {
   width: 55px;
   height: 55px;
-  color: #333;
+  color: #333333a3;
   border: none;
   cursor: pointer;
   font-size: 1em;
@@ -282,6 +282,7 @@ export default {
 }
 
 .content-wrapper {
+   font-family: "SimSun", "宋体", serif; /* 添加宋体字体 */
   max-width: 900px;
   width: 100%;
   background-color: #fff;
@@ -373,6 +374,7 @@ export default {
 
 
 .content-area{
+  font-family: "SimSun", "宋体", serif; /* 添加宋体字体 */
   font-size: 20px;
   color: rgba(37, 34, 27);
   padding: 0;
