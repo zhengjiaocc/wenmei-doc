@@ -219,7 +219,7 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: #fff;
+  background-color: #f0f0f0;
   display: flex;
   justify-content: space-around;
   align-items: center;
