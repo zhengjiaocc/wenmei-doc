@@ -43,6 +43,9 @@
 
       <!-- 手机端工具栏 -->
       <div class="mobile-toolbar" v-else>
+        <a href="/" class="toolbar-button">
+          主页
+        </a>
         <button @click="toggleDrawer('catalog')" class="toolbar-button">
           目录
         </button>
@@ -228,7 +231,7 @@ export default {
 .mobile-toolbar .toolbar-button {
   min-width: 40px;
   height: 2em;
-  background-color: #f0f0f0;
+  /* background-color: #f0f0f0; */
   color: #333;
   border: none;
   cursor: pointer;
@@ -327,7 +330,5 @@ export default {
     transform: translateX(-100%);
     box-shadow: 4px 0 8px rgba(0,0,0,0.1);
   }
-  
-
 }
 </style>
