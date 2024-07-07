@@ -262,14 +262,13 @@ export default {
   min-width: 40px;
   height: 2em;
   /* background-color: #f0f0f0; */
-  color: #333333b7;
+  color: rgba(0, 0, 0, 0.395);
   border: none;
   cursor: pointer;
   font-size: 1em;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 8px;
 }
 
 .content-area {
@@ -353,14 +352,7 @@ export default {
   .mobile-toolbar {
     top: auto;
     bottom: 0;
-    /* border-color: red; */
-    border-radius: 8PX;
-    color: red;
   }
-
-  /* .content-area {
-    margin-top: 64px;
-  } */
 
   .drawer {
     width: 100%;
@@ -371,6 +363,7 @@ export default {
     transform: translateX(-100%);
     /* box-shadow: 4px 0 8px rgba(0,0,0,0.1); */
       top: 64px;
+      border: 0;
   }
 
 
@@ -395,15 +388,12 @@ export default {
   font-size: 14px;
 }
 
-.top-bar .count{
-  color:red;
-  margin-right: 5px;
-}
 
 .content-wrapper{
   padding: 0 20px;
   overflow: hidden;
   margin-bottom: 40px;
+  background-color: rgb(250, 250, 250);
 
 
 }
@@ -411,7 +401,6 @@ export default {
   margin-top: 0;
   font-size: 19px; /* 调整字体大小 */
   padding: 0;
-  border-color: blue;
 }
 
 .drawer-content{
