@@ -162,6 +162,10 @@ export default {
 <style scoped>
 .novel-reader-container {
   position: relative;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
   z-index: 1;
 }
 
@@ -369,6 +373,28 @@ export default {
     border: 0;
   }
 
+  .drawer ul {
+    color: rgb(236, 142, 54);
+    font-size: 14px;
+    list-style-type: none;
+    padding: 0;
+    /* margin: 10px; */
+    background-color: rgb(242, 243, 245);
+  }
+  .drawer ul li:nth-child(even) {
+    background-color:whitesmoke;
+    padding: 8px 0px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+    .drawer ul li:nth-child(odd) {
+    background-color:rgba(245, 245, 245, 0.633);
+    padding: 8px 0px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
   .content-area {
     margin-top: 64px; /* 顶部栏高度 */
     margin-bottom: 40px; /* 底部工具栏高度 */
@@ -377,6 +403,7 @@ export default {
     color: rgba(37, 34, 27);
     padding: 0;
     background-color: rgb(250, 250, 250);
+    overflow: hidden;
   }
 
   .top-bar {
@@ -389,8 +416,8 @@ export default {
     align-items: center;
   }
   .top-bar .center {
-  color:rgba(149, 139, 127);
-  font-size: 14px;
+    color: rgba(149, 139, 127);
+    font-size: 14px;
   }
 
   .content-wrapper {
