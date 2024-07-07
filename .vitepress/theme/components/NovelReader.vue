@@ -382,7 +382,10 @@ processTitle(title) {
   padding: 0 20px;
 }
 .content-wrapper pre {
+  margin-top: 0;
   font-size: 19px; /* 调整字体大小 */
+  padding: 0;
+  border-color: blue;
 }
 
 .drawer-content{
