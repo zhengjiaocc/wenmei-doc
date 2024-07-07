@@ -135,16 +135,17 @@ export default defineConfig({
     collapsed: true,
     items: [
       { text: '相关资源', link: '/docs/resources/resources.md' },
+      { text: '在线阅读', link: '/docs/lib/novel.md' },
       // 新增小说全集目录
-      {
-        text: '小说全集',
-        collapsible: true,
-        collapsed: true,
-        items: [
-          // 自动生成的侧边栏
-          ...set_sidebar('/docs/novel'),
-        ],
-      },
+      // {
+      //   text: '小说全集',
+      //   collapsible: true,
+      //   collapsed: true,
+      //   items: [
+      //     // 自动生成的侧边栏
+      //     ...set_sidebar('/docs/novel'),
+      //   ],
+      // },
     ],
   },
 

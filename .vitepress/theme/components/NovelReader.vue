@@ -254,10 +254,11 @@ export default {
   justify-content: space-around;
   align-items: center;
   height: 40px;
-  /* box-shadow: 0 -4px 8px rgba(0,0,0,0.1); */
   border-top: 1px solid #e0e0e0;
-  z-index: 1000; /* 确保在其他元素之上 */
+  z-index: 1000;
+  /* 确保工具栏在其他元素之上 */
 }
+
 
 .mobile-toolbar .toolbar-button {
   min-width: 40px;
@@ -281,10 +282,13 @@ export default {
   line-height: 1.8;
   display: flex;
   justify-content: center;
+  overflow-y: auto; /* 添加此行使内容区域可滚动 */
+  height: calc(100vh - 64px - 40px); /* 确保内容区域高度不超过视窗高度，减去顶部栏和底部工具栏的高度 */
 }
 
+
 .content-wrapper {
-   font-family: "SimSun", "宋体", serif; /* 添加宋体字体 */
+  font-family: "SimSun", "宋体", serif; /* 添加宋体字体 */
   max-width: 900px;
   width: 100%;
   background-color: #fff;
