@@ -8,7 +8,7 @@ export default defineConfig({
     ["link", { rel: "icon", href: "wtmmlsw.svg" }],
     ['meta', { name: 'description', content: '《问题妹妹恋上我》文档库，负是非' }],
     // 引入 51.la 的统计脚本
-    ['script', { id: 'LA_COLLECT', charset: 'UTF-8', src: '//sdk.51.la/js-sdk-pro.min.js' }],
+    ['script', { id: 'LA_COLLECT', charset: 'UTF-8', src: 'https//sdk.51.la/js-sdk-pro.min.js' }],
     ['script', {},
       `
          window.onload = function() {
