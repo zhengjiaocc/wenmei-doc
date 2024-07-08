@@ -346,21 +346,21 @@ export default {
 }
 
 .drawer {
+ border: 1px solid rgba(232, 232, 232, 0.69);
   position: fixed;
-  border: 2px solid rgba(0, 0, 0, 0.212);
   top: 88px;
-  left: 0;
+  right:98px ;
   bottom: 40px;
   width: 35%;
   max-width: 100vw;
-  background-color: #f0f0f0;
+  background-color: rgb(250, 250, 250);
   box-shadow: 4px 0 8px rgba(0, 0, 0, 0.1);
   transform: translateX(-100%);
-  transition: transform 0.3s ease;
+  transition: transform 0.6s ease;
   z-index: 999;
-  border-radius: 0;
+
   overflow: hidden;
-  border-radius: 0 10px 10px 0;
+  border-radius: 10px
 }
 
 .drawer.open {
@@ -387,6 +387,8 @@ export default {
   padding: 10px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+ border-bottom: 2px solid rgba(232, 232, 232, 0.69);
+
 }
 
 .drawer ul li:hover {
@@ -425,6 +427,7 @@ export default {
     background-color: rgb(242, 243, 245);
   }
   .drawer ul li:nth-child(even) {
+    border: 0;
     background-color: whitesmoke;
     padding: 8px 0px;
     cursor: pointer;
@@ -432,6 +435,7 @@ export default {
   }
 
   .drawer ul li:nth-child(odd) {
+        border: 0;
     background-color: rgba(245, 245, 245, 0.633);
     padding: 8px 0px;
     cursor: pointer;
