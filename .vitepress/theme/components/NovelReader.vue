@@ -152,14 +152,14 @@ export default {
       // 获取评论区域的 DOM 元素
       const commentContainer = document.querySelector(".comment-container");
       if (commentContainer) {
-        commentContainer.scrollIntoView({ behavior: "auto", block: "end" });
+        commentContainer.scrollIntoView({ behavior: "smooth", block: "end" });
       }
     },
 
     scrollToTop() {
       window.scrollTo({
         top: 0,
-        behavior: "auto",
+        behavior: "smooth",
       });
     },
     saveCurrentChapterIndex() {
