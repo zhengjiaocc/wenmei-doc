@@ -1,4 +1,4 @@
-// https://vitepress.dev/guide/custom-theme
+
 import { h } from 'vue'
 import DefaultTheme from 'vitepress/theme'
 import Twikoo from './components/Twikoo.vue';
