@@ -33,35 +33,35 @@ description: 《问题妹妹恋上我》QQ群，贴吧
    <h2>重要声明：</h2>
   <form id="declarationForm">
     <label>
-      <input type="checkbox" name="declaration" value="bookPlan" checked> 妹妹实体书计划：<br>
+      <input type="checkbox" name="declaration" value="bookPlan" checked onclick="return false;"> 妹妹实体书计划：<br>
       <ul>
         <li>是一项完全由热忱书迷自发倡议并组织的活动，</li>
         <li>旨在以实体书的形式分享与珍藏由作家负是非所著的热门作品《问题妹妹恋上我》。</li>
       </ul>
     </label>
     <label>
-      <input type="checkbox" name="declaration" value="organize" checked> 自发组织：<br>
+      <input type="checkbox" name="declaration" value="organize" checked onclick="return false;"> 自发组织：<br>
       <ul>
         <li>此活动全程独立于原著作者负是非的官方行为之外。</li>
         <li>参与者完全出于个人兴趣与热情，共同推动项目前行。</li>
       </ul>
     </label>
     <label>
-      <input type="checkbox" name="declaration" value="responsibility" checked> 责任明确：<br>
+      <input type="checkbox" name="declaration" value="responsibility" checked onclick="return false;"> 责任明确：<br>
       <ul>
         <li>任何参与该计划的书迷均明确知晓并承诺，</li>
         <li>其所有行为及可能产生的后果均与原作作者负是非无直接关联，完全由参与者个人承担法律责任。</li>
       </ul>
     </label>
     <label>
-      <input type="checkbox" name="declaration" value="law" checked> 法律法规：<br>
+      <input type="checkbox" name="declaration" value="law" checked onclick="return false;"> 法律法规：<br>
       <ul>
         <li>我们强烈建议所有参与者在筹备与执行过程中，</li>
         <li>严格遵守国家法律法规，尊重知识产权，避免侵权行为。</li>
       </ul>
     </label>
     <label>
-      <input type="checkbox" name="declaration" value="culture" checked> 文化交流：<br>
+      <input type="checkbox" name="declaration" value="culture" checked onclick="return false;"> 文化交流：<br>
       <ul>
         <li>通过合法渠道获取素材，</li>
         <li>积极促进健康、正面的文化交流，共同维护书迷社群的和谐与秩序。</li>
