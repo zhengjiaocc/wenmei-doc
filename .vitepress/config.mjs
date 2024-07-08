@@ -118,7 +118,7 @@ export default defineConfig({
               { text: '萧一可', link: '/docs/lib/role-doc/xiaoyike.md' },
               { text: '东方怜人', link: '/docs/lib/role-doc/dongfanglianren.md' },
               { text: '程流苏', link: '/docs/lib/role-doc/chengliusu.md' },
-              { text: '苏童', link: '/docs/lib/role-doc/sutong.md' },
+              { text: '舒童', link: '/docs/lib/role-doc/sutong.md' },
               { text: '冬小夜', link: '/docs/lib/role-doc/dongxiaoye.md' },
             ],
           },
