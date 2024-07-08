@@ -7,6 +7,15 @@ export default defineConfig({
   head: [
     ["link", { rel: "icon", href: "wtmmlsw.svg" }],
     ['meta', { name: 'description', content: '《问题妹妹恋上我》文档库，负是非' }],
+    // 引入 51.la 的统计脚本
+    ['script', { id: 'LA_COLLECT', charset: 'UTF-8', src: '//sdk.51.la/js-sdk-pro.min.js' }],
+    ['script', {},
+      `
+         window.onload = function() {
+           LA.init({id:"3Iyfpiu76v1utPQC",ck:"3Iyfpiu76v1utPQC"});
+         };
+         `
+    ],
   ],
   sitemap: {
     hostname: 'https://www.wtmmlsw.cn'
@@ -17,26 +26,26 @@ export default defineConfig({
   description: "小说《问题妹妹恋上我》的文档站",
   themeConfig: {
 
-       // 设置搜索框的样式
-       search: {
-        provider: "local",
-        options: {
-          translations: {
-            button: {
-              buttonText: "搜索文档",
-              buttonAriaLabel: "搜索文档",
-            },
-            modal: {
-              noResultsText: "无法找到相关结果",
-              resetButtonTitle: "清除查询条件",
-              footer: {
-                selectText: "选择",
-                navigateText: "切换",
-              },
+    // 设置搜索框的样式
+    search: {
+      provider: "local",
+      options: {
+        translations: {
+          button: {
+            buttonText: "搜索文档",
+            buttonAriaLabel: "搜索文档",
+          },
+          modal: {
+            noResultsText: "无法找到相关结果",
+            resetButtonTitle: "清除查询条件",
+            footer: {
+              selectText: "选择",
+              navigateText: "切换",
             },
           },
         },
       },
+    },
     // https://vitepress.dev/reference/default-theme-config
     "lastUpdatedText": "最近更新",
     "docFooter": {
@@ -58,12 +67,14 @@ export default defineConfig({
       { text: '小说', link: '/docs/lib/novel.md' },
       { text: '负是非', link: '/docs/info/author' },
       { text: '留言板', link: '/docs/info/message' },
-      { text: '关于', 
-       items: [
-        { text: '关于我们', link: '/docs/info/about.md' },
-        { text: '日志', link: '/docs/logs/logs' },
-        { text: '项目地址', link: 'https://github.com/zhengjiaocc/wenmei-doc.git' },
-      ], },
+      {
+        text: '关于',
+        items: [
+          { text: '关于我们', link: '/docs/info/about.md' },
+          { text: '日志', link: '/docs/logs/logs' },
+          { text: '项目地址', link: 'https://github.com/zhengjiaocc/wenmei-doc.git' },
+        ],
+      },
     ],
     footer: {
       message: `
@@ -128,26 +139,26 @@ export default defineConfig({
           { text: '角色尺度大公开', link: '/docs/lib/reveal' },
         ],
       },
-  // 自动生成的小说章节侧边栏项
-  {
-    text: '资源库',
-    collapsible: true,
-    collapsed: true,
-    items: [
-      { text: '相关资源', link: '/docs/resources/resources.md' },
-      { text: '在线阅读', link: '/docs/lib/novel.md' },
-      // 新增小说全集目录
-      // {
-      //   text: '小说全集',
-      //   collapsible: true,
-      //   collapsed: true,
-      //   items: [
-      //     // 自动生成的侧边栏
-      //     ...set_sidebar('/docs/novel'),
-      //   ],
-      // },
-    ],
-  },
+      // 自动生成的小说章节侧边栏项
+      {
+        text: '资源库',
+        collapsible: true,
+        collapsed: true,
+        items: [
+          { text: '相关资源', link: '/docs/resources/resources.md' },
+          { text: '在线阅读', link: '/docs/lib/novel.md' },
+          // 新增小说全集目录
+          // {
+          //   text: '小说全集',
+          //   collapsible: true,
+          //   collapsed: true,
+          //   items: [
+          //     // 自动生成的侧边栏
+          //     ...set_sidebar('/docs/novel'),
+          //   ],
+          // },
+        ],
+      },
 
     ],
   },
