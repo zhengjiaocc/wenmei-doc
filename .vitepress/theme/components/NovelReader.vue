@@ -4,7 +4,7 @@
       <!-- 顶部状态栏 -->
       <div class="top-bar">
         <div class="left-section" v-if="isDesktop">
-          《问题妹妹恋上我》
+          <a href="/">《问题妹妹恋上我》</a>
           <!-- 书名 -->
         </div>
         <div class="center">
@@ -14,10 +14,12 @@
 
         <!-- 添加额外的导航按钮（仅在电脑端显示） -->
         <div class="extra-navigation" v-if="isDesktop">
-          <a href="/">主页</a>
           <a href="/docs/info/author">负是非</a>
           <a href="/docs/info/message">留言板</a>
+          <a href="/">主页</a>
         </div>
+        <!-- 移动端主页按钮移到右上角 -->
+        <a href="/" class="mobile-home-button" v-if="!isDesktop">主页</a>
       </div>
 
       <!-- 目录侧边栏 -->
@@ -44,18 +46,21 @@
         <button @click="toggleDrawer('catalog')" class="toolbar-button">
           目录
         </button>
+        <button @click="scrollToBottom" class="toolbar-button">评论</button>
+        <button @click="scrollToTop" class="toolbar-button">顶部</button>
         <button @click="prevChapter" class="toolbar-button">上一章</button>
         <button @click="nextChapter" class="toolbar-button">下一章</button>
       </div>
 
       <!-- 手机端工具栏 -->
       <div class="mobile-toolbar" v-else>
-        <a href="/" class="toolbar-button"> 主页 </a>
         <button @click="toggleDrawer('catalog')" class="toolbar-button">
           目录
         </button>
         <button @click="prevChapter" class="toolbar-button">上一章</button>
         <button @click="nextChapter" class="toolbar-button">下一章</button>
+        <!-- 替换主页按钮为评论按钮 -->
+        <button @click="scrollToBottom" class="toolbar-button">评论</button>
       </div>
 
       <!-- 小说内容区域 -->
@@ -64,15 +69,25 @@
           <pre>{{ currentChapter.content }}</pre>
         </div>
       </div>
+
+      <div class="comment-container">
+        <CommentForChapter v-if="currentChapter" :key="currentChapter.id" />
+      </div>
     </div>
+
+    <!-- Twikoo 评论组件 -->
   </div>
 </template>
 
 <script>
 import novelData from "/docs/novel/chapters.json"; // 导入小说数据
+import CommentForChapter from "./CommentForChapter.vue";
 
 export default {
   name: "NovelReader",
+  components: {
+    CommentForChapter,
+  },
   data() {
     return {
       chapters: novelData, // 小说章节数据
@@ -102,6 +117,7 @@ export default {
         this.currentChapterIndex--;
         this.saveCurrentChapterIndex();
         this.scrollToTop();
+        this.initTwikooForCurrentChapter(); // 切换章节时重新初始化 Twikoo
       }
     },
     nextChapter() {
@@ -109,6 +125,7 @@ export default {
         this.currentChapterIndex++;
         this.saveCurrentChapterIndex();
         this.scrollToTop();
+        this.initTwikooForCurrentChapter(); // 切换章节时重新初始化 Twikoo
       }
     },
     toggleDrawer(drawerName) {
@@ -128,10 +145,21 @@ export default {
       this.drawerOpen = false;
       this.drawer = null;
       this.scrollToTop();
+      this.initTwikooForCurrentChapter(); // 切换章节时重新初始化 Twikoo
     },
+
+    scrollToBottom() {
+      // 获取评论区域的 DOM 元素
+      const commentContainer = document.querySelector(".comment-container");
+      if (commentContainer) {
+        commentContainer.scrollIntoView({ behavior: "smooth", block: "end" });
+      }
+    },
+
     scrollToTop() {
       window.scrollTo({
         top: 0,
+        behavior: "smooth",
       });
     },
     saveCurrentChapterIndex() {
@@ -149,14 +177,26 @@ export default {
         this.scrollToTop(); // 加载后滚动到章节顶部
       }
     },
+    initTwikooForCurrentChapter() {
+      // 设置当前章节的 TWIKOO_MAGIC_PATH
+      window.TWIKOO_MAGIC_PATH = this.currentChapter.id;
+      // 等待页面更新后初始化 Twikoo
+      this.$nextTick(() => {
+        const twikooComponent = this.$refs.twikoo;
+        if (twikooComponent) {
+          twikooComponent.initTwikoo();
+        }
+      });
+    },
   },
   mounted() {
     this.isDesktop = window.innerWidth >= 1024;
     this.loadSavedChapterIndex(); // 组件加载时加载保存的阅读进度
+    // 初次加载页面时初始化 Twikoo
+    this.initTwikooForCurrentChapter();
   },
 };
 </script>
-
 
 <style scoped>
 .novel-reader-container {
@@ -178,7 +218,6 @@ export default {
 
 .top-bar {
   background-color: #fff;
-  /* color: #333; */
   color: gray;
   height: 64px;
   padding: 0 20px;
@@ -252,7 +291,6 @@ export default {
 }
 
 .mobile-toolbar {
-
   position: fixed;
   bottom: 0;
   left: 0;
@@ -262,15 +300,12 @@ export default {
   justify-content: space-around;
   align-items: center;
   height: 45px;
-  /* box-shadow: 0 -4px 8px rgba(0,0,0,0.1); */
-  /* border-top: 1px solid #e0e0e0; */
   z-index: 1000; /* 确保在其他元素之上 */
 }
 
 .mobile-toolbar .toolbar-button {
   min-width: 40px;
   height: 2em;
-  /* background-color: #f0f0f0; */
   color: rgba(0, 0, 0, 0.395);
   border: none;
   cursor: pointer;
@@ -310,7 +345,6 @@ export default {
   overflow-x: hidden; /* 隐藏横向滚动条 */
 }
 
-
 .drawer {
   position: fixed;
   border: 2px solid rgba(0, 0, 0, 0.212);
@@ -321,7 +355,6 @@ export default {
   max-width: 100vw;
   background-color: #f0f0f0;
   box-shadow: 4px 0 8px rgba(0, 0, 0, 0.1);
-  /* overflow-y: auto; */
   transform: translateX(-100%);
   transition: transform 0.3s ease;
   z-index: 999;
@@ -360,6 +393,14 @@ export default {
   background-color: #ddd;
 }
 
+.comment-container {
+  width: 100%;
+  max-width: 895px;
+  margin: 0 auto;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 @media (max-width: 1023px) {
   .vertical-toolbar {
     display: none;
@@ -372,7 +413,6 @@ export default {
     right: 0;
     border-radius: 0;
     transform: translateX(-100%);
-    /* box-shadow: 4px 0 8px rgba(0,0,0,0.1); */
     top: 64px;
     border: 0;
   }
@@ -382,27 +422,26 @@ export default {
     font-size: 16px;
     list-style-type: none;
     padding: 0;
-    /* margin: 10px; */
     background-color: rgb(242, 243, 245);
   }
   .drawer ul li:nth-child(even) {
-    background-color:whitesmoke;
+    background-color: whitesmoke;
     padding: 8px 0px;
     cursor: pointer;
     transition: background-color 0.1s ease;
   }
 
-    .drawer ul li:nth-child(odd) {
-    background-color:rgba(245, 245, 245, 0.633);
+  .drawer ul li:nth-child(odd) {
+    background-color: rgba(245, 245, 245, 0.633);
     padding: 8px 0px;
     cursor: pointer;
     transition: background-color 0.1s ease;
   }
 
   .content-area {
-    margin-top: 64px; /* 顶部栏高度 */
-    margin-bottom: 40px; /* 底部工具栏高度 */
-    font-family: "SimSun", "宋体", serif; /* 添加宋体字体 */
+    margin-top: 64px;
+    margin-bottom: 40px;
+    font-family: "SimSun", "宋体", serif;
     font-size: 19px;
     color: rgba(37, 34, 27);
     padding: 0;
@@ -429,7 +468,6 @@ export default {
     width: 100%;
     max-width: 900px;
     background-color: rgb(250, 250, 250);
-    /* padding: 20px; */
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     color: rgb(37, 37, 37);
@@ -437,7 +475,7 @@ export default {
   }
   .content-wrapper pre {
     margin-top: 0;
-    font-size: 19px; /* 调整字体大小 */
+    font-size: 19px;
     padding: 0;
   }
 
