@@ -188,12 +188,30 @@ export default {
         }
       });
     },
+    // 处理键盘事件
+    handleKeyUp(event) {
+      switch (event.key) {
+        case "ArrowLeft": // 左键，上一章
+          this.prevChapter();
+          break;
+        case "ArrowRight": // 右键，下一章
+          this.nextChapter();
+          break;
+        default:
+          return;
+      }
+    },
   },
   mounted() {
+    // 监听键盘事件
+    window.addEventListener("keyup", this.handleKeyUp);
     this.isDesktop = window.innerWidth >= 1024;
     this.loadSavedChapterIndex(); // 组件加载时加载保存的阅读进度
     // 初次加载页面时初始化 Twikoo
     this.initTwikooForCurrentChapter();
+  },
+  beforeDestroy() {
+    window.removeEventListener("keyup", this.handleKeyUp);
   },
 };
 </script>
