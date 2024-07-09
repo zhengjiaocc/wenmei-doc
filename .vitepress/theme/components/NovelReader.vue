@@ -46,7 +46,7 @@
         <button @click="toggleDrawer('catalog')" class="toolbar-button">
           目录
         </button>
-        <button @click="toggleComments" class="toolbar-button">评论</button>
+        <button @click="scrollToBottom" class="toolbar-button">评论</button>
         <button @click="scrollToTop" class="toolbar-button">顶部</button>
         <button @click="prevChapter" class="toolbar-button">上一章</button>
         <button @click="nextChapter" class="toolbar-button">下一章</button>
@@ -60,29 +60,17 @@
         <button @click="prevChapter" class="toolbar-button">上一章</button>
         <button @click="nextChapter" class="toolbar-button">下一章</button>
         <!-- 替换主页按钮为评论按钮 -->
-        <button @click="toggleComments" class="toolbar-button">评论</button>
+        <button @click="scrollToBottom" class="toolbar-button">评论</button>
       </div>
 
       <!-- 小说内容区域 -->
       <div class="content-area">
         <div class="content-wrapper">
           <pre>{{ currentChapter.content }}</pre>
-          <!-- 讨论状态栏 -->
-          <div class="discussion-status" @click="toggleComments">
-            <div class="left">本章讨论</div>
-            <div
-              class="right"
-              v-text="showComments ? '关闭评论' : '打开评论'"
-            ></div>
-          </div>
         </div>
       </div>
 
-      <!-- 评论区容器 -->
-      <div
-        class="comment-container"
-        :style="{ display: showComments ? 'block' : 'none' }"
-      >
+      <div class="comment-container">
         <CommentForChapter v-if="currentChapter" :key="currentChapter.id" />
       </div>
     </div>
@@ -107,7 +95,6 @@ export default {
       drawer: null, // 当前展开的侧边栏
       drawerOpen: false, // 侧边栏是否展开
       isDesktop: false, // 是否为电脑端（用于决定是否显示竖向工具栏和侧边栏）
-      showComments: false, // 是否显示评论区容器
     };
   },
   computed: {
@@ -160,6 +147,7 @@ export default {
       this.scrollToTop();
       this.initTwikooForCurrentChapter(); // 切换章节时重新初始化 Twikoo
     },
+
     scrollToBottom() {
       // 获取评论区域的 DOM 元素
       const commentContainer = document.querySelector(".comment-container");
@@ -167,6 +155,7 @@ export default {
         commentContainer.scrollIntoView({ behavior: "smooth", block: "end" });
       }
     },
+
     scrollToTop() {
       window.scrollTo({
         top: 0,
@@ -198,20 +187,6 @@ export default {
           twikooComponent.initTwikoo();
         }
       });
-    },
-    toggleComments() {
-      this.showComments = !this.showComments;
-      // 更新评论状态栏的文字
-      this.updateCommentsStatusText();
-    },
-    updateCommentsStatusText() {
-      const statusText = this.showComments ? "关闭评论" : "打开评论";
-      const discussionStatus = document.querySelector(
-        ".discussion-status .right"
-      );
-      if (discussionStatus) {
-        discussionStatus.textContent = statusText;
-      }
     },
   },
   mounted() {
@@ -511,25 +486,5 @@ export default {
     height: 100%;
     background-color: whitesmoke;
   }
-}
-
-.discussion-status {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 20px;
-  padding: 10px;
-  background-color: #f0f0f0;
-  border-radius: 8px;
-  font-weight: bold;
-}
-
-.discussion-status .left {
-  flex: 1;
-}
-
-.discussion-status .right {
-  flex: 0 0 auto;
-  color: #666;
 }
 </style>
