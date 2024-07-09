@@ -1,5 +1,5 @@
 ---
-title: 问题妹妹恋上我
+title: 揭秘篇
 description: 问题妹妹恋上我，角色详细信息
 ---
 

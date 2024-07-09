@@ -1,5 +1,5 @@
 ---
-title: 《问题妹妹恋上我》简介
+title: 简介
 description: 《问题妹妹恋上我》介绍
 ---
 
