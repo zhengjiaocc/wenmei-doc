@@ -69,18 +69,20 @@
           <pre>{{ currentChapter.content }}</pre>
           <!-- 讨论状态栏 -->
           <div class="discussion-status" @click="toggleComments">
-            <div class="left">
-              本章讨论
-            </div>
-            <div class="right">
-              {{ currentChapter.commentsCount }} 条评论 <!-- 假设评论数存储在currentChapter中 -->
-            </div>
+            <div class="left">本章讨论</div>
+            <div
+              class="right"
+              v-text="showComments ? '关闭评论' : '打开评论'"
+            ></div>
           </div>
         </div>
       </div>
 
       <!-- 评论区容器 -->
-      <div class="comment-container" :style="{ display: showComments ? 'block' : 'none' }">
+      <div
+        class="comment-container"
+        :style="{ display: showComments ? 'block' : 'none' }"
+      >
         <CommentForChapter v-if="currentChapter" :key="currentChapter.id" />
       </div>
     </div>
@@ -199,6 +201,17 @@ export default {
     },
     toggleComments() {
       this.showComments = !this.showComments;
+      // 更新评论状态栏的文字
+      this.updateCommentsStatusText();
+    },
+    updateCommentsStatusText() {
+      const statusText = this.showComments ? "关闭评论" : "打开评论";
+      const discussionStatus = document.querySelector(
+        ".discussion-status .right"
+      );
+      if (discussionStatus) {
+        discussionStatus.textContent = statusText;
+      }
     },
   },
   mounted() {
@@ -358,10 +371,10 @@ export default {
 }
 
 .drawer {
- border: 1px solid rgba(232, 232, 232, 0.69);
+  border: 1px solid rgba(232, 232, 232, 0.69);
   position: fixed;
   top: 88px;
-  right:98px ;
+  right: 98px;
   bottom: 40px;
   width: 35%;
   max-width: 100vw;
@@ -372,7 +385,7 @@ export default {
   z-index: 999;
 
   overflow: hidden;
-  border-radius: 10px
+  border-radius: 10px;
 }
 
 .drawer.open {
@@ -399,8 +412,7 @@ export default {
   padding: 10px;
   cursor: pointer;
   transition: background-color 0.3s ease;
- border-bottom: 2px solid rgba(232, 232, 232, 0.69);
-
+  border-bottom: 2px solid rgba(232, 232, 232, 0.69);
 }
 
 .drawer ul li:hover {
@@ -447,7 +459,7 @@ export default {
   }
 
   .drawer ul li:nth-child(odd) {
-        border: 0;
+    border: 0;
     background-color: rgba(245, 245, 245, 0.633);
     padding: 8px 0px;
     cursor: pointer;
