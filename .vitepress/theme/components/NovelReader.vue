@@ -244,8 +244,6 @@ export default {
     window.addEventListener("keyup", this.handleKeyUp);
     this.isDesktop = window.innerWidth >= 1024;
     this.loadSavedChapterIndex(); // 组件加载时加载保存的阅读进度
-    // 初次加载页面时初始化 Twikoo
-    this.initTwikooForCurrentChapter();
     window.addEventListener("scroll", this.handleScroll);
   },
   beforeDestroy() {
