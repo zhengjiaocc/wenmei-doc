@@ -562,6 +562,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border: none;
   }
   .top-bar .center {
     color: rgba(149, 139, 127);
