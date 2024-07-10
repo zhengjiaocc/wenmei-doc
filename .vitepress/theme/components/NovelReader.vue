@@ -275,6 +275,7 @@ export default {
     this.loadSavedChapterIndex(); // 组件加载时加载保存的阅读进度
     window.addEventListener("scroll", this.handleScroll);
     console.log("mounted:", window.TWIKOO_MAGIC_PATH);
+     this.commentsVisible = false; // 关闭当前章节的评论区
   },
   beforeDestroy() {
     window.removeEventListener("keyup", this.handleKeyUp);
