@@ -1,6 +1,6 @@
 <template>
   <div class="novel-reader-container">
-    <Danmaku v-if="danmakuVisible" :key="currentChapter.id" />
+    <!-- <Danmaku v-if="danmakuVisible" :key="currentChapter.id" /> -->
     <div class="novel-reader">
       <!-- 顶部状态栏 -->
       <div class="top-bar" v-show="topBarVisible">
