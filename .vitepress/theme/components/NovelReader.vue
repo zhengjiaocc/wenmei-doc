@@ -164,7 +164,8 @@ export default {
         this.currentChapterIndex--;
         this.saveCurrentChapterIndex();
         this.scrollToTop();
-        this.initTwikooForCurrentChapter(); // 切换章节时重新初始化 Twikoo
+        window.TWIKOO_MAGIC_PATH = "chapter" + this.currentChapter.id;
+        console.log("prevChapter", window.TWIKOO_MAGIC_PATH);
       }
     },
     nextChapter() {
@@ -172,7 +173,8 @@ export default {
         this.currentChapterIndex++;
         this.saveCurrentChapterIndex();
         this.scrollToTop();
-        this.initTwikooForCurrentChapter(); // 切换章节时重新初始化 Twikoo
+        window.TWIKOO_MAGIC_PATH = "chapter" + this.currentChapter.id;
+        console.log("nextChapter", window.TWIKOO_MAGIC_PATH);
       }
     },
     toggleDrawer(drawerName) {
@@ -196,7 +198,8 @@ export default {
       this.drawerOpen = false;
       this.drawer = null;
       this.scrollToTop();
-      this.initTwikooForCurrentChapter(); // 切换章节时重新初始化 Twikoo
+      window.TWIKOO_MAGIC_PATH = "chapter" + this.currentChapter.id;
+      console.log("selectChapter", window.TWIKOO_MAGIC_PATH);
     },
 
     scrollToBottom() {
@@ -228,10 +231,6 @@ export default {
         this.scrollToTop(); // 加载后滚动到章节顶部
       }
     },
-    initTwikooForCurrentChapter() {
-      // 设置当前章节的 TWIKOO_MAGIC_PATH
-      window.TWIKOO_MAGIC_PATH = "chapter" + this.currentChapter.id;
-    },
     // 处理键盘事件
     handleKeyUp(event) {
       if (event.ctrlKey && event.key === " ") {
@@ -240,11 +239,14 @@ export default {
     },
   },
   mounted() {
+    window.TWIKOO_MAGIC_PATH = "chapter" + this.currentChapter.id;
     // 监听键盘事件
     window.addEventListener("keyup", this.handleKeyUp);
+
     this.isDesktop = window.innerWidth >= 1024;
     this.loadSavedChapterIndex(); // 组件加载时加载保存的阅读进度
     window.addEventListener("scroll", this.handleScroll);
+    console.log("mounted:", window.TWIKOO_MAGIC_PATH);
   },
   beforeDestroy() {
     window.removeEventListener("keyup", this.handleKeyUp);
