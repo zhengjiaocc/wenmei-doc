@@ -3,7 +3,7 @@ import { set_sidebar } from './theme/utils/auto-gen-sidebar.mjs'; // 导入自�
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  // base: "/wenmei-doc/",
+  base: "/",
   head: [
     ["link", { rel: "icon", href: "wtmmlsw.svg" }],
     ['meta', { name: 'description', content: '《问题妹妹恋上我》文档库，负是非' }],
