@@ -238,15 +238,6 @@ export default {
       if (event.ctrlKey && event.key === " ") {
         this.danmakuVisible = !this.danmakuVisible;
       }
-      switch (event.key) {
-        case "ArrowLeft": // 左键，上一章
-          this.prevChapter();
-          break;
-        case "ArrowRight": // 右键，下一章
-          this.nextChapter();
-          break;
-        default:
-          return;
       }
     },
     updateTwikooMagicPath() {
