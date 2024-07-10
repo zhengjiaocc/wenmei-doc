@@ -21,7 +21,7 @@ export default {
     app.component("Comment", Comment);
     app.component('NovelReader',NovelReader)
     app.component('CommentForChapter',CommentForChapter)
-    app.component('Danmaku', Danmaku)
+    // app.component('Danmaku', Danmaku)
   }
 }
 
