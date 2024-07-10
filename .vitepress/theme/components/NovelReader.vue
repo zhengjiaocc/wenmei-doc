@@ -51,9 +51,9 @@
         <button @click="scrollToTop" class="toolbar-button">顶部</button>
         <button @click="prevChapter" class="toolbar-button">上一章</button>
         <button @click="nextChapter" class="toolbar-button">下一章</button>
-        <button @click="toggleDrawer('danmaku')" class="toolbar-button">
+        <!-- <button @click="toggleDrawer('danmaku')" class="toolbar-button">
           弹幕
-        </button>
+        </button> -->
       </div>
 
       <!-- 手机端工具栏 -->
