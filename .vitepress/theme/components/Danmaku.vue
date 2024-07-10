@@ -35,10 +35,9 @@ export default {
 
     async function loadDataAndSendDanmaku() {
       try {
-        let data = localStorage.getItem("danmu");
-        if (!data) {
-          data = JSON.parse(data);
-        } else {
+        let data;
+        if (true) {
+          console.log("开始从服务器获取数据");
           const response = await fetch("https://twikoo-wm.zhengjiao.cc/", {
             method: "POST",
             body: JSON.stringify({
@@ -57,9 +56,9 @@ export default {
             content: `${i.nick}：${formatDanmaku(i.comment)}`,
             url: `${i.url}#${i.id}`,
           }));
-          localStorage.setItem("danmu", JSON.stringify(data));
         }
         if (danmakuInstance.value) {
+          console.log(1);
           danmakuInstance.value.batchSend(data, true);
           console.log("加载弹幕数据：", data);
           danmakuInstance.value.play();
