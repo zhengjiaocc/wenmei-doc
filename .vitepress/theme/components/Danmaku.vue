@@ -138,11 +138,11 @@ export default {
   display: flex;
   pointer-events: all;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 15px;
   border-radius: 100px;
   overflow: hidden;
   background-color: rgba(0, 0, 0, 0.27);
-  padding: 6px 16px 6px 6px;
+  padding: 3px 16px 3px 3px;
   margin: 2px;
 }
 .default-style a {

@@ -47,8 +47,9 @@
         <button @click="toggleDrawer('catalog')" class="toolbar-button">
           目录
         </button>
-        <button @click="scrollToBottom" class="toolbar-button">评论</button>
+
         <button @click="scrollToTop" class="toolbar-button">顶部</button>
+        <button @click="scrollToBottom" class="toolbar-button">底部</button>
         <button @click="prevChapter" class="toolbar-button">上一章</button>
         <button @click="nextChapter" class="toolbar-button">下一章</button>
         <!-- <button @click="toggleDrawer('danmaku')" class="toolbar-button">
@@ -71,15 +72,30 @@
       <div class="content-area">
         <div class="content-wrapper">
           <pre>{{ currentChapter.content }}</pre>
+          <!-- 添加上一章和下一章按钮 -->
+          <div class="chapter-navigation">
+            <button @click="prevChapter" :disabled="currentChapterIndex === 0">
+              上一章
+            </button>
+            <button
+              @click="nextChapter"
+              :disabled="currentChapterIndex === chapters.length - 1"
+            >
+              下一章
+            </button>
+          </div>
         </div>
       </div>
 
       <div class="comment-container">
-        <Twikoo v-if="currentChapter" :key="currentChapter.id" />
+        <button @click="toggleComments" class="toggle-comments-button">
+          {{ commentsVisible ? "关闭评论" : "打开评论" }}
+        </button>
+        <div v-if="commentsVisible">
+          <Twikoo v-if="currentChapter" :key="currentChapter.id" />
+        </div>
       </div>
     </div>
-
-    <!-- Twikoo 评论组件 -->
   </div>
 </template>
 
@@ -97,6 +113,7 @@ export default {
       isDesktop: false, // 是否为电脑端（用于决定是否显示竖向工具栏和侧边栏）
       danmakuVisible: false, // 控制弹幕显示
       topBarVisible: true, // 顶部状态栏是否可见
+      commentsVisible: true, // 评论区是否可见
     };
   },
   computed: {
@@ -191,6 +208,8 @@ export default {
       }
     },
     selectChapter(chapter) {
+      this.commentsVisible = false; // 关闭当前章节的评论区
+
       this.currentChapterIndex = this.chapters.findIndex(
         (ch) => ch.id === chapter.id
       );
@@ -198,22 +217,21 @@ export default {
       this.drawerOpen = false;
       this.drawer = null;
       this.scrollToTop();
-      window.TWIKOO_MAGIC_PATH = "chapter" + this.currentChapter.id;
-      console.log("selectChapter", window.TWIKOO_MAGIC_PATH);
+      this.updateTwikooMagicPath();
     },
 
     scrollToBottom() {
       // 获取评论区域的 DOM 元素
       const commentContainer = document.querySelector(".comment-container");
       if (commentContainer) {
-        commentContainer.scrollIntoView({ behavior: "smooth", block: "end" });
+        commentContainer.scrollIntoView({ behavior: "auto", block: "end" });
       }
     },
 
     scrollToTop() {
       window.scrollTo({
         top: 0,
-        behavior: "smooth",
+        behavior: "auto",
       });
     },
     saveCurrentChapterIndex() {
@@ -243,6 +261,9 @@ export default {
       if (this.currentChapter) {
         window.TWIKOO_MAGIC_PATH = "chapter" + this.currentChapter.id;
       }
+    },
+    toggleComments() {
+      this.commentsVisible = !this.commentsVisible;
     },
   },
   mounted() {
@@ -461,9 +482,8 @@ export default {
 .drawer ul li:hover {
   background-color: #ddd;
 }
-
 .comment-container {
-  padding: 10px 10px;
+  padding: 10px;
   width: 100%;
   max-width: 963px;
   margin: 0 auto;
@@ -471,7 +491,35 @@ export default {
   box-sizing: border-box;
   background-color: #f2f2f2;
   border-radius: 10px;
+  text-align: center;
+  position: relative;
+  margin-bottom: 20px;
 }
+
+.toggle-comments-button {
+  width: 100%; /* 与容器等宽 */
+  height: 40px; /* 按钮高度 */
+  background-color: transparent; /* 背景透明 */
+  color: #555; /* 文字颜色 */
+  border: 1px solid #ccc; /* 边框 */
+  border-radius: 10px; /* 圆角 */
+  cursor: pointer; /* 鼠标指针样式 */
+  font-size: 16px; /* 文字大小 */
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s,
+    box-shadow 0.3s; /* 过渡效果 */
+  margin-bottom: 10px; /* 底部间距 */
+  display: inline-block; /* 内联块元素 */
+  line-height: 40px; /* 行高等于按钮高度 */
+  text-decoration: none; /* 文本无下划线 */
+}
+
+.toggle-comments-button:hover {
+  background-color: #e0e0e01f; /* 悬停时背景色 */
+  color: #333; /* 悬停时文字颜色 */
+  border-color: #999999b2; /* 悬停时边框颜色 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 提升浅色阴影 */
+}
+/* 弹幕样式 */
 .danmaku-container {
   position: absolute; /* 调整为 absolute */
   top: 0;
@@ -496,7 +544,52 @@ export default {
   font-size: 1.2em;
   text-align: center;
 }
+
+.chapter-navigation {
+  display: flex;
+  justify-content: center; /* 居中对齐 */
+  gap: 60px; /* 按钮之间的间距 */
+  margin: 20px 0; /* 顶部和底部的间距 */
+}
+
+.chapter-navigation button {
+  width: 200px; /* 按钮宽度 */
+  height: 40px; /* 按钮高度 */
+  background-color: rgb(232, 112, 58); /* 按钮背景颜色 */
+  color: white; /* 按钮文字颜色 */
+  border: none; /* 去掉默认边框 */
+  border-radius: 20px; /* 圆角效果 */
+  cursor: pointer; /* 鼠标指针效果 */
+  font-size: 16px; /* 文字大小 */
+  transition: background-color 0.3s; /* 过渡效果 */
+  display: flex;
+  justify-content: center; /* 文字居中 */
+  align-items: center; /* 文字居中 */
+}
+
+.chapter-navigation button:hover {
+  background-color: rgb(210, 100, 52); /* 悬停时的背景颜色 */
+}
+
 @media (max-width: 1023px) {
+  .comment-container {
+  background-color: rgb(250, 250, 250);
+}
+
+.toggle-comments-button {
+  margin: 0;
+  height: 40px; /* 按钮高度 */
+  background-color: transparent; /* 背景透明 */
+  color: #555; /* 文字颜色 */
+  border: none;
+  padding: 0 auto;
+  margin-bottom: 20px;
+  box-shadow: none;
+}
+  
+  .chapter-navigation {
+    display: none;
+  }
   .vertical-toolbar {
     display: none;
   }
@@ -580,6 +673,10 @@ export default {
   .drawer-content {
     height: 100%;
     background-color: whitesmoke;
+  }
+
+  .novel-reader-container{
+    background-color: rgb(250, 250, 250);
   }
 }
 </style>
