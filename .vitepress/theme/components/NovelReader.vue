@@ -1,6 +1,6 @@
 <template>
   <div class="novel-reader-container">
-    <Danmaku v-if="danmakuVisible" :key="currentChapter.id" />
+    <Danmaku v-if="danmakuVisible" :key="currentChapter.id"  />
     <div class="novel-reader">
       <!-- 顶部状态栏 -->
       <div class="top-bar" v-show="topBarVisible">
@@ -237,6 +237,16 @@ export default {
       if (event.ctrlKey && event.key === " ") {
         this.danmakuVisible = !this.danmakuVisible;
       }
+      switch (event.key) {
+        case "ArrowLeft": // 左键，上一章
+          this.prevChapter();
+          break;
+        case "ArrowRight": // 右键，下一章
+          this.nextChapter();
+          break;
+        default:
+          return;
+      }
     },
     updateTwikooMagicPath() {
       if (this.currentChapter) {
@@ -462,17 +472,13 @@ export default {
 }
 
 .comment-container {
-  padding: 10px;
+  padding: 5px 0;
   width: 100%;
   max-width: 963px;
   margin: 0 auto;
+  padding: 0;
   box-sizing: border-box;
   /* background-color: rgb(57, 14, 14); */
-  margin: 0 auto;
-  font-family: Arial, sans-serif;
-  background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
 }
 .danmaku-container {
   position: absolute; /* 调整为 absolute */
@@ -556,7 +562,6 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 0;
   }
   .top-bar .center {
     color: rgba(149, 139, 127);
