@@ -16,7 +16,6 @@
         <!-- 添加额外的导航按钮（仅在电脑端显示） -->
         <div class="extra-navigation" v-if="isDesktop">
           <a href="/docs/info/author">负是非</a>
-          <a href="/docs/info/message">留言板</a>
           <a href="/">主页</a>
         </div>
         <!-- 移动端主页按钮移到右上角 -->
@@ -671,7 +670,7 @@ export default {
   .top-bar {
     box-shadow: none;
     background-color: rgb(250, 250, 250);
-    height: 64px;
+    height: 53px;
     padding: 0 20px;
     display: flex;
     justify-content: space-between;
