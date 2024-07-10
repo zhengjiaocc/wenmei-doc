@@ -22,6 +22,7 @@ export default {
     app.component('NovelReader',NovelReader)
     app.component('CommentForChapter',CommentForChapter)
     app.component('Danmaku', Danmaku)
+
   }
 }
 

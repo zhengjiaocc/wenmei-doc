@@ -21,6 +21,7 @@
       </ul>  
     </div>  
 
+
     
     <p class="confirmation">确认您已阅读并理解上述须知后，请继续留言：</p>  
  
@@ -39,6 +40,8 @@
 </template>  
   
 <script>  
+
+
 export default {  
   data() {  
     return {  
