@@ -491,7 +491,6 @@ export default {
   box-sizing: border-box;
   background-color: #f2f2f2;
   border-radius: 10px;
-  text-align: center;
   position: relative;
   margin-bottom: 20px;
 }
