@@ -89,10 +89,14 @@
 
       <div class="comment-container">
         <button @click="toggleComments" class="toggle-comments-button">
+          <span class="comments-title">本章评论</span>
+          <!-- 使用span标签包装标题 -->
           {{ commentsVisible ? "关闭评论" : "打开评论" }}
+          <span class="comments-count">数量：{{ commentsCount }}</span>
+          <!-- 移动评论数量到按钮内部右侧 -->
         </button>
         <div v-if="commentsVisible">
-          <Twikoo v-if="currentChapter" :key="currentChapter.id" />
+          <Twikoo v-if="currentChapter" :key="currentChapter.id" ref="twikoo" />
         </div>
       </div>
     </div>
@@ -114,6 +118,7 @@ export default {
       danmakuVisible: false, // 控制弹幕显示
       topBarVisible: true, // 顶部状态栏是否可见
       commentsVisible: true, // 评论区是否可见
+      commentsCount: 0, // 评论数量，默认为0
     };
   },
   computed: {
@@ -183,6 +188,7 @@ export default {
         this.scrollToTop();
         window.TWIKOO_MAGIC_PATH = "chapter" + this.currentChapter.id;
         console.log("prevChapter", window.TWIKOO_MAGIC_PATH);
+        this.getCommentsCount();
       }
     },
     nextChapter() {
@@ -192,6 +198,7 @@ export default {
         this.scrollToTop();
         window.TWIKOO_MAGIC_PATH = "chapter" + this.currentChapter.id;
         console.log("nextChapter", window.TWIKOO_MAGIC_PATH);
+        this.getCommentsCount();
       }
     },
     toggleDrawer(drawerName) {
@@ -218,6 +225,7 @@ export default {
       this.drawer = null;
       this.scrollToTop();
       this.updateTwikooMagicPath();
+      this.getCommentsCount();
     },
 
     scrollToBottom() {
@@ -265,6 +273,26 @@ export default {
     toggleComments() {
       this.commentsVisible = !this.commentsVisible;
     },
+    // 获取评论数量方法
+    async getCommentsCount() {
+      try {
+        const response = await fetch("https://twikoo-wm.zhengjiao.cc/", {
+          method: "POST",
+          body: JSON.stringify({
+            event: "COMMENT_GET",
+            url: window.TWIKOO_MAGIC_PATH,
+          }),
+          headers: { "Content-Type": "application/json" },
+        });
+
+        const data = await response.json();
+        const count = data.count;
+        this.commentsCount = count; // 更新评论数量
+        console.log("当前文章评论数量：", count);
+      } catch (error) {
+        console.error("获取评论数量失败：", error);
+      }
+    },
   },
   mounted() {
     window.TWIKOO_MAGIC_PATH = "chapter" + this.currentChapter.id;
@@ -275,7 +303,8 @@ export default {
     this.loadSavedChapterIndex(); // 组件加载时加载保存的阅读进度
     window.addEventListener("scroll", this.handleScroll);
     console.log("mounted:", window.TWIKOO_MAGIC_PATH);
-     this.commentsVisible = false; // 关闭当前章节的评论区
+    this.commentsVisible = false; // 关闭当前章节的评论区
+    this.getCommentsCount();
   },
   beforeDestroy() {
     window.removeEventListener("keyup", this.handleKeyUp);
@@ -497,20 +526,20 @@ export default {
 }
 
 .toggle-comments-button {
-  width: 100%; /* 与容器等宽 */
-  height: 40px; /* 按钮高度 */
-  background-color: transparent; /* 背景透明 */
-  color: #555; /* 文字颜色 */
-  border: 1px solid #ccc; /* 边框 */
-  border-radius: 10px; /* 圆角 */
-  cursor: pointer; /* 鼠标指针样式 */
-  font-size: 16px; /* 文字大小 */
+  width: 100%;
+  height: 40px;
+  background-color: transparent;
+  color: #555;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
   transition: background-color 0.3s, color 0.3s, border-color 0.3s,
-    box-shadow 0.3s; /* 过渡效果 */
-  margin-bottom: 10px; /* 底部间距 */
-  display: inline-block; /* 内联块元素 */
-  line-height: 40px; /* 行高等于按钮高度 */
-  text-decoration: none; /* 文本无下划线 */
+    box-shadow 0.3s;
+  display: flex;
+  justify-content: space-between; /* 左右对齐 */
+  align-items: center; /* 垂直居中 */
+  padding: 0 10px; /* 左右内边距 */
 }
 
 .toggle-comments-button:hover {
@@ -573,20 +602,20 @@ export default {
 
 @media (max-width: 1023px) {
   .comment-container {
-  background-color: rgb(250, 250, 250);
-}
+    background-color: rgb(250, 250, 250);
+  }
 
-.toggle-comments-button {
-  margin: 0;
-  height: 40px; /* 按钮高度 */
-  background-color: transparent; /* 背景透明 */
-  color: #555; /* 文字颜色 */
-  border: none;
-  padding: 0 auto;
-  margin-bottom: 20px;
-  box-shadow: none;
-}
-  
+  .toggle-comments-button {
+    margin: 0;
+    height: 40px; /* 按钮高度 */
+    background-color: transparent; /* 背景透明 */
+    color: #555; /* 文字颜色 */
+    border: none;
+    padding: 0 auto;
+    margin-bottom: 20px;
+    box-shadow: none;
+  }
+
   .chapter-navigation {
     display: none;
   }
@@ -675,7 +704,7 @@ export default {
     background-color: whitesmoke;
   }
 
-  .novel-reader-container{
+  .novel-reader-container {
     background-color: rgb(250, 250, 250);
   }
 }
