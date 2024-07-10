@@ -234,7 +234,7 @@ export default {
     },
     initTwikooForCurrentChapter() {
       // 设置当前章节的 TWIKOO_MAGIC_PATH
-      window.TWIKOO_MAGIC_PATH = this.currentChapter.id;
+      window.TWIKOO_MAGIC_PATH = "chapter" + this.currentChapter.id;
       // 等待页面更新后初始化 Twikoo
       this.$nextTick(() => {
         const twikooComponent = this.$refs.twikoo;
@@ -245,15 +245,15 @@ export default {
     },
     // 处理键盘事件
     handleKeyUp(event) {
+      if (event.ctrlKey && event.key === " ") {
+        this.danmakuVisible = !this.danmakuVisible;
+      }
       switch (event.key) {
         case "ArrowLeft": // 左键，上一章
           this.prevChapter();
           break;
         case "ArrowRight": // 右键，下一章
           this.nextChapter();
-          break;
-        case "k": // 按下"k"关闭弹幕
-          this.danmakuVisible = !this.danmakuVisible;
           break;
         default:
           return;

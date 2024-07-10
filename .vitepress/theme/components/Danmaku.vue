@@ -30,6 +30,7 @@ export default {
 
       async function loadDataAndSendDanmaku() {
         try {
+          console.log('path', window.TWIKOO_MAGIC_PATH)
           let data = localStorage.getItem("danmu");
           if (!data) {
             data = JSON.parse(data);
