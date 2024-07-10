@@ -1,8 +1,9 @@
 <template>
   <div class="novel-reader-container">
+    <Danmaku v-if="danmakuVisible" />
     <div class="novel-reader">
       <!-- 顶部状态栏 -->
-      <div class="top-bar">
+      <div class="top-bar" v-show="topBarVisible">
         <div class="left-section" v-if="isDesktop">
           <a href="/">《问题妹妹恋上我》</a>
           <!-- 书名 -->
@@ -50,6 +51,9 @@
         <button @click="scrollToTop" class="toolbar-button">顶部</button>
         <button @click="prevChapter" class="toolbar-button">上一章</button>
         <button @click="nextChapter" class="toolbar-button">下一章</button>
+        <button @click="toggleDrawer('danmaku')" class="toolbar-button">
+          弹幕
+        </button>
       </div>
 
       <!-- 手机端工具栏 -->
@@ -95,6 +99,8 @@ export default {
       drawer: null, // 当前展开的侧边栏
       drawerOpen: false, // 侧边栏是否展开
       isDesktop: false, // 是否为电脑端（用于决定是否显示竖向工具栏和侧边栏）
+      danmakuVisible: false, // 控制弹幕显示
+      topBarVisible: true, // 顶部状态栏是否可见
     };
   },
   computed: {
@@ -103,6 +109,51 @@ export default {
     },
   },
   methods: {
+    // ... 其他方法
+    handleScroll() {
+      clearTimeout(this.scrollTimeout); // 每次滚动时清除之前的定时器
+
+      const currentScrollTop =
+        window.pageYOffset || document.documentElement.scrollTop;
+
+      if (!this.isDesktop) {
+        // 如果是手机端，不隐藏顶部状态栏
+        this.topBarVisible = true;
+      } else {
+        // 如果是电脑端，根据滚动方向显示或隐藏顶部状态栏
+        if (currentScrollTop > this.lastScrollTop) {
+          // 向下滚动，隐藏顶部状态栏
+          this.topBarVisible = false;
+        } else if (currentScrollTop < this.lastScrollTop) {
+          // 向上滚动，显示顶部状态栏
+          this.topBarVisible = true;
+        }
+
+        // 如果滚动到页面顶部，显示顶部状态栏
+        if (currentScrollTop <= 0) {
+          this.topBarVisible = true;
+        }
+      }
+
+      this.lastScrollTop = currentScrollTop;
+
+      // 设置定时器，在滚动结束后再显示或隐藏顶部状态栏
+      this.scrollTimeout = setTimeout(() => {
+        if (!this.isDesktop) {
+          // 如果是手机端，保持顶部状态栏显示
+          this.topBarVisible = true;
+        } else {
+          if (currentScrollTop > this.lastScrollTop) {
+            // 向下滚动，隐藏顶部状态栏
+            this.topBarVisible = false;
+          } else if (currentScrollTop < this.lastScrollTop) {
+            // 向上滚动，显示顶部状态栏
+            this.topBarVisible = true;
+          }
+        }
+      }, 1000); // 延迟1000毫秒
+    },
+
     processTitle(title) {
       // 如果是手机端，去除 "第" 字前面的空格
       if (!this.isDesktop) {
@@ -129,12 +180,16 @@ export default {
       }
     },
     toggleDrawer(drawerName) {
-      if (this.drawer === drawerName && this.drawerOpen) {
-        this.drawerOpen = false;
-        this.drawer = null;
+      if (drawerName === "danmaku") {
+        this.danmakuVisible = !this.danmakuVisible;
       } else {
-        this.drawer = drawerName;
-        this.drawerOpen = true;
+        if (this.drawer === drawerName && this.drawerOpen) {
+          this.drawerOpen = false;
+          this.drawer = null;
+        } else {
+          this.drawer = drawerName;
+          this.drawerOpen = true;
+        }
       }
     },
     selectChapter(chapter) {
@@ -197,6 +252,9 @@ export default {
         case "ArrowRight": // 右键，下一章
           this.nextChapter();
           break;
+        case "k": // 按下"k"关闭弹幕
+          this.danmakuVisible = !this.danmakuVisible;
+          break;
         default:
           return;
       }
@@ -209,9 +267,11 @@ export default {
     this.loadSavedChapterIndex(); // 组件加载时加载保存的阅读进度
     // 初次加载页面时初始化 Twikoo
     this.initTwikooForCurrentChapter();
+    window.addEventListener("scroll", this.handleScroll);
   },
   beforeDestroy() {
     window.removeEventListener("keyup", this.handleKeyUp);
+    window.removeEventListener("scroll", this.handleScroll);
   },
 };
 </script>
@@ -224,6 +284,7 @@ export default {
   left: 0;
   bottom: 0;
   z-index: 999;
+  background-color: rgb(224, 224, 224);
 }
 
 .novel-reader {
@@ -235,7 +296,9 @@ export default {
 }
 
 .top-bar {
-  background-color: #fff;
+  margin: 0 auto;
+  background-color: #f2f2f2;
+  max-width: 850px;
   color: gray;
   height: 64px;
   padding: 0 20px;
@@ -243,16 +306,17 @@ export default {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 10;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  border-radius: 8px 8px 0 0;
+  border-radius: 0 0 0 0;
+  border-bottom: 1px solid rgb(223, 223, 223);
+  transition: transform 2s ease, opacity 2s ease;
 }
 
 .top-bar .left-section {
-  line-height: 1;
+  align-items: center;
   margin-right: 10px; /* 电脑端书名与导航栏的间隔 */
 }
 
@@ -288,8 +352,7 @@ export default {
   padding: 10px;
   z-index: 1000;
   border-radius: 8px;
-  background-color: #fff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
   margin-top: 30px;
 }
 
@@ -299,13 +362,14 @@ export default {
   color: #333333a3;
   border: none;
   cursor: pointer;
-  font-size: 1em;
+  font-size: 0.8em;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   margin-bottom: 10px;
+  background-color: rgb(242, 242, 242);
 }
 
 .mobile-toolbar {
@@ -337,8 +401,8 @@ export default {
 }
 
 .content-area {
-  margin-top: 64px;
-  padding: 20px;
+  background-color: rgb(224, 224, 224);
+  padding: 0 20px;
   line-height: 1.8;
   display: flex;
   justify-content: center;
@@ -346,14 +410,13 @@ export default {
 }
 
 .content-wrapper {
-  font-family: "SimSun", "宋体", serif; /* 添加宋体字体 */
-  max-width: 900px;
+  max-width: 960px;
   width: 100%;
-  background-color: #fff;
-  padding: 20px;
+  background-color: #f2f2f2;
+  padding: 60px 80px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  color: rgb(37, 37, 37);
+  color: #252525;
   overflow: hidden;
 }
 
@@ -361,6 +424,8 @@ export default {
   white-space: pre-wrap;
   word-wrap: break-word; /* 兼容旧版本浏览器的换行 */
   overflow-x: hidden; /* 隐藏横向滚动条 */
+  margin-bottom: 1.6rem;
+  font-size: 18px;
 }
 
 .drawer {
@@ -369,16 +434,15 @@ export default {
   top: 88px;
   right: 98px;
   bottom: 40px;
-  width: 35%;
+  width: 25%;
   max-width: 100vw;
   background-color: rgb(250, 250, 250);
   box-shadow: 4px 0 8px rgba(0, 0, 0, 0.1);
   transform: translateX(-100%);
   transition: transform 0.6s ease;
   z-index: 999;
-
+  border-radius: 8px;
   overflow: hidden;
-  border-radius: 10px;
 }
 
 .drawer.open {
@@ -413,13 +477,38 @@ export default {
 }
 
 .comment-container {
+  padding: 5px 0;
   width: 100%;
-  max-width: 895px;
+  max-width: 963px;
   margin: 0 auto;
   padding: 0;
   box-sizing: border-box;
+  /* background-color: rgb(57, 14, 14); */
+}
+.danmaku-container {
+  position: absolute; /* 调整为 absolute */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 9999; /* 确保在其他内容上方 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+.danmaku-content {
+  width: 80%;
+  max-width: 600px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  color: #333;
+  font-size: 1.2em;
+  text-align: center;
+}
 @media (max-width: 1023px) {
   .vertical-toolbar {
     display: none;
@@ -487,7 +576,7 @@ export default {
   .content-wrapper {
     padding: 0 20px;
     width: 100%;
-    max-width: 900px;
+    max-width: 960px;
     background-color: rgb(250, 250, 250);
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);

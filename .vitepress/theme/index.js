@@ -6,6 +6,7 @@ import './style.css'
 import Comment from './components/Comment.vue';
 import NovelReader from './components/NovelReader.vue'
 import CommentForChapter from './components/CommentForChapter.vue'
+import Danmaku from './components/Danmaku.vue'
 /** @type {import('vitepress').Theme} */
 export default {
   extends: DefaultTheme,
@@ -20,6 +21,7 @@ export default {
     app.component("Comment", Comment);
     app.component('NovelReader',NovelReader)
     app.component('CommentForChapter',CommentForChapter)
+    app.component('Danmaku', Danmaku)
   }
 }
 
