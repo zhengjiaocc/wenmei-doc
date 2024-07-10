@@ -4,6 +4,20 @@ export default defineConfig({
   head: [
     ["link", { rel: "icon", href: "wtmmlsw.svg" }],
     ['meta', { name: 'description', content: '《问题妹妹恋上我》文档库，负是非' }],
+    [
+      'script',
+      {},
+      `
+       window._hmt = window._hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?9045a9c5999b1ce9303cf5d12526fcd4";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+      })();
+      `,
+    ],
+
   ],
   sitemap: {
     hostname: 'https://www.wtmmlsw.cn'
