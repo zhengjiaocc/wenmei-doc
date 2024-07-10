@@ -143,6 +143,7 @@ export default {
   overflow: hidden;
   background-color: rgba(0, 0, 0, 0.27);
   padding: 6px 16px 6px 6px;
+  margin: 2px;
 }
 .default-style a {
   background-color: rgba(0, 0, 0, 0.5);
