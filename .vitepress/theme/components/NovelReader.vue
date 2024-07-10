@@ -1,6 +1,6 @@
 <template>
   <div class="novel-reader-container">
-    <Danmaku v-if="danmakuVisible" :key="currentChapter.id"  />
+    <Danmaku v-if="danmakuVisible" :key="currentChapter.id" />
     <div class="novel-reader">
       <!-- 顶部状态栏 -->
       <div class="top-bar" v-show="topBarVisible">
@@ -229,7 +229,8 @@ export default {
       if (savedIndex !== null) {
         this.currentChapterIndex = parseInt(savedIndex);
         this.scrollToTop(); // 加载后滚动到章节顶部
-        window.TWIKOO_MAGIC_PATH = "chapter" + this.chapters[this.currentChapterIndex].id;
+        window.TWIKOO_MAGIC_PATH =
+          "chapter" + this.chapters[this.currentChapterIndex].id;
       }
     },
     // 处理键盘事件
@@ -472,13 +473,14 @@ export default {
 }
 
 .comment-container {
-  padding: 5px 0;
+  padding: 10px 10px;
   width: 100%;
   max-width: 963px;
   margin: 0 auto;
-  padding: 0;
+  margin-top: 10px;
   box-sizing: border-box;
-  /* background-color: rgb(57, 14, 14); */
+  background-color: #f2f2f2;
+  border-radius: 10px;
 }
 .danmaku-container {
   position: absolute; /* 调整为 absolute */
@@ -545,7 +547,7 @@ export default {
 
   .content-area {
     margin-top: 64px;
-    margin-bottom: 40px;
+    /* margin-bottom: 40px; */
     font-family: "SimSun", "宋体", serif;
     font-size: 19px;
     color: rgba(37, 34, 27);
