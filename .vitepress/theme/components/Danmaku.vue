@@ -35,10 +35,9 @@ export default {
 
     async function loadDataAndSendDanmaku() {
       try {
-        let data = localStorage.getItem("danmu");
-        if (!data) {
-          data = JSON.parse(data);
-        } else {
+        let data ;
+        if(true) {
+          console.log('开始从服务器获取数据')
           const response = await fetch("https://twikoo-wm.zhengjiao.cc/", {
             method: "POST",
             body: JSON.stringify({

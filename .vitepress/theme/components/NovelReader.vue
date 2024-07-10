@@ -229,12 +229,18 @@ export default {
       if (savedIndex !== null) {
         this.currentChapterIndex = parseInt(savedIndex);
         this.scrollToTop(); // 加载后滚动到章节顶部
+        window.TWIKOO_MAGIC_PATH = "chapter" + this.chapters[this.currentChapterIndex].id;
       }
     },
     // 处理键盘事件
     handleKeyUp(event) {
       if (event.ctrlKey && event.key === " ") {
         this.danmakuVisible = !this.danmakuVisible;
+      }
+    },
+    updateTwikooMagicPath() {
+      if (this.currentChapter) {
+        window.TWIKOO_MAGIC_PATH = "chapter" + this.currentChapter.id;
       }
     },
   },
