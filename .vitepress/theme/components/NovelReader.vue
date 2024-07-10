@@ -1,6 +1,6 @@
 <template>
   <div class="novel-reader-container">
-    <Danmaku v-if="danmakuVisible" />
+    <Danmaku v-if="danmakuVisible" :key="currentChapter.id"  />
     <div class="novel-reader">
       <!-- 顶部状态栏 -->
       <div class="top-bar" v-show="topBarVisible">
@@ -75,7 +75,7 @@
       </div>
 
       <div class="comment-container">
-        <CommentForChapter v-if="currentChapter" :key="currentChapter.id" />
+        <Twikoo v-if="currentChapter" :key="currentChapter.id" />
       </div>
     </div>
 
@@ -85,13 +85,9 @@
 
 <script>
 import novelData from "/docs/novel/chapters.json"; // 导入小说数据
-import CommentForChapter from "./CommentForChapter.vue";
 
 export default {
   name: "NovelReader",
-  components: {
-    CommentForChapter,
-  },
   data() {
     return {
       chapters: novelData, // 小说章节数据
@@ -235,13 +231,6 @@ export default {
     initTwikooForCurrentChapter() {
       // 设置当前章节的 TWIKOO_MAGIC_PATH
       window.TWIKOO_MAGIC_PATH = "chapter" + this.currentChapter.id;
-      // 等待页面更新后初始化 Twikoo
-      this.$nextTick(() => {
-        const twikooComponent = this.$refs.twikoo;
-        if (twikooComponent) {
-          twikooComponent.initTwikoo();
-        }
-      });
     },
     // 处理键盘事件
     handleKeyUp(event) {
