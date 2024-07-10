@@ -238,7 +238,6 @@ export default {
       if (event.ctrlKey && event.key === " ") {
         this.danmakuVisible = !this.danmakuVisible;
       }
-      }
     },
     updateTwikooMagicPath() {
       if (this.currentChapter) {
