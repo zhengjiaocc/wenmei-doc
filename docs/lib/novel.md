@@ -1,6 +1,6 @@
 ---
 layout: false
 sidebar: false
-title: 在线小说
+title: 小说
 ---
 <NovelReader/>
