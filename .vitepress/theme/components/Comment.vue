@@ -52,7 +52,11 @@ export default {
         notice3: true  
       }  
     };  
-  }  
+  } ,
+  mounted(){
+    window.TWIKOO_MAGIC_PATH='/docs/info/message.html'
+  }
+  
 };  
 </script>  
   
