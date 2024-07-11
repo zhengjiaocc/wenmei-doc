@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button @click="fetchTimeTrendData">获取网站概况趋势数据</button>
+    <button @click="fetchTimeTrendData">A获取网站概况趋势数据</button>
     <p v-if="timeTrendData">网站概况趋势数据：{{ timeTrendData }}</p>
     <!-- 其他统计数据展示 -->
   </div>
