@@ -64,7 +64,15 @@
         <button @click="prevChapter" class="toolbar-button">上一章</button>
         <button @click="nextChapter" class="toolbar-button">下一章</button>
         <!-- 替换主页按钮为评论按钮 -->
-        <button @click="toggleComments" class="toolbar-button">评论</button>
+        <button @click="toggleComments" class="toolbar-button">
+          评论<span
+            :class="{
+              'rotate-open': commentsVisible,
+              'rotate-close': !commentsVisible,
+            }"
+            >+</span
+          >
+        </button>
       </div>
 
       <!-- 小说内容区域 -->
@@ -87,7 +95,11 @@
       </div>
 
       <div class="comment-container">
-        <button @click="toggleComments" class="toggle-comments-button" v-if="isDesktop">
+        <button
+          @click="toggleComments"
+          class="toggle-comments-button"
+          v-if="isDesktop"
+        >
           <span class="comments-title">本章评论</span>
           <!-- 使用span标签包装标题 -->
           {{ commentsVisible ? "关闭评论" : "打开评论" }}
@@ -678,8 +690,8 @@ export default {
     border: none;
   }
 
-    .top-bar a {
-margin-top: 14px;
+  .top-bar a {
+    margin-top: 4px;
   }
   .top-bar .center {
     margin-top: 14px;
@@ -710,6 +722,37 @@ margin-top: 14px;
 
   .novel-reader-container {
     background-color: rgb(250, 250, 250);
+  }
+
+  .toolbar-button span {
+    display: inline-block;
+    transition: transform 0.3s ease;
+  }
+
+  .rotate-open {
+    animation: rotate-open 0.3s forwards;
+  }
+
+  .rotate-close {
+    animation: rotate-close 0.3s forwards;
+  }
+
+  @keyframes rotate-open {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(45deg);
+    }
+  }
+
+  @keyframes rotate-close {
+    from {
+      transform: rotate(45deg);
+    }
+    to {
+      transform: rotate(0deg);
+    }
   }
 }
 </style>
