@@ -128,7 +128,7 @@ export default {
       isDesktop: false, // 是否为电脑端（用于决定是否显示竖向工具栏和侧边栏）
       danmakuVisible: false, // 控制弹幕显示
       topBarVisible: true, // 顶部状态栏是否可见
-      commentsVisible: true, // 评论区是否可见
+      commentsVisible: false, // 评论区是否可见
       commentsCount: 0, // 评论数量，默认为0
     };
   },
@@ -200,6 +200,7 @@ export default {
         window.TWIKOO_MAGIC_PATH = "chapter" + this.currentChapter.id;
         console.log("prevChapter", window.TWIKOO_MAGIC_PATH);
         this.getCommentsCount();
+        this.commentsVisible = false;
       }
     },
     nextChapter() {
@@ -210,6 +211,7 @@ export default {
         window.TWIKOO_MAGIC_PATH = "chapter" + this.currentChapter.id;
         console.log("nextChapter", window.TWIKOO_MAGIC_PATH);
         this.getCommentsCount();
+        this.commentsVisible = false;
       }
     },
     toggleDrawer(drawerName) {
@@ -237,6 +239,7 @@ export default {
       this.scrollToTop();
       this.updateTwikooMagicPath();
       this.getCommentsCount();
+      this.commentsVisible = false;
     },
 
     scrollToBottom() {
@@ -283,6 +286,19 @@ export default {
     },
     toggleComments() {
       this.commentsVisible = !this.commentsVisible;
+
+      if (this.commentsVisible) {
+        // 延迟执行滚动操作，确保评论区已渲染
+        this.$nextTick(() => {
+          const commentContainer = document.querySelector(".comment-container");
+          if (commentContainer) {
+            commentContainer.scrollIntoView({
+              behavior: "auto",
+              block: "center",
+            });
+          }
+        });
+      }
     },
     // 获取评论数量方法
     async getCommentsCount() {
