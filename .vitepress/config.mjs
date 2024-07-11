@@ -63,7 +63,7 @@ export default defineConfig({
       label: '当前页'
     },
 
-    logo: "logo_cut-modified.png",
+    logo: "https://pic.imgdb.cn/item/668fcf90d9c307b7e9673766.png",
     nav: [
       { text: '主页', link: '/' },
       { text: '小说', link: '/docs/lib/novel.md' },
@@ -72,9 +72,9 @@ export default defineConfig({
       {
         text: '关于',
         items: [
-          { text: '关于我们', link: '/docs/info/about.md' },
-          { text: '日志', link: '/docs/logs/logs' },
-          { text: '项目地址', link: 'https://github.com/zhengjiaocc/wenmei-doc.git' },
+          { text: '关于我们', link: '/docs/info/about' },
+          { text: '访问日志', link: '/docs/logs/visit' },
+          { text: '更新日志', link: '/docs/logs/update' },
         ],
       },
     ],
@@ -82,7 +82,7 @@ export default defineConfig({
       message: `
         <a href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral" style="text-decoration: none; display: inline-flex; align-items: center;">
           <span>本站由</span>
-          <img src="up.png" width="60" style="margin: 0 5px;">
+          <img src="https://pic.imgdb.cn/item/668fce43d9c307b7e96429a9.png" width="60" style="margin: 0 5px;">
           <span>提供加速服务</span>
         </a>
       `,

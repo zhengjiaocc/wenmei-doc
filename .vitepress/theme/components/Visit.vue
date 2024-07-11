@@ -34,21 +34,19 @@ export default {
 
 <style scoped>
 .statistics {
-  border: 1px solid #1230c6bb;
-  padding: 20px;
+  border: 2px solid #1230c6bb;
   border-radius: 8px;
-  max-width: 1000px;
-  margin: 0 auto;
   font-family: Arial, sans-serif;
   width: 100%; /* 设置宽度为100% */
-
+  padding: 10px;
+  height: 360px;
 }
 
 .header {
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 20px;
-  text-align: center; /* 标题居中 */
+  text-align: left; /* 标题居中 */
 }
 
 .data p {
@@ -61,10 +59,12 @@ export default {
 
 .label {
   font-weight: bold;
+  color: #999; /* 设置数据提示文字为浅色 */
 }
 
 .value {
-  font-weight: normal;
+  font-weight: bold;
+  color: #000; /* 设置数据值为深色 */
   text-align: right;
 }
 
