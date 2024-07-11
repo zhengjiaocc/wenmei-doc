@@ -285,6 +285,7 @@ export default {
       }
     },
     toggleComments() {
+      this.drawerOpen=false
       this.commentsVisible = !this.commentsVisible;
 
       if (this.commentsVisible) {
@@ -657,7 +658,7 @@ export default {
     right: 0;
     border-radius: 0;
     transform: translateX(-100%);
-    top: 53px;
+    top: 44px;
     border: 0;
   }
 
