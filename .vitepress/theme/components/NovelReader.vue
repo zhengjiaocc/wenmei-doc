@@ -65,7 +65,12 @@
         <button @click="nextChapter" class="toolbar-button">下一章</button>
         <!-- 替换主页按钮为评论按钮 -->
         <button @click="toggleComments" class="toolbar-button">
-          评论<span
+          <span class="comment-count" v-if="commentsCount != 0">
+            <!-- 根据评论数量动态显示 -->
+            {{ formatCommentsCount() }}
+          </span>
+          评论
+          <span
             :class="{
               'rotate-open': commentsVisible,
               'rotate-close': !commentsVisible,
@@ -285,7 +290,7 @@ export default {
       }
     },
     toggleComments() {
-      this.drawerOpen=false
+      this.drawerOpen = false;
       this.commentsVisible = !this.commentsVisible;
 
       if (this.commentsVisible) {
@@ -319,6 +324,16 @@ export default {
         console.log("当前文章评论数量：", count);
       } catch (error) {
         console.error("获取评论数量失败：", error);
+      }
+    },
+    formatCommentsCount() {
+      const count = this.commentsCount;
+      if (count >= 10000) {
+        return (count / 10000).toFixed(1) + "w";
+      } else if (count >= 1000) {
+        return (count / 1000).toFixed(1) + "k";
+      } else {
+        return count.toString();
       }
     },
   },
@@ -770,6 +785,19 @@ export default {
     to {
       transform: rotate(0deg);
     }
+  }
+
+  .comment-button {
+    position: relative; /* 父元素相对定位，使绝对定位的子元素相对于此定位 */
+    display: inline-block; /* 行内块元素，保证按钮和评论数量在同一行 */
+    padding-right: 20px; /* 可根据实际情况调整按钮右侧空白 */
+  }
+  .comment-count {
+    position: absolute; /* 绝对定位，根据父元素进行位置调整 */
+    right: 63px; /* 放置在评论按钮左侧 */
+    top:-3px;
+    color: #c01313; /* 示例文字颜色，可根据设计需求修改 */
+    font-size: 11px; /* 示例字体大小，可根据设计需求修改 */
   }
 }
 </style>
