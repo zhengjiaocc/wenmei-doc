@@ -670,15 +670,19 @@ export default {
   .top-bar {
     box-shadow: none;
     background-color: rgb(250, 250, 250);
-    height: 43px;
+    height: 44px;
     padding: 0 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border: none;
   }
+
+    .top-bar a {
+margin-top: 14px;
+  }
   .top-bar .center {
-    margin-top: 4px;
+    margin-top: 14px;
     color: rgba(149, 139, 127);
     font-size: 14px;
   }
