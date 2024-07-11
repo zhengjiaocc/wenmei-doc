@@ -295,7 +295,7 @@ export default {
           if (commentContainer) {
             commentContainer.scrollIntoView({
               behavior: "auto",
-              block: "end",
+              block: "start",
             });
           }
         });
