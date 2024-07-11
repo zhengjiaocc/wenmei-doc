@@ -657,7 +657,7 @@ export default {
   }
 
   .content-area {
-    margin-top: 64px;
+    margin-top: 50px;
     /* margin-bottom: 40px; */
     font-family: "SimSun", "宋体", serif;
     font-size: 19px;
@@ -670,7 +670,7 @@ export default {
   .top-bar {
     box-shadow: none;
     background-color: rgb(250, 250, 250);
-    height: 53px;
+    height: 43px;
     padding: 0 20px;
     display: flex;
     justify-content: space-between;
@@ -678,6 +678,7 @@ export default {
     border: none;
   }
   .top-bar .center {
+    margin-top: 4px;
     color: rgba(149, 139, 127);
     font-size: 14px;
   }
