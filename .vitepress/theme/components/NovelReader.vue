@@ -629,7 +629,7 @@ export default {
     right: 0;
     border-radius: 0;
     transform: translateX(-100%);
-    top: 64px;
+    top: 53px;
     border: 0;
   }
 
