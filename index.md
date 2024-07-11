@@ -7,7 +7,7 @@ hero:
   text: "文档站"
   tagline: 十年连载，深情陪伴，即将完结...
   image:
-      src: banner-zip.png
+      src: https://pic.imgdb.cn/item/668fd187d9c307b7e96be06a.png
       alt: 背景图
   actions:
     - theme: brand
