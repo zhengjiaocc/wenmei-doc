@@ -2,7 +2,6 @@
   <div class="statistics">
     <div class="header">网站数据概况</div>
     <div class="data">
-      <p><span class="label">最近活跃访客:</span> <span class="value">{{ recentVisitors }}</span></p>
       <p><span class="label">今日访问人数:</span> <span class="value">{{ todayVisitors }}</span></p>
       <p><span class="label">今日访问量:</span> <span class="value">{{ todayVisits }}</span></p>
       <p><span class="label">昨日访问人数:</span> <span class="value">{{ yesterdayVisitors }}</span></p>
@@ -11,23 +10,44 @@
       <p><span class="label">总访问量:</span> <span class="value">{{ totalVisits }}</span></p>
     </div>
     <div class="footer">
-      百度统计
+      数据来源于百度统计
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
-      recentVisitors: 100,
-      todayVisitors: 500,
-      todayVisits: 10000,
-      yesterdayVisitors: 486,
-      yesterdayVisits: 9952,
-      monthlyVisits: 325014,
-      totalVisits: 6252348
+      todayVisitors: 0,
+      todayVisits: 0,
+      yesterdayVisitors: 0,
+      yesterdayVisits: 0,
+      monthlyVisits: 0,
+      totalVisits: 0
     };
+  },
+  mounted() {
+    this.fetchStatistics(); // 页面加载后立即拉取一次数据
+    setInterval(this.fetchStatistics, 3 * 60 * 1000); // 每3分钟触发一次数据拉取
+  },
+  methods: {
+    async fetchStatistics() {
+      try {
+        const response = await axios.get('http://tj.zhengjiao.cc/proxy/baidu/base');
+        const data = response.data;
+        this.todayVisitors = data['今日访问人数'];
+        this.todayVisits = data['今日访问量'];
+        this.yesterdayVisitors = data['昨日访问人数'];
+        this.yesterdayVisits = data['昨日访问量'];
+        this.monthlyVisits = data['本月访问量'];
+        this.totalVisits = data['总访问量'];
+      } catch (error) {
+        console.error('获取统计数据失败:', error);
+      }
+    }
   }
 };
 </script>
