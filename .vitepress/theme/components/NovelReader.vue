@@ -134,7 +134,8 @@ export default {
       danmakuVisible: false, // 控制弹幕显示
       topBarVisible: true, // 顶部状态栏是否可见
       commentsVisible: false, // 评论区是否可见
-      commentsCount: 0, // 评论数量，默认为0
+      commentsCount: 0, // 当前章节的评论数量
+      preloadComments: [], // 预加载评论数组
     };
   },
   computed: {
@@ -143,7 +144,6 @@ export default {
     },
   },
   methods: {
-    // ... 其他方法
     handleScroll() {
       clearTimeout(this.scrollTimeout); // 每次滚动时清除之前的定时器
 
@@ -202,10 +202,13 @@ export default {
         this.currentChapterIndex--;
         this.saveCurrentChapterIndex();
         this.scrollToTop();
-        window.TWIKOO_MAGIC_PATH = "chapter" + this.currentChapter.id;
-        console.log("prevChapter", window.TWIKOO_MAGIC_PATH);
+        this.updateTwikooMagicPath();
         this.getCommentsCount();
         this.commentsVisible = false;
+        this.preloadCommentsCount(); // 预加载相邻章节的评论数量
+
+        // 更新相邻章节的评论数量显示
+        this.commentsCount = this.preloadComments[this.currentChapterIndex];
       }
     },
     nextChapter() {
@@ -213,10 +216,13 @@ export default {
         this.currentChapterIndex++;
         this.saveCurrentChapterIndex();
         this.scrollToTop();
-        window.TWIKOO_MAGIC_PATH = "chapter" + this.currentChapter.id;
-        console.log("nextChapter", window.TWIKOO_MAGIC_PATH);
+        this.updateTwikooMagicPath();
         this.getCommentsCount();
         this.commentsVisible = false;
+        this.preloadCommentsCount(); // 预加载相邻章节的评论数量
+
+        // 更新相邻章节的评论数量显示
+        this.commentsCount = this.preloadComments[this.currentChapterIndex];
       }
     },
     toggleDrawer(drawerName) {
@@ -245,6 +251,7 @@ export default {
       this.updateTwikooMagicPath();
       this.getCommentsCount();
       this.commentsVisible = false;
+      this.preloadCommentsCount(); // 预加载相邻章节的评论数量
     },
 
     scrollToBottom() {
@@ -267,6 +274,7 @@ export default {
         "currentChapterIndex",
         this.currentChapterIndex.toString()
       );
+      console.log("保存当前章节索引:", this.currentChapterIndex);
     },
     loadSavedChapterIndex() {
       // 从localStorage加载保存的当前章节索引
@@ -274,24 +282,27 @@ export default {
       if (savedIndex !== null) {
         this.currentChapterIndex = parseInt(savedIndex);
         this.scrollToTop(); // 加载后滚动到章节顶部
-        window.TWIKOO_MAGIC_PATH =
-          "chapter" + this.chapters[this.currentChapterIndex].id;
+        this.updateTwikooMagicPath();
+        console.log("加载保存的章节索引:", this.currentChapterIndex);
       }
     },
     // 处理键盘事件
     handleKeyUp(event) {
       if (event.ctrlKey && event.key === " ") {
         this.danmakuVisible = !this.danmakuVisible;
+        console.log("弹幕显示状态切换:", this.danmakuVisible);
       }
     },
     updateTwikooMagicPath() {
       if (this.currentChapter) {
         window.TWIKOO_MAGIC_PATH = "chapter" + this.currentChapter.id;
+        console.log("更新 Twikoo 路径:", window.TWIKOO_MAGIC_PATH);
       }
     },
     toggleComments() {
       this.drawerOpen = false;
       this.commentsVisible = !this.commentsVisible;
+      console.log("评论区显示状态切换:", this.commentsVisible);
 
       if (this.commentsVisible) {
         // 延迟执行滚动操作，确保评论区已渲染
@@ -326,35 +337,60 @@ export default {
         console.error("获取评论数量失败：", error);
       }
     },
+    // 预加载相邻章节的评论数量
+    async preloadCommentsCount() {
+      const nextChapterIndex = this.currentChapterIndex + 1;
+      const prevChapterIndex = this.currentChapterIndex - 1;
+
+      const fetchCommentCount = async (chapterIndex) => {
+        if (chapterIndex >= 0 && chapterIndex < this.chapters.length) {
+          const chapter = this.chapters[chapterIndex];
+          const response = await fetch("https://twikoo-wm.zhengjiao.cc/", {
+            method: "POST",
+            body: JSON.stringify({
+              event: "COMMENT_GET",
+              url: "chapter" + chapter.id,
+            }),
+            headers: { "Content-Type": "application/json" },
+          });
+          const data = await response.json();
+          this.preloadComments[chapterIndex] = data.count;
+          console.log(`预加载章节 ${chapterIndex} 的评论数量:`, data.count);
+        }
+      };
+
+      fetchCommentCount(nextChapterIndex);
+      fetchCommentCount(prevChapterIndex);
+    },
     formatCommentsCount() {
       const count = this.commentsCount;
-      if (count >= 10000) {
-        return (count / 10000).toFixed(1) + "w";
-      } else if (count >= 1000) {
-        return (count / 1000).toFixed(1) + "k";
+      if (count !== undefined && count !== null) {
+        if (count >= 10000) {
+          return (count / 10000).toFixed(1) + "w+";
+        } else if (count >= 1000) {
+          return (count / 1000).toFixed(1) + "k+";
+        } else {
+          return count.toString();
+        }
       } else {
-        return count.toString();
+        return "";
       }
     },
   },
   mounted() {
-    window.TWIKOO_MAGIC_PATH = "chapter" + this.currentChapter.id;
-    // 监听键盘事件
-    window.addEventListener("keyup", this.handleKeyUp);
-
     this.isDesktop = window.innerWidth >= 1024;
     this.loadSavedChapterIndex(); // 组件加载时加载保存的阅读进度
     window.addEventListener("scroll", this.handleScroll);
-    console.log("mounted:", window.TWIKOO_MAGIC_PATH);
-    this.commentsVisible = false; // 关闭当前章节的评论区
-    this.getCommentsCount();
+    window.addEventListener("keyup", this.handleKeyUp);
   },
   beforeDestroy() {
-    window.removeEventListener("keyup", this.handleKeyUp);
     window.removeEventListener("scroll", this.handleScroll);
+    window.removeEventListener("keyup", this.handleKeyUp);
   },
 };
 </script>
+
+
 
 <style scoped>
 .novel-reader-container {
@@ -795,7 +831,7 @@ export default {
   .comment-count {
     position: absolute; /* 绝对定位，根据父元素进行位置调整 */
     right: 63px; /* 放置在评论按钮左侧 */
-    top:-3px;
+    top: -3px;
     color: #c01313; /* 示例文字颜色，可根据设计需求修改 */
     font-size: 11px; /* 示例字体大小，可根据设计需求修改 */
   }
