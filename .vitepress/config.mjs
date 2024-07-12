@@ -17,6 +17,14 @@ export default defineConfig({
       })();
       `,
     ],
+    //qq浏览器配置
+    //全屏显示页面
+    ['meta', { name: "x5-fullscreen", content: "true" }],
+    //应用模式显示
+    ['meta', { name: "x5-page-mode", content: "app" }],
+
+    //safari浏览器
+    ['meta',{name: "apple-mobile-web-app-capable",content:"yes"}]
 
   ],
   sitemap: {
