@@ -59,7 +59,7 @@ export default {
   font-family: Arial, sans-serif;
   width: 100%; /* 设置宽度为100% */
   padding: 10px;
-  height: 360px;
+  height: 333px;
 }
 
 .header {
