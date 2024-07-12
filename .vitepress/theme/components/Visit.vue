@@ -119,7 +119,9 @@ export default {
   font-weight: bold;
   color: #555;
 }
-
+.header {
+  font-weight: bold; /* 加粗标题 */
+}
 .footer p {
   margin: 0;
 }
