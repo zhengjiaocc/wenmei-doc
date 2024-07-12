@@ -4,3 +4,4 @@ sidebar: true
 layout: home
 ---
 # 访问日志
+<Visit/>
