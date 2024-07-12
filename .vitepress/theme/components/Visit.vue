@@ -1,20 +1,22 @@
 <template>
-  <div class="statistics" v-if="!loading">
+  <div class="statistics">
     <div class="header">网站数据概况</div>
-    <div class="data" v-if="!error">
+    <div class="data">
       <p><span class="label">今日访问人数:</span> <span class="value">{{ todayVisitors }}</span></p>
       <p><span class="label">今日访问量:</span> <span class="value">{{ todayVisits }}</span></p>
       <p><span class="label">昨日访问人数:</span> <span class="value">{{ yesterdayVisitors }}</span></p>
       <p><span class="label">昨日访问量:</span> <span class="value">{{ yesterdayVisits }}</span></p>
       <p><span class="label">本月访问量:</span> <span class="value">{{ monthlyVisits }}</span></p>
       <p><span class="label">总访问量:</span> <span class="value">{{ totalVisits }}</span></p>
+      <div v-if="loading" class="loading-message">数据加载中...</div>
     </div>
-    <div v-if="error" class="error-message">数据加载失败，请稍后重试。</div>
+    <div v-if="error" class="error-message">
+      数据加载失败<br>请稍后重试
+    </div>
     <div class="footer">
       <p>本站数据来源于百度统计</p>
     </div>
   </div>
-  <div v-else class="loading-message">数据加载中...</div>
 </template>
 
 <script>
@@ -73,8 +75,16 @@ export default {
 .loading-message,
 .error-message {
   text-align: center;
-  margin-top: 20px;
   font-weight: bold;
+  position: absolute;
+  top: 50%; /* 居中垂直 */
+  left: 50%; /* 居中水平 */
+  transform: translate(-50%, -50%); /* 居中 */
+  width: 100%; /* 宽度占满父容器 */
+}
+
+.data {
+  position: relative; /* 设置相对定位 */
 }
 
 .data p {
@@ -94,6 +104,10 @@ export default {
   font-weight: bold;
   color: #000;
   text-align: right;
+}
+
+.error-message {
+  white-space: pre-line; /* 使用 pre-line 保留换行符 */
 }
 
 .footer {
