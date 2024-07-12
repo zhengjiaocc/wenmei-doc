@@ -55,7 +55,7 @@ export default {
 <style scoped>
 .statistics {
   border: 2px solid #1230c6bb;
-  border-radius: 8px;
+  border-radius: 9px;
   font-family: Arial, sans-serif;
   width: 100%; /* 设置宽度为100% */
   padding: 10px;
