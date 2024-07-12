@@ -7,7 +7,6 @@ import Comment from './components/Comment.vue';
 import NovelReader from './components/NovelReader.vue'
 import CommentForChapter from './components/CommentForChapter.vue'
 import Danmaku from './components/Danmaku.vue'
-import Visit from './components/Visit.vue'
 /** @type {import('vitepress').Theme} */
 
 DefaultTheme.enhanceApp = ({ app, router, siteData }) => {
@@ -33,7 +32,6 @@ export default {
     app.component('NovelReader', NovelReader)
     app.component('CommentForChapter', CommentForChapter)
     app.component('Danmaku', Danmaku)
-    app.component('Visit',Visit)
 
   }
 }
