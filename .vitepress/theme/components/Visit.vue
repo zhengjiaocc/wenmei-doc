@@ -31,7 +31,7 @@ export default {
   },
   mounted() {
     this.fetchStatistics(); // 页面加载后立即拉取一次数据
-    setInterval(this.fetchStatistics, 3 * 60 * 1000); // 每3分钟触发一次数据拉取
+    setInterval(this.fetchStatistics, 30 * 60 * 1000); // 每3分钟触发一次数据拉取
   },
   methods: {
     async fetchStatistics() {
