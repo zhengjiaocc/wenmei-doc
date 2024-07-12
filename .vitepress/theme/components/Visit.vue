@@ -10,7 +10,7 @@
       <p><span class="label">总访问量:</span> <span class="value">{{ totalVisits }}</span></p>
     </div>
     <div class="footer">
-      数据来源于百度统计
+      本站数据来源于百度统计
     </div>
   </div>
 </template>
