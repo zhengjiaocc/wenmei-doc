@@ -1,6 +1,8 @@
 <template>
   <div class="statistics">
+  <div class="statistics">
     <div class="header">网站数据概况</div>
+    <div class="data">
     <div class="data">
       <p><span class="label">今日访问人数:</span> <span class="value">{{ todayVisitors }}</span></p>
       <p><span class="label">今日访问量:</span> <span class="value">{{ todayVisits }}</span></p>
@@ -14,7 +16,7 @@
       数据加载失败<br>请稍后重试
     </div>
     <div class="footer">
-      <p>本站数据来源于百度统计</p>
+      本站数据来源于百度统计
     </div>
   </div>
 </template>
@@ -25,8 +27,6 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      loading: true,
-      error: false,
       todayVisitors: 0,
       todayVisits: 0,
       yesterdayVisitors: 0,
@@ -37,7 +37,7 @@ export default {
   },
   mounted() {
     this.fetchStatistics(); // 页面加载后立即拉取一次数据
-    setInterval(this.fetchStatistics, 30 * 60 * 1000); // 每30分钟触发一次数据拉取
+    setInterval(this.fetchStatistics, 30 * 60 * 1000); // 每3分钟触发一次数据拉取
   },
   methods: {
     async fetchStatistics() {
@@ -50,11 +50,8 @@ export default {
         this.yesterdayVisits = data['昨日访问量'];
         this.monthlyVisits = data['本月访问量'];
         this.totalVisits = data['总访问量'];
-        this.loading = false; // 数据加载完成，显示数据
       } catch (error) {
         console.error('获取统计数据失败:', error);
-        this.error = true; // 显示错误消息
-        this.loading = false; // 停止加载状态
       }
     }
   }
@@ -66,10 +63,9 @@ export default {
   border: 2px solid #1230c6bb;
   border-radius: 9px;
   font-family: Arial, sans-serif;
-  width: 100%;
+  width: 100%; /* 设置宽度为100% */
   padding: 10px;
   height: 333px;
-  position: relative; /* 设置相对定位 */
 }
 
 .loading-message,
@@ -92,17 +88,17 @@ export default {
   font-size: 16px;
   color: #333;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* 文字靠左，数据值靠右 */
 }
 
 .label {
   font-weight: bold;
-  color: #999;
+  color: #999; /* 设置数据提示文字为浅色 */
 }
 
 .value {
   font-weight: bold;
-  color: #000;
+  color: #000; /* 设置数据值为深色 */
   text-align: right;
 }
 
@@ -111,11 +107,8 @@ export default {
 }
 
 .footer {
-  position: absolute; /* 设置绝对定位 */
-  bottom: 10px; /* 距离底部的距离 */
-  left: 0;
-  right: 0;
-  text-align: center; /* 文字居中 */
+  margin-top: 20px;
+  text-align: center;
   font-weight: bold;
   color: #555;
 }
