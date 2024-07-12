@@ -10,7 +10,7 @@
       <p><span class="label">总访问量:</span> <span class="value">{{ totalVisits }}</span></p>
       <div v-if="loading" class="loading-message">数据加载中...</div>
     </div>
-    <div v-if="error" class="error-message">数据加载失败 <br/>请稍后重试</div>
+    <div v-if="error" class="error-message">数据加载失败 请稍后重试</div>
     <div class="footer">
       <p>本站数据来源于百度统计</p>
     </div>
