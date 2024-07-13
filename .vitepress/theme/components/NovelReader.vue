@@ -826,7 +826,7 @@ export default {
   }
 
   .content-wrapper {
-    padding: 0 20px;
+    padding: 0 19px 0 22px;
     width: 100%;
     max-width: 960px;
     background-color: rgb(250, 250, 250);
