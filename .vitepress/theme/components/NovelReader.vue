@@ -29,7 +29,7 @@
         <div class="ps-container">
           <button class="ps-button">PS</button>
           <label class="switch">
-            <input type="checkbox" v-model="psVisible" />
+            <input type="checkbox" v-model="psVisible" @click="togglePsVisibility" />
             <span class="slider round"></span>
           </label>
         </div>
@@ -435,6 +435,7 @@ export default {
     window.addEventListener("scroll", this.handleScroll);
     window.addEventListener("keyup", this.handleKeyUp);
     document.addEventListener("click", this.handleClickOutside);
+    this.loadPsVisibility();
   },
   beforeDestroy() {
     window.removeEventListener("scroll", this.handleScroll);
