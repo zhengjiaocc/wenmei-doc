@@ -29,11 +29,7 @@
         <div class="ps-container">
           <button class="ps-button">PS</button>
           <label class="switch">
-            <input
-              type="checkbox"
-              v-model="psVisible"
-              @click="togglePsVisibility"
-            />
+            <input type="checkbox" v-model="psVisible" @click="togglePsVisibility" />
             <span class="slider round"></span>
           </label>
         </div>
@@ -830,7 +826,7 @@ export default {
   }
 
   .content-wrapper {
-    padding: 0px 14px 0 20px;
+    padding: 0 20px;
     width: 100%;
     max-width: 960px;
     background-color: rgb(250, 250, 250);
