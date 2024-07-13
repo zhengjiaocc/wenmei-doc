@@ -6,20 +6,33 @@
       <div class="top-bar" v-show="topBarVisible">
         <div class="left-section" v-if="isDesktop">
           <a href="/">《问题妹妹恋上我》</a>
-          <!-- 书名 -->
         </div>
         <div class="center">
-          <!-- 使用条件渲染和字符串处理来调整标题显示 -->
           {{ processTitle(currentChapter.title) }}
         </div>
 
-        <!-- 添加额外的导航按钮（仅在电脑端显示） -->
         <div class="extra-navigation" v-if="isDesktop">
           <a href="/docs/info/author">负是非</a>
           <a href="/">主页</a>
         </div>
-        <!-- 移动端主页按钮移到右上角 -->
-        <a href="/" class="mobile-home-button" v-if="!isDesktop">主页</a>
+        <div
+          class="mobile-settings-button"
+          v-if="!isDesktop"
+          @click="toggleSettings"
+        >
+          <span class="icon">☰</span>
+        </div>
+      </div>
+      <!-- 系统设置工具栏 -->
+      <div class="settings-toolbar" v-if="settingsVisible">
+        <button @click="goHome">主页</button>
+        <div class="ps-container">
+          <button class="ps-button">PS</button>
+          <label class="switch">
+            <input type="checkbox" />
+            <span class="slider round"></span>
+          </label>
+        </div>
       </div>
 
       <!-- 目录侧边栏 -->
@@ -136,6 +149,7 @@ export default {
       commentsVisible: false, // 评论区是否可见
       commentsCount: 0, // 当前章节的评论数量
       preloadComments: [], // 预加载评论数组
+      settingsVisible: false, // 控制设置工具栏显示
     };
   },
   computed: {
@@ -376,7 +390,17 @@ export default {
         return "";
       }
     },
+    toggleSettings() {
+      this.settingsVisible = !this.settingsVisible;
+      console.log("设置按钮被点击了");
+    },
+    goHome() {
+      // 主页按钮逻辑
+      window.location.href = "/";
+      console.log("主页按钮被点击了");
+    },
   },
+
   mounted() {
     this.isDesktop = window.innerWidth >= 1024;
     this.loadSavedChapterIndex(); // 组件加载时加载保存的阅读进度
@@ -835,5 +859,85 @@ export default {
     color: #c01313; /* 示例文字颜色，可根据设计需求修改 */
     font-size: 11px; /* 示例字体大小，可根据设计需求修改 */
   }
+
+.settings-toolbar {
+  display: flex;
+  position: fixed;
+  flex-direction: column; /* 竖向排列 */
+  align-items: flex-start; /* 居左显示 */
+  padding: 20px;
+ background-color: whitesmoke;
+  margin-top: 25px;
+  width: 100%;
+}
+
+.settings-toolbar button {
+  padding: 5px 0;
+  width: 100%; /* 占满一行 */
+  text-align: left; /* 按钮标题靠左显示 */
+  margin-bottom: 10px; /* 间距 */
+
+}
+
+.ps-container {
+  display: flex;
+  justify-content: space-between; /* 按钮和滑动开关两端对齐 */
+  width: 100%; /* 占满一行 */
+}
+
+.ps-button {
+  text-align: left; /* 按钮标题靠左显示 */
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 34px;
+  height: 20px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 12px;
+  width: 12px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:checked + .slider:before {
+  transform: translateX(14px);
+}
+
+.slider.round {
+  border-radius: 20px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
 }
 </style>
