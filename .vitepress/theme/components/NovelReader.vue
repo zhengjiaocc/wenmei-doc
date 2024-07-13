@@ -713,6 +713,10 @@ export default {
 
 
 @media (max-width: 1023px) {
+
+  .mobile-settings-button{
+    margin-top: 9px;
+  }
   .comment-container {
     background-color: rgb(250, 250, 250);
   }
