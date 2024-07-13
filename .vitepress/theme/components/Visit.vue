@@ -66,7 +66,7 @@ export default {
   font-family: Arial, sans-serif;
   width: 100%;
   padding: 10px;
-  height: 333px;
+  height: 307px;
   position: relative; /* 设置相对定位 */
 }
 
