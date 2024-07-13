@@ -407,6 +407,15 @@ export default {
       this.psVisible = !this.psVisible;
       console.log("PS显示状态切换:", this.psVisible);
     },
+    handleClickOutside(event) {
+      // 如果点击的不是设置按钮以及设置工具栏本身，则隐藏设置工具栏
+      if (
+        !event.target.closest(".mobile-settings-button") &&
+        !event.target.closest(".settings-toolbar")
+      ) {
+        this.settingsVisible = false;
+      }
+    },
   },
 
   mounted() {
@@ -414,10 +423,12 @@ export default {
     this.loadSavedChapterIndex(); // 组件加载时加载保存的阅读进度
     window.addEventListener("scroll", this.handleScroll);
     window.addEventListener("keyup", this.handleKeyUp);
+    document.addEventListener("click", this.handleClickOutside);
   },
   beforeDestroy() {
     window.removeEventListener("scroll", this.handleScroll);
     window.removeEventListener("keyup", this.handleKeyUp);
+    document.removeEventListener("click", this.handleClickOutside);
   },
 };
 </script>
@@ -711,10 +722,8 @@ export default {
   background-color: rgb(210, 100, 52); /* 悬停时的背景颜色 */
 }
 
-
 @media (max-width: 1023px) {
-
-  .mobile-settings-button{
+  .mobile-settings-button {
     margin-top: 9px;
   }
   .comment-container {
