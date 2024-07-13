@@ -99,6 +99,7 @@
       <div class="content-area">
         <div class="content-wrapper">
           <pre>{{ currentChapter.content }}</pre>
+          <hr v-if="psVisible">
           <pre v-if="psVisible">{{ currentChapter.ps }}</pre>
           <!-- 添加上一章和下一章按钮 -->
           <div class="chapter-navigation">
