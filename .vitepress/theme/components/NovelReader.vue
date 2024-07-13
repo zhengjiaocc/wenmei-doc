@@ -406,7 +406,17 @@ export default {
     },
     togglePsVisibility() {
       this.psVisible = !this.psVisible;
+      localStorage.setItem("psVisible", this.psVisible.toString()); // 将psVisible状态保存到本地存储
       console.log("PS显示状态切换:", this.psVisible);
+    },
+
+    // 组件加载时加载保存的PS状态
+    loadPsVisibility() {
+      const savedPsVisible = localStorage.getItem("psVisible");
+      if (savedPsVisible !== null) {
+        this.psVisible = savedPsVisible === "true"; // 将字符串转换为布尔值
+        console.log("加载保存的PS显示状态:", this.psVisible);
+      }
     },
     handleClickOutside(event) {
       // 如果点击的不是设置按钮以及设置工具栏本身，则隐藏设置工具栏
