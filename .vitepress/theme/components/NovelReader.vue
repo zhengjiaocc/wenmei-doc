@@ -841,7 +841,7 @@ export default {
   }
   .content-wrapper pre {
     margin-top: 0;
-    font-size: 19px;
+    font-size: 19.5px;
     padding: 0;
   }
 
