@@ -29,7 +29,11 @@
         <div class="ps-container">
           <button class="ps-button">PS</button>
           <label class="switch">
-            <input type="checkbox" v-model="psVisible" @click="togglePsVisibility" />
+            <input
+              type="checkbox"
+              v-model="psVisible"
+              @click="togglePsVisibility"
+            />
             <span class="slider round"></span>
           </label>
         </div>
@@ -456,6 +460,7 @@ export default {
   bottom: 0;
   z-index: 999;
   background-color: rgb(224, 224, 224);
+  overflow: hidden;
 }
 
 .novel-reader {
@@ -464,6 +469,7 @@ export default {
   position: relative;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .top-bar {
