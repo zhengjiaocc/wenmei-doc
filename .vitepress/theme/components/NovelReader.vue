@@ -29,7 +29,7 @@
         <div class="ps-container">
           <button class="ps-button">PS</button>
           <label class="switch">
-            <input type="checkbox" />
+            <input type="checkbox" v-model="psVisible" />
             <span class="slider round"></span>
           </label>
         </div>
@@ -59,14 +59,16 @@
         <button @click="toggleDrawer('catalog')" class="toolbar-button">
           目录
         </button>
-
         <button @click="scrollToTop" class="toolbar-button">顶部</button>
         <button @click="scrollToBottom" class="toolbar-button">底部</button>
         <button @click="prevChapter" class="toolbar-button">上一章</button>
         <button @click="nextChapter" class="toolbar-button">下一章</button>
-        <!-- <button @click="toggleDrawer('danmaku')" class="toolbar-button">
-          弹幕
-        </button> -->
+        <button @click="togglePsVisibility" class="toolbar-button ps-button">
+          <span v-if="!psVisible" style="text-decoration: line-through"
+            >PS</span
+          >
+          <span v-else>PS</span>
+        </button>
       </div>
 
       <!-- 手机端工具栏 -->
@@ -97,6 +99,7 @@
       <div class="content-area">
         <div class="content-wrapper">
           <pre>{{ currentChapter.content }}</pre>
+          <pre v-if="psVisible">{{ currentChapter.ps }}</pre>
           <!-- 添加上一章和下一章按钮 -->
           <div class="chapter-navigation">
             <button @click="prevChapter" :disabled="currentChapterIndex === 0">
@@ -150,6 +153,7 @@ export default {
       commentsCount: 0, // 当前章节的评论数量
       preloadComments: [], // 预加载评论数组
       settingsVisible: false, // 控制设置工具栏显示
+      psVisible: false, // 控制PS内容显示
     };
   },
   computed: {
@@ -398,6 +402,10 @@ export default {
       // 主页按钮逻辑
       window.location.href = "/";
       console.log("主页按钮被点击了");
+    },
+    togglePsVisibility() {
+      this.psVisible = !this.psVisible;
+      console.log("PS显示状态切换:", this.psVisible);
     },
   },
 
@@ -703,6 +711,7 @@ export default {
   background-color: rgb(210, 100, 52); /* 悬停时的背景颜色 */
 }
 
+
 @media (max-width: 1023px) {
   .comment-container {
     background-color: rgb(250, 250, 250);
@@ -860,84 +869,83 @@ export default {
     font-size: 11px; /* 示例字体大小，可根据设计需求修改 */
   }
 
-.settings-toolbar {
-  display: flex;
-  position: fixed;
-  flex-direction: column; /* 竖向排列 */
-  align-items: flex-start; /* 居左显示 */
-  padding: 20px;
- background-color: whitesmoke;
-  margin-top: 25px;
-  width: 100%;
-}
+  .settings-toolbar {
+    display: flex;
+    position: fixed;
+    flex-direction: column; /* 竖向排列 */
+    align-items: flex-start; /* 居左显示 */
+    padding: 20px;
+    background-color: whitesmoke;
+    margin-top: 25px;
+    width: 100%;
+  }
 
-.settings-toolbar button {
-  padding: 5px 0;
-  width: 100%; /* 占满一行 */
-  text-align: left; /* 按钮标题靠左显示 */
-  margin-bottom: 10px; /* 间距 */
+  .settings-toolbar button {
+    padding: 5px 0;
+    width: 100%; /* 占满一行 */
+    text-align: left; /* 按钮标题靠左显示 */
+    margin-bottom: 10px; /* 间距 */
+  }
 
-}
+  .ps-container {
+    display: flex;
+    justify-content: space-between; /* 按钮和滑动开关两端对齐 */
+    width: 100%; /* 占满一行 */
+  }
 
-.ps-container {
-  display: flex;
-  justify-content: space-between; /* 按钮和滑动开关两端对齐 */
-  width: 100%; /* 占满一行 */
-}
+  .ps-button {
+    text-align: left; /* 按钮标题靠左显示 */
+  }
 
-.ps-button {
-  text-align: left; /* 按钮标题靠左显示 */
-}
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 34px;
+    height: 20px;
+  }
 
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 34px;
-  height: 20px;
-}
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
 
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+  }
 
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  transition: 0.4s;
-}
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 12px;
+    width: 12px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
+  }
 
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 12px;
-  width: 12px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  transition: 0.4s;
-}
+  input:checked + .slider {
+    background-color: #2196f3;
+  }
 
-input:checked + .slider {
-  background-color: #2196F3;
-}
+  input:checked + .slider:before {
+    transform: translateX(14px);
+  }
 
-input:checked + .slider:before {
-  transform: translateX(14px);
-}
+  .slider.round {
+    border-radius: 20px;
+  }
 
-.slider.round {
-  border-radius: 20px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}
+  .slider.round:before {
+    border-radius: 50%;
+  }
 }
 </style>
