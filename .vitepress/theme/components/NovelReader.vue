@@ -1,5 +1,5 @@
 <template>
-  <div class="novel-reader-container">
+  <div class="novel-reader-container" >
     <Danmaku v-if="danmakuVisible" :key="currentChapter.id" />
     <div class="novel-reader">
       <!-- 顶部状态栏 -->
@@ -440,6 +440,7 @@ export default {
     window.addEventListener("keyup", this.handleKeyUp);
     document.addEventListener("click", this.handleClickOutside);
     this.loadPsVisibility();
+    this.getCommentsCount();
   },
   beforeDestroy() {
     window.removeEventListener("scroll", this.handleScroll);
