@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress';
+import timeline from "vitepress-markdown-timeline"; 
 export default defineConfig({
   base: "/",
   head: [
@@ -138,7 +139,9 @@ export default defineConfig({
           { text: '初绽瞬间', link: '/docs/lib/first' },
           { text: '重复之章', link: '/docs/lib/count' },
           { text: '巅峰角逐', link: '/docs/lib/sort' },
+          { text: '岁月流年', link: '/docs/lib/fleeting' },
           { text: '角色尺度大公开', link: '/docs/lib/reveal' },
+
         ],
       },
       // 自动生成的小说章节侧边栏项
@@ -158,6 +161,10 @@ export default defineConfig({
     image: {
       // 开启图片懒加载
       lazyLoading: true
+    },
+    //时间线
+    config: (md) => {
+      md.use(timeline);
     },
   },
 });
