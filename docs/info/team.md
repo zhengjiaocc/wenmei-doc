@@ -36,7 +36,7 @@ const members = [
 ]
 </script>
 
-<VPTeamPage style="margin: 0;">
+<VPTeamPage style="margin: 0 0 20px 0;">
   <VPTeamPageTitle>
     <template #title>
       我们
