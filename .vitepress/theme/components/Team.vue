@@ -11,11 +11,16 @@
       :key="index"
       class="team-group"
     >
-      <h2 class="group-title">{{ group.class_name }}</h2>
+      <div class="group-header">
+        <h2 class="group-title">{{ group.class_name }}</h2>
+        <button class="toggle-button" @click="toggleGroup(index)">
+          {{ group.open ? "收起" : "展开" }}
+        </button>
+      </div>
       <p class="group-description">{{ group.descr }}</p>
 
       <!-- 成员卡片列表 -->
-      <div class="member-cards">
+      <div v-if="group.open" class="member-cards">
         <div
           v-for="(member, idx) in group.link_list"
           :key="idx"
@@ -39,27 +44,25 @@
 
 <script>
 import teamData from '../data/team.json';
+
 export default {
   data() {
     return {
-      // 模拟从 YAML 文件中获取的数据
+      // 模拟从 JSON 文件中获取的数据
       links: teamData,
+      // 添加一个状态来控制每个组是否展开，第一组默认展开
+      groupedMembers: teamData.map((group, index) => ({
+        ...group,
+        open: index === 0  // 第一组默认展开
+      }))
     };
   },
-  computed: {
-    // 根据 links 数据分组处理成员列表
-    groupedMembers() {
-      let grouped = {};
-      this.links.forEach((group) => {
-        grouped[group.class_name] = {
-          class_name: group.class_name,
-          descr: group.descr,
-          link_list: group.link_list,
-        };
-      });
-      return Object.values(grouped);
-    },
-  },
+  methods: {
+    // 点击按钮切换展开状态
+    toggleGroup(index) {
+      this.groupedMembers[index].open = !this.groupedMembers[index].open;
+    }
+  }
 };
 </script>
 
@@ -87,6 +90,12 @@ export default {
   padding: 0 70px;
 }
 
+.group-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .group-title {
   font-size: 24px;
   font-weight: bold;
@@ -99,10 +108,25 @@ export default {
   margin-bottom: 20px;
 }
 
+.toggle-button {
+  background-color: #3498db;
+
+  color: white;
+  border: none;
+  padding: 1px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.toggle-button:hover {
+  background-color: #2980b9;
+}
+
 .member-cards {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px; /* 设置卡片之间的间隔 */
+  gap: 0; /* 设置卡片之间的间隔 */
 }
 
 .member-card {
@@ -158,6 +182,7 @@ export default {
 @media (max-width: 768px) {
   .team-group {
     padding: 0 20px; /* 缩小手机端的左右内边距 */
+    position: relative;
   }
 
   .member-cards {
@@ -180,6 +205,12 @@ export default {
   .member-avatar {
     margin-right: 20px; /* 调整头像与文字之间的间距 */
     margin-bottom: 0; /* 取消下方间距 */
+  }
+
+  .toggle-button {
+    position: absolute;
+    top: 0;
+    right: 0;
   }
 }
 
