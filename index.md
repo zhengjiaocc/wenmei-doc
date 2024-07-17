@@ -8,7 +8,7 @@ hero:
   tagline: 十年连载，深情陪伴，即将完结...
   image:
       src: https://pic.imgdb.cn/item/668fd187d9c307b7e96be06a.png
-      alt: 背景图
+      alt: 问题妹妹恋上我
   actions:
     - theme: brand
       text: 简介
