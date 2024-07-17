@@ -21,12 +21,16 @@
           :key="idx"
           class="member-card"
         >
-          <div class="member-avatar">
-            <img :src="member.avatar" alt="avatar" />
+          <div class="member-info">
+            <div class="member-avatar">
+              <img :src="member.avatar" alt="avatar" />
+            </div>
+            <div class="member-details">
+              <p class="member-name">{{ member.name }}</p>
+              <p class="member-description">{{ member.descr }}</p>
+              <p class="member-message">{{ member.message }}</p>
+            </div>
           </div>
-          <p class="member-name">{{ member.name }}</p>
-          <p class="member-info">{{ member.descr }}</p>
-          <p class="member-message">{{ member.message }}</p>
         </div>
       </div>
     </div>
@@ -98,17 +102,21 @@ export default {
 .member-cards {
   display: flex;
   flex-wrap: wrap;
-  gap: 5px; /* 设置卡片之间的间隔 */
+  gap: 20px; /* 设置卡片之间的间隔 */
 }
 
 .member-card {
-  width: 200px;
-  height: auto;
+  width: 100%; /* 卡片宽度填满父容器 */
+  max-width: 300px; /* 最大宽度为300px */
   background-color: rgb(246, 246, 247);
   border-radius: 8px;
   padding: 20px;
-  text-align: center;
-  margin: 0 auto; /* 确保卡片居中 */
+  margin-bottom: 20px;
+}
+
+.member-info {
+  display: flex;
+  align-items: center;
 }
 
 .member-avatar {
@@ -116,7 +124,7 @@ export default {
   height: 64px;
   border-radius: 50%;
   overflow: hidden;
-  margin: 0 auto 10px;
+  margin-right: 20px; /* 头像与文字之间的间距 */
 }
 
 .member-avatar img {
@@ -125,13 +133,17 @@ export default {
   object-fit: cover;
 }
 
+.member-details {
+  flex: 1; /* 文字部分占据剩余空间 */
+}
+
 .member-name {
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 5px;
 }
 
-.member-info {
+.member-description {
   font-size: 14px;
   color: #666;
   margin-bottom: 5px;
@@ -145,18 +157,29 @@ export default {
 /* 响应式设计 */
 @media (max-width: 768px) {
   .team-group {
-    padding: 0 20px;
+    padding: 0 20px; /* 缩小手机端的左右内边距 */
   }
 
   .member-cards {
-    flex-direction: column;
-    align-items: center;
+    flex-direction: column; /* 手机端改为上下布局 */
+    align-items: center; /* 居中对齐 */
+    gap: 0;
   }
 
   .member-card {
-    width: 100%;
-    max-width: 300px;
-    margin: 10px 0; /* 确保卡片上下有间隔 */
+    width: 100%; /* 卡片宽度填满父容器 */
+    max-width: 100%; /* 最大宽度为100% */
+  }
+
+  .member-info {
+    flex-direction: row; /* 手机端改为左右布局 */
+    justify-content: flex-start; /* 左对齐 */
+    align-items: center; /* 居中对齐 */
+  }
+
+  .member-avatar {
+    margin-right: 20px; /* 调整头像与文字之间的间距 */
+    margin-bottom: 0; /* 取消下方间距 */
   }
 }
 
