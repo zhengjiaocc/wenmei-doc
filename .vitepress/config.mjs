@@ -70,13 +70,20 @@ export default defineConfig({
       { text: '小说', link: '/docs/lib/novel.md' },
       { text: '负是非', link: '/docs/info/author' },
       { text: '留言板', link: '/docs/info/message' },
+      {text:'文档库',items:[
+        { text: '初绽瞬间', link: '/docs/lib/first' },
+        { text: '重复之章', link: '/docs/lib/count' },
+        { text: '巅峰角逐', link: '/docs/lib/sort' },
+        { text: '岁月流年', link: '/docs/lib/fleeting' },
+        { text: '角色尺度大公开', link: '/docs/lib/reveal' }
+      ]},
       {
         text: '关于',
         items: [
           { text: '关于我们', link: '/docs/info/about' },
           { text: '团队成员', link: '/docs/info/team' },
           { text: '访问日志', link: '/docs/logs/visit' },
-          { text: '更新日志', link: '/docs/logs/update' },
+          // { text: '更新日志', link: '/docs/logs/update' },
         ],
       },
     ],
@@ -90,9 +97,9 @@ export default defineConfig({
       `,
       copyright: "Copyright © 2024-present ZhangHanXiao",
     },
-    socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' },
-    ],
+    // socialLinks: [
+    //   { icon: 'github', link: 'https://github.com/vuejs/vitepress' },
+    // ],
     // 合并自动生成的侧边栏和手动配置的侧边栏项
     sidebar: [
       {
