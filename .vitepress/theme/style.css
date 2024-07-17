@@ -151,7 +151,7 @@
 /* 滑块样式 */
 ::-webkit-scrollbar-thumb {
   background-color: rgb(61, 61, 63,0.2); /* 初始时灰色 */
-  border-radius: 5px; /* 滑块的圆角 */
+  border-radius: none; /* 滑块的圆角 */
   min-height: 90px; /* 滑块最小高度为90px */
 }
 

@@ -33,6 +33,13 @@ const members = [
     links: [
     ],
   },
+      {
+    avatar: 'https://pic.imgdb.cn/item/64a27f5d1ddac507ccc88b2b.jpg',
+    name: '张涵筱',
+    title: '本站技术支持',
+    links: [
+    ],
+  },
 ]
 </script>
 
