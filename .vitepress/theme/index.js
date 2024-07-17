@@ -9,6 +9,7 @@ import CommentForChapter from './components/CommentForChapter.vue'
 import Danmaku from './components/Danmaku.vue'
 import Visit from './components/Visit.vue'
 import "vitepress-markdown-timeline/dist/theme/index.css";
+import './style/index.css'
 /** @type {import('vitepress').Theme} */
 
 DefaultTheme.enhanceApp = ({ app, router, siteData }) => {
