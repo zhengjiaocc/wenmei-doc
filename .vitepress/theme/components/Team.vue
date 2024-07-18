@@ -3,7 +3,7 @@
     <!-- 页面顶部标题 -->
     <h1 class="team-title">我们</h1>
     <!-- 标题下方描述 -->
-    <p class="team-description">这是我们团队的小伙伴</p>
+    <p class="team-description">这是我们缘盟的小伙伴</p>
 
     <!-- 分组显示成员列表 -->
     <div
