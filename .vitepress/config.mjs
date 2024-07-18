@@ -110,10 +110,6 @@ export default defineConfig({
       `,
       copyright: "Copyright © 2024-present ZhangHanXiao",
     },
-    // socialLinks: [
-    //   { icon: 'github', link: 'https://github.com/vuejs/vitepress' },
-    // ],
-    // 合并自动生成的侧边栏和手动配置的侧边栏项
     sidebar: [
       {
         text: '相关',
