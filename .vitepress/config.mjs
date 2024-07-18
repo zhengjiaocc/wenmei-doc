@@ -76,7 +76,19 @@ export default defineConfig({
         { text: '重复之章', link: '/docs/lib/count' },
         { text: '巅峰角逐', link: '/docs/lib/sort' },
         { text: '岁月流年', link: '/docs/lib/fleeting' },
-        { text: '角色尺度大公开', link: '/docs/lib/reveal' }
+        { text: '角色尺度大公开', link: '/docs/lib/reveal' },
+        {
+          text: '角色档案',
+          items: [
+            { text: '楚缘', link: '/docs/lib/role-doc/chuyaun.md' },
+            { text: '萧一可', link: '/docs/lib/role-doc/xiaoyike.md' },
+            { text: '东方怜人', link: '/docs/lib/role-doc/dongfanglianren.md' },
+            { text: '楚南', link: '/docs/lib/role-doc/chunan.md' },
+            { text: '程流苏', link: '/docs/lib/role-doc/chengliusu.md' },
+            { text: '舒童', link: '/docs/lib/role-doc/sutong.md' },
+            { text: '冬小夜', link: '/docs/lib/role-doc/dongxiaoye.md' },
+          ],
+        },
       ]},
       {
         text: '关于',
@@ -137,9 +149,9 @@ export default defineConfig({
             collapsed: true,
             items: [
               { text: '楚缘', link: '/docs/lib/role-doc/chuyaun.md' },
-              { text: '楚南', link: '/docs/lib/role-doc/chunan.md' },
               { text: '萧一可', link: '/docs/lib/role-doc/xiaoyike.md' },
               { text: '东方怜人', link: '/docs/lib/role-doc/dongfanglianren.md' },
+              { text: '楚南', link: '/docs/lib/role-doc/chunan.md' },
               { text: '程流苏', link: '/docs/lib/role-doc/chengliusu.md' },
               { text: '舒童', link: '/docs/lib/role-doc/sutong.md' },
               { text: '冬小夜', link: '/docs/lib/role-doc/dongxiaoye.md' },
