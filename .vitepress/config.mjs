@@ -65,7 +65,7 @@ export default defineConfig({
       label: '当前页'
     },
 
-    logo: "https://pic.imgdb.cn/item/668fcf90d9c307b7e9673766.png",
+    // logo: "https://pic.imgdb.cn/item/668fcf90d9c307b7e9673766.png",
     nav: [
       { text: '主页', link: '/' },
       { text: '小说', link: '/docs/lib/novel.md' },
