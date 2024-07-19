@@ -10,12 +10,12 @@ export default defineConfig({
       {},
       `
        window._hmt = window._hmt || [];
-      (function() {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?9045a9c5999b1ce9303cf5d12526fcd4";
-        var s = document.getElementsByTagName("script")[0]; 
-        s.parentNode.insertBefore(hm, s);
-      })();
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?acd847b2e01021519b2f9bd6ed5c7611";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+        })();
       `,
     ],
 
