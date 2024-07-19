@@ -26,7 +26,7 @@ export default defineConfig({
 
   
   appearance: false, // 默认配置，可以切换
-  title: "问题妹妹恋上我——负是非",
+  title: "问题妹妹恋上我",
   description: "欢迎来到问妹文档站，这是一个专注于小说《问题妹妹恋上我》的网站，在这里你可以在线看小说，查阅问妹相关资料",
   themeConfig: {
 
