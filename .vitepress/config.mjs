@@ -1,5 +1,5 @@
 import { defineConfig } from 'vitepress';
-import timeline from "vitepress-markdown-timeline"; 
+import timeline from "vitepress-markdown-timeline";
 export default defineConfig({
   base: "/",
   head: [
@@ -12,7 +12,7 @@ export default defineConfig({
        window._hmt = window._hmt || [];
       (function() {
         var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?9045a9c5999b1ce9303cf5d12526fcd4";
+        hm.src = "https://hm.baidu.com/hm.js?acd847b2e01021519b2f9bd6ed5c7611";
         var s = document.getElementsByTagName("script")[0]; 
         s.parentNode.insertBefore(hm, s);
       })();
@@ -24,7 +24,7 @@ export default defineConfig({
     hostname: 'https://www.wtmmlsw.cn'
   },
 
-  
+
   appearance: false, // 默认配置，可以切换
   title: "问题妹妹恋上我",
   description: "欢迎来到问妹文档站，这是一个专注于小说《问题妹妹恋上我》的网站，在这里你可以在线看小说，查阅问妹相关资料",
@@ -71,25 +71,27 @@ export default defineConfig({
       { text: '小说', link: '/docs/lib/novel.md' },
       { text: '负是非', link: '/docs/info/author' },
       { text: '留言板', link: '/docs/info/message' },
-      {text:'文档库',items:[
-        { text: '初绽瞬间', link: '/docs/lib/first' },
-        { text: '重复之章', link: '/docs/lib/count' },
-        { text: '巅峰角逐', link: '/docs/lib/sort' },
-        { text: '岁月流年', link: '/docs/lib/fleeting' },
-        { text: '角色尺度大公开', link: '/docs/lib/reveal' },
-        {
-          text: '角色档案',
-          items: [
-            { text: '楚缘', link: '/docs/lib/role-doc/chuyaun.md' },
-            { text: '萧一可', link: '/docs/lib/role-doc/xiaoyike.md' },
-            { text: '东方怜人', link: '/docs/lib/role-doc/dongfanglianren.md' },
-            { text: '楚南', link: '/docs/lib/role-doc/chunan.md' },
-            { text: '程流苏', link: '/docs/lib/role-doc/chengliusu.md' },
-            { text: '舒童', link: '/docs/lib/role-doc/sutong.md' },
-            { text: '冬小夜', link: '/docs/lib/role-doc/dongxiaoye.md' },
-          ],
-        },
-      ]},
+      {
+        text: '文档库', items: [
+          { text: '初绽瞬间', link: '/docs/lib/first' },
+          { text: '重复之章', link: '/docs/lib/count' },
+          { text: '巅峰角逐', link: '/docs/lib/sort' },
+          { text: '岁月流年', link: '/docs/lib/fleeting' },
+          { text: '角色尺度大公开', link: '/docs/lib/reveal' },
+          {
+            text: '角色档案',
+            items: [
+              { text: '楚缘', link: '/docs/lib/role-doc/chuyaun.md' },
+              { text: '萧一可', link: '/docs/lib/role-doc/xiaoyike.md' },
+              { text: '东方怜人', link: '/docs/lib/role-doc/dongfanglianren.md' },
+              { text: '楚南', link: '/docs/lib/role-doc/chunan.md' },
+              { text: '程流苏', link: '/docs/lib/role-doc/chengliusu.md' },
+              { text: '舒童', link: '/docs/lib/role-doc/sutong.md' },
+              { text: '冬小夜', link: '/docs/lib/role-doc/dongxiaoye.md' },
+            ],
+          },
+        ]
+      },
       {
         text: '关于',
         items: [
