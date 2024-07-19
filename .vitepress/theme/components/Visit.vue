@@ -2,12 +2,37 @@
   <div class="statistics">
     <div class="header">网站数据概况</div>
     <div class="data">
-      <p><span class="label">今日访问人数:</span> <span class="value">{{ todayVisitors }}</span></p>
-      <p><span class="label">今日访问量:</span> <span class="value">{{ todayVisits }}</span></p>
-      <p><span class="label">昨日访问人数:</span> <span class="value">{{ yesterdayVisitors }}</span></p>
-      <p><span class="label">昨日访问量:</span> <span class="value">{{ yesterdayVisits }}</span></p>
-      <p><span class="label">本月访问量:</span> <span class="value">{{ monthlyVisits }}</span></p>
-      <p><span class="label">总访问量:</span> <span class="value">{{ totalVisits }}</span></p>
+      <p>
+        <span class="label">今日访问人数:</span>
+        <span class="value">{{ todayVisitors }}</span>
+      </p>
+      <p>
+        <span class="label">昨日访问人数:</span>
+        <span class="value">{{ yesterdayVisitors }}</span>
+      </p>
+      <p>
+        <span class="label">总访问人数:</span>
+        <span class="value">{{ totalVisitors }}</span>
+      </p>
+      <!-- 新增总访问人数显示 -->
+      <p>
+        <span class="label">今日访问量:</span>
+        <span class="value">{{ todayVisits }}</span>
+      </p>
+
+      <p>
+        <span class="label">昨日访问量:</span>
+        <span class="value">{{ yesterdayVisits }}</span>
+      </p>
+      <p>
+        <span class="label">本月访问量:</span>
+        <span class="value">{{ monthlyVisits }}</span>
+      </p>
+      <p>
+        <span class="label">总访问量:</span>
+        <span class="value">{{ totalVisits }}</span>
+      </p>
+
       <div v-if="loading" class="loading-message">数据加载中...</div>
     </div>
     <div v-if="error" class="error-message">数据加载失败 请稍后重试</div>
@@ -17,8 +42,9 @@
   </div>
 </template>
 
+
 <script>
-import axios from 'axios';
+import axios from "axios";
 
 export default {
   data() {
@@ -30,7 +56,8 @@ export default {
       yesterdayVisitors: 0,
       yesterdayVisits: 0,
       monthlyVisits: 0,
-      totalVisits: 0
+      totalVisits: 0,
+      totalVisitors: 0, // 新增总访问人数数据
     };
   },
   mounted() {
@@ -40,24 +67,28 @@ export default {
   methods: {
     async fetchStatistics() {
       try {
-        const response = await axios.get('https://tj.zhengjiao.cc/proxy/baidu/base');
+        const response = await axios.get(
+          "https://tj.zhengjiao.cc/proxy/baidu/base"
+        );
         const data = response.data;
-        this.todayVisitors = data['今日访问人数'];
-        this.todayVisits = data['今日访问量'];
-        this.yesterdayVisitors = data['昨日访问人数'];
-        this.yesterdayVisits = data['昨日访问量'];
-        this.monthlyVisits = data['本月访问量'];
-        this.totalVisits = data['总访问量'];
+        this.todayVisitors = data["今日访问人数"];
+        this.todayVisits = data["今日访问量"];
+        this.yesterdayVisitors = data["昨日访问人数"];
+        this.yesterdayVisits = data["昨日访问量"];
+        this.monthlyVisits = data["本月访问量"];
+        this.totalVisits = data["总访问量"];
+        this.totalVisitors = data["总访问人数"]; // 获取总访问人数数据
         this.loading = false; // 数据加载完成，显示数据
       } catch (error) {
-        console.error('获取统计数据失败:', error);
+        console.error("获取统计数据失败:", error);
         this.error = true; // 显示错误消息
         this.loading = false; // 停止加载状态
       }
-    }
-  }
+    },
+  },
 };
 </script>
+
 
 <style scoped>
 .statistics {
@@ -66,7 +97,7 @@ export default {
   font-family: Arial, sans-serif;
   width: 100%;
   padding: 10px;
-  height: 307px;
+  height: 335px;
   position: relative; /* 设置相对定位 */
 }
 
@@ -118,10 +149,11 @@ export default {
 .footer p {
   margin: 0;
   margin: 0 10px;
-border-top: 1px solid rgba(128, 128, 128, 0.656);
+  border-top: 1px solid rgba(128, 128, 128, 0.656);
 }
 
 .header {
   font-weight: bold;
 }
 </style>
+
