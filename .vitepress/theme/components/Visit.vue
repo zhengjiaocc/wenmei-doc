@@ -10,11 +10,7 @@
         <span class="label">昨日访问人数:</span>
         <span class="value">{{ yesterdayVisitors }}</span>
       </p>
-      <p>
-        <span class="label">总访问人数:</span>
-        <span class="value">{{ totalVisitors }}</span>
-      </p>
-      <!-- 新增总访问人数显示 -->
+
       <p>
         <span class="label">今日访问量:</span>
         <span class="value">{{ todayVisits }}</span>
@@ -28,10 +24,16 @@
         <span class="label">本月访问量:</span>
         <span class="value">{{ monthlyVisits }}</span>
       </p>
+
       <p>
         <span class="label">总访问量:</span>
         <span class="value">{{ totalVisits }}</span>
       </p>
+      <p>
+        <span class="label">总访问人数:</span>
+        <span class="value">{{ totalVisitors }}</span>
+      </p>
+      <!-- 新增总访问人数显示 -->
 
       <div v-if="loading" class="loading-message">数据加载中...</div>
     </div>
