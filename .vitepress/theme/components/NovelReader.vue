@@ -1,5 +1,5 @@
 <template>
-  <div class="novel-reader-container" >
+  <div class="novel-reader-container">
     <Danmaku v-if="danmakuVisible" :key="currentChapter.id" />
     <div class="novel-reader">
       <!-- 顶部状态栏 -->
@@ -72,6 +72,13 @@
             >PS</span
           >
           <span v-else>PS</span>
+        </button>
+        <!-- 添加弹幕按钮 -->
+        <button @click="toggleDanmakuVisibility" class="toolbar-button">
+          <span v-if="!danmakuVisible" style="text-decoration: line-through"
+            >弹幕</span
+          >
+          <span v-else>弹幕</span>
         </button>
       </div>
 
@@ -430,6 +437,10 @@ export default {
       ) {
         this.settingsVisible = false;
       }
+    },
+        toggleDanmakuVisibility() {
+      this.danmakuVisible = !this.danmakuVisible;
+      console.log("弹幕显示状态切换:", this.danmakuVisible);
     },
   },
 
