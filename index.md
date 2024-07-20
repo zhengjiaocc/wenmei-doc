@@ -5,7 +5,7 @@ layout: home
 hero:
   name: "问题妹妹恋上我"
   text: "文档站"
-  tagline: 十年连载，深情陪伴，即将完结...
+  tagline: 十年连载，深情陪伴
   image:
       src: https://pic.imgdb.cn/item/668fd187d9c307b7e96be06a.png
       alt: 问题妹妹恋上我
