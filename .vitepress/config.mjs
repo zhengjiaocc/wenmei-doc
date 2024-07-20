@@ -95,8 +95,8 @@ export default defineConfig({
         items: [
           { text: '关于我们', link: '/docs/info/about' },
           { text: '团队成员', link: '/docs/info/team' },
-          { text: '访问日志', link: '/docs/logs/visit' },
-          // { text: '更新日志', link: '/docs/logs/update' },
+          // { text: '访问日志', link: '/docs/logs/visit' },
+          { text: '更新日志', link: '/docs/logs/update' },
         ],
       },
     ],
