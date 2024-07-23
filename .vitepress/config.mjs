@@ -101,13 +101,13 @@ export default defineConfig({
       },
     ],
     footer: {
-      message: `
-        <a href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral" style="text-decoration: none; display: inline-flex; align-items: center;">
-          <span>本站由</span>
-          <img src="https://pic.imgdb.cn/item/668fce43d9c307b7e96429a9.png" width="60" style="margin: 0 5px;">
-          <span>提供加速服务</span>
-        </a>
-      `,
+      // message: `
+      //   <a href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral" style="text-decoration: none; display: inline-flex; align-items: center;">
+      //     <span>本站由</span>
+      //     <img src="https://pic.imgdb.cn/item/668fce43d9c307b7e96429a9.png" width="60" style="margin: 0 5px;">
+      //     <span>提供加速服务</span>
+      //   </a>
+      // `,
       copyright: "Copyright © 2024-present ZhangHanXiao",
     },
     sidebar: [
