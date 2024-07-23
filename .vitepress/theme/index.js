@@ -22,9 +22,6 @@ DefaultTheme.enhanceApp = ({ app, router, siteData }) => {
       _hmt.push(['_trackPageview', to]);
     }
 
-    if (window.TWIKOO_MAGIC_PATH !='undefined') {
-      window.TWIKOO_MAGIC_PATH = null;
-    }
 
   };
 };
