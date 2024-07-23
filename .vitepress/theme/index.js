@@ -21,6 +21,11 @@ DefaultTheme.enhanceApp = ({ app, router, siteData }) => {
     if (typeof _hmt !== 'undefined') {
       _hmt.push(['_trackPageview', to]);
     }
+
+    if (window.TWIKOO_MAGIC_PATH !='undefined') {
+      window.TWIKOO_MAGIC_PATH = null;
+    }
+
   };
 };
 
@@ -39,8 +44,8 @@ export default {
     app.component('CommentForChapter', CommentForChapter)
     app.component('Danmaku', Danmaku)
     app.component('Visit', Visit)
-    app.component('Team',Team)
-    app.component('RoleDoc',RoleDoc)
+    app.component('Team', Team)
+    app.component('RoleDoc', RoleDoc)
 
   }
 }

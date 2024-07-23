@@ -91,6 +91,14 @@ export default defineConfig({
         },
       ]},
       {
+        text: '资源库',
+        collapsible: true,
+        collapsed: true,
+        items: [
+          { text: '相关资源', link: '/docs/resources/resources.md' },
+        ],
+      },
+      {
         text: '关于',
         items: [
           { text: '关于我们', link: '/docs/info/about' },
@@ -161,14 +169,12 @@ export default defineConfig({
 
         ],
       },
-      // 自动生成的小说章节侧边栏项
       {
         text: '资源库',
         collapsible: true,
         collapsed: true,
         items: [
           { text: '相关资源', link: '/docs/resources/resources.md' },
-          { text: '在线阅读', link: '/docs/lib/novel.md' },
         ],
       },
 

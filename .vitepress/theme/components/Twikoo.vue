@@ -7,6 +7,7 @@ const twikooJs = ref(null)
 const router = useRouter()
 
 function initTwikoo () {
+  
   try {
     twikoo.init({
       envId,
