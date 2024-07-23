@@ -16,7 +16,9 @@ import './style/index.css'
 
 DefaultTheme.enhanceApp = ({ app, router, siteData }) => {
   router.onBeforeRouteChange = (to) => {
+    window.TWIKOO_MAGIC_PATH =null;
     console.log('路由将改变为: ', to);
+
     if (typeof _hmt !== 'undefined') {
       _hmt.push(['_trackPageview', to]);
     }
