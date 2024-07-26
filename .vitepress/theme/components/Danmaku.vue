@@ -38,7 +38,7 @@ export default {
         let data;
         if (true) {
           console.log("开始从服务器获取数据");
-          const response = await fetch("https://twikoo-wm.zhengjiao.cc/", {
+          const response = await fetch("https://zhengjiao-wtmmlsw-twikoo.hf.space", {
             method: "POST",
             body: JSON.stringify({
               event: "COMMENT_GET",

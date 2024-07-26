@@ -350,7 +350,7 @@ export default {
     // 获取评论数量方法
     async getCommentsCount() {
       try {
-        const response = await fetch("https://twikoo-wm.zhengjiao.cc/", {
+        const response = await fetch("https://zhengjiao-wtmmlsw-twikoo.hf.space", {
           method: "POST",
           body: JSON.stringify({
             event: "COMMENT_GET",
@@ -375,7 +375,7 @@ export default {
       const fetchCommentCount = async (chapterIndex) => {
         if (chapterIndex >= 0 && chapterIndex < this.chapters.length) {
           const chapter = this.chapters[chapterIndex];
-          const response = await fetch("https://twikoo-wm.zhengjiao.cc/", {
+          const response = await fetch("https://zhengjiao-wtmmlsw-twikoo.hf.space", {
             method: "POST",
             body: JSON.stringify({
               event: "COMMENT_GET",
