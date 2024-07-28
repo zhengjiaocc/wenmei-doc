@@ -17,6 +17,10 @@ hero:
       text: 缘盟
       link: /docs/info/link
     - theme: alt
+      text: 重大实记
+      link: /docs/info/record
+    
+    - theme: alt
       text: 经典语录
       link: /docs/lib/echoes/cy
     - theme: alt
