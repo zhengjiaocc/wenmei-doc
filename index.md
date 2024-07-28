@@ -17,9 +17,6 @@ hero:
       text: 缘盟
       link: /docs/info/link
     - theme: alt
-      text: 小说
-      link: /docs/lib/novel
-    - theme: alt
       text: 经典语录
       link: /docs/lib/echoes/cy
     - theme: alt
