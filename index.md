@@ -18,7 +18,7 @@ hero:
       link: /docs/info/link
     - theme: alt
       text: 小说
-      link: /docs/info/novel
+      link: /docs/lib/novel
     
     - theme: alt
       text: 经典语录
