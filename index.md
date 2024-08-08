@@ -17,8 +17,8 @@ hero:
       text: 缘盟
       link: /docs/info/link
     - theme: alt
-      text: 重大事记
-      link: /docs/info/record
+      text: 小说
+      link: /docs/info/novel
     
     - theme: alt
       text: 经典语录
