@@ -21,5 +21,19 @@ title: 资源
    - *制作：AE托尼斯塔克*
    - *整理：妹萝控*
 
-## 最后修改：2024/07/23
+<hr>
+
+## 友链
+<br/>
+
+<div class="linkcard">
+  <a href="http://meimei.1818.site/" target="_blank">
+    <p class="description">粉丝早期自制小说网站，同步妹妹更新<br><span>http://meimei.1818.site/</span></p>
+    <div class="logo">
+        <!-- <img alt="Logo" width="70px" height="70px" src="https://vitepress.yiov.top/logo.png" /> -->
+    </div>
+  </a>
+</div>
+
+## 最后修改：2024/08/15
 ---

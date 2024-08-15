@@ -1,3 +1,5 @@
 /* index.css */
 @import './timeline.css';
 @import './var.css';
+/* .vitepress\theme\style\index.css */
+@import './linkcard.css';
