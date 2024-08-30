@@ -60,9 +60,7 @@
 
       <!-- 竖向工具栏（仅在电脑端显示） -->
       <div class="vertical-toolbar" v-if="isDesktop">
-        <button @click="toggleDrawer('catalog')" class="toolbar-button">
-          目录
-        </button>
+        <button @click="toggleDrawer('catalog')" class="toolbar-button">目录 </button>
         <button @click="scrollToTop" class="toolbar-button">顶部</button>
         <button @click="scrollToBottom" class="toolbar-button">底部</button>
         <button @click="prevChapter" class="toolbar-button">上一章</button>
@@ -625,6 +623,7 @@ export default {
   bottom: 40px;
   width: 25%;
   max-width: 100vw;
+  min-width: 390px;
   background-color: rgb(250, 250, 250);
   box-shadow: 4px 0 8px rgba(0, 0, 0, 0.1);
   transform: translateX(-100%);
