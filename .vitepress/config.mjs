@@ -91,7 +91,7 @@ export default defineConfig({
         },
       ]},
       {
-        text: '资源库',
+        text: '资源/反馈',
         collapsible: true,
         collapsed: true,
         items: [
@@ -170,7 +170,7 @@ export default defineConfig({
         ],
       },
       {
-        text: '资源库',
+        text: '资源/反馈',
         collapsible: true,
         collapsed: true,
         items: [
