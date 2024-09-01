@@ -1,12 +1,27 @@
 ---
 title: 资源
 ---
+
+# Bug反馈、建议
+
+<br>
+<div class="linkcard">
+  <a href="https://docs.qq.com/sheet/DRVN0U3hreEthbEp3?tab=BB08J2" target="_blank">
+    <p class="description">点击填写腾讯文档<br><span>【腾讯文档】bug反馈</span></p>
+    <div class="logo">
+        <img alt="Logo" width="70px" height="70px" src="https://vitepress.yiov.top/logo.png" />
+    </div>
+  </a>
+</div>
+<br>
+
+
 # 相关资源
 
 ## 1. 小说
 
-- **《问题妹妹恋上我》全集(1-1880)**
-  - [本站下载链接](/resources/问题妹妹恋上我1-1880(精校附加PS).zip)（点击即可下载）
+- **《问题妹妹恋上我》全集(1-1900)**
+  - [本站下载链接](/resources/问题妹妹恋上我1-1900(精校附加PS).zip)（点击即可下载）
   - **注意**：百度网盘链接及备用链接已失效，请直接使用本站提供的下载链接。
 
 ## 2. 人物关系图
