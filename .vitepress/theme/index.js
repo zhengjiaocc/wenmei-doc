@@ -9,7 +9,6 @@ import CommentForChapter from './components/CommentForChapter.vue'
 import Danmaku from './components/Danmaku.vue'
 import Visit from './components/Visit.vue'
 import Team from './components/Team.vue'
-import RoleDoc from './components/RoleDoc.vue'
 import confetti from "./components/confetti.vue"
 import "vitepress-markdown-timeline/dist/theme/index.css";
 import './style/index.css'
@@ -43,7 +42,6 @@ export default {
     app.component('Danmaku', Danmaku)
     app.component('Visit', Visit)
     app.component('Team', Team)
-    app.component('RoleDoc', RoleDoc)
     app.component('confetti' , confetti)
 
   }
