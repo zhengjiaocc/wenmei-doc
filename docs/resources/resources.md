@@ -2,6 +2,11 @@
 title: 资源
 ---
 
+::: warning 重要通知
+我们已经增加速域名 [https://wm.zhengjiao.cc](https://wm.zhengjiao.cc/)<br>
+若您通过域名[https://wtmmlsw.cn](https://wtmmlsw.cn/)访问网站遇缓慢、卡顿，请使用 [加速域名](https://wm.zhengjiao.cc/)访问
+:::
+
 # Bug反馈、建议
 
 <br>
@@ -14,6 +19,7 @@ title: 资源
   </a>
 </div>
 <br>
+
 
 
 # 相关资源
