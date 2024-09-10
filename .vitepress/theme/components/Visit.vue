@@ -70,7 +70,7 @@ export default {
     async fetchStatistics() {
       try {
         const response = await axios.get(
-          "https://152.32.210.227:10002/proxy/baidu/base"
+          "http://tj.zhengjiao.cc:10002/proxy/baidu/base"
         );
         const data = response.data;
         this.todayVisitors = data["今日访问人数"];
