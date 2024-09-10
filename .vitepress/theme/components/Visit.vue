@@ -69,10 +69,9 @@ export default {
   methods: {
     async fetchStatistics() {
       try {
-        /*const response = await axios.get(
-          "https://tj.zhengjiao.cc/proxy/baidu/base"
+        const response = await axios.get(
+          "http://152.32.210.227:10002/proxy/baidu/base"
         );
-        */
         const data = response.data;
         this.todayVisitors = data["今日访问人数"];
         this.todayVisits = data["今日访问量"];
