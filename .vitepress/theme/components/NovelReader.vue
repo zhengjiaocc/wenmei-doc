@@ -323,7 +323,7 @@ export default {
     },
     updateTwikooMagicPath() {
       if (this.currentChapter) {
-        window.TWIKOO_MAGIC_PATH = "chapter" + this.currentChapter.id;
+        window.TWIKOO_MAGIC_PATH = "/lib/novel.html?chapter=" + this.currentChapter.id;
         console.log("更新 Twikoo 路径:", window.TWIKOO_MAGIC_PATH);
       }
     },
