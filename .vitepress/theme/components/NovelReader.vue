@@ -444,12 +444,46 @@ export default {
 
   mounted() {
     this.isDesktop = window.innerWidth >= 1024;
-    this.loadSavedChapterIndex(); // 组件加载时加载保存的阅读进度
+    
+    // 输出当前是否为桌面端
+    console.log("是否为桌面端:", this.isDesktop);
+    
+    // 获取 URL 中的查询参数
+    const urlParams = new URLSearchParams(window.location.search);
+    const chapterParam = urlParams.get("chapter");
+    
+    if (chapterParam) {
+        console.log("URL 中检测到 chapter 参数:", chapterParam);
+        
+        // 查找对应的章节索引
+        const chapterIndex = this.chapters.findIndex(chapter => chapter.id === parseInt(chapterParam));
+        
+        if (chapterIndex !== -1) {
+            console.log("找到章节 ID 对应的索引:", chapterIndex);
+            this.currentChapterIndex = chapterIndex;
+            this.scrollToTop();  // 跳转后滚动到页面顶部
+            console.log("跳转到章节顶部");
+            this.updateTwikooMagicPath();  // 更新 Twikoo 路径
+            console.log("更新 Twikoo 路径为:", window.TWIKOO_MAGIC_PATH);
+            this.getCommentsCount();  // 获取评论数量
+            console.log("获取当前章节的评论数量");
+        } else {
+            console.log("未找到对应的章节，保持当前章节索引:", this.currentChapterIndex);
+        }
+    } else {
+        console.log("URL 中未检测到 chapter 参数，尝试从本地存储加载阅读进度");
+        // 如果不存在 chapter 参数，则从本地存储加载保存的阅读进度
+        this.loadSavedChapterIndex();
+        console.log("已从本地存储加载章节索引:", this.currentChapterIndex);
+    }
+
     window.addEventListener("scroll", this.handleScroll);
     window.addEventListener("keyup", this.handleKeyUp);
     document.addEventListener("click", this.handleClickOutside);
     this.loadPsVisibility();
+    console.log("加载 PS 显示状态:", this.psVisible);
     this.getCommentsCount();
+    console.log("初次获取评论数量完成");
   },
   beforeDestroy() {
     window.removeEventListener("scroll", this.handleScroll);
