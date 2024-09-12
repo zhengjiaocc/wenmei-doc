@@ -488,6 +488,17 @@ export default {
         this.scrollToTop(); // 跳转后滚动到页面顶部
         this.updateTwikooMagicPath(); // 更新 Twikoo 路径
         this.getCommentsCount(); // 获取评论数量
+
+        // 加载时修改 URL
+        history.pushState(
+          null,
+          "",
+          `/docs/lib/novel.html?index=${this.currentChapter.id}`
+        );
+        console.log(
+          "URL 已更新为:",
+          `/docs/lib/novel.html?index=${this.currentChapter.id}`
+        );
       } else {
         console.log(
           "未找到对应的章节，保持当前章节索引:",
@@ -495,7 +506,19 @@ export default {
         );
       }
     } else {
+      // 如果 URL 中没有 chapter 参数，从本地存储加载章节索引
       this.loadSavedChapterIndex();
+
+      // 加载时修改 URL
+      history.pushState(
+        null,
+        "",
+        `/docs/lib/novel.html?index=${this.currentChapter.id}`
+      );
+      console.log(
+        "URL 已更新为:",
+        `/docs/lib/novel.html?index=${this.currentChapter.id}`
+      );
     }
 
     window.addEventListener("scroll", this.handleScroll);
