@@ -323,7 +323,7 @@ export default {
     },
     updateTwikooMagicPath() {
       if (this.currentChapter) {
-        window.TWIKOO_MAGIC_PATH = "/docs/lib/novel.html?chapter=" + this.currentChapter.id;
+        window.TWIKOO_MAGIC_PATH = "/docs/lib/novel.html?index=" + this.currentChapter.id;
         console.log("更新 Twikoo 路径:", window.TWIKOO_MAGIC_PATH);
       }
     },
@@ -450,10 +450,10 @@ export default {
     
     // 获取 URL 中的查询参数
     const urlParams = new URLSearchParams(window.location.search);
-    const chapterParam = urlParams.get("chapter");
+    const chapterParam = urlParams.get("index");
     
     if (chapterParam) {
-        console.log("URL 中检测到 chapter 参数:", chapterParam);
+        console.log("URL 中检测到 index 参数:", chapterParam);
         
         // 查找对应的章节索引
         const chapterIndex = this.chapters.findIndex(chapter => chapter.id === parseInt(chapterParam));
