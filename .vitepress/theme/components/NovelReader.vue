@@ -60,7 +60,9 @@
 
       <!-- 竖向工具栏（仅在电脑端显示） -->
       <div class="vertical-toolbar" v-if="isDesktop">
-        <button @click="toggleDrawer('catalog')" class="toolbar-button">目录 </button>
+        <button @click="toggleDrawer('catalog')" class="toolbar-button">
+          目录
+        </button>
         <button @click="scrollToTop" class="toolbar-button">顶部</button>
         <button @click="scrollToBottom" class="toolbar-button">底部</button>
         <button @click="prevChapter" class="toolbar-button">上一章</button>
@@ -225,20 +227,6 @@ export default {
         return title;
       }
     },
-    prevChapter() {
-      if (this.currentChapterIndex > 0) {
-        this.currentChapterIndex--;
-        this.saveCurrentChapterIndex();
-        this.scrollToTop();
-        this.updateTwikooMagicPath();
-        this.getCommentsCount();
-        this.commentsVisible = false;
-        this.preloadCommentsCount(); // 预加载相邻章节的评论数量
-
-        // 更新相邻章节的评论数量显示
-        this.commentsCount = this.preloadComments[this.currentChapterIndex];
-      }
-    },
     nextChapter() {
       if (this.currentChapterIndex < this.chapters.length - 1) {
         this.currentChapterIndex++;
@@ -247,12 +235,49 @@ export default {
         this.updateTwikooMagicPath();
         this.getCommentsCount();
         this.commentsVisible = false;
-        this.preloadCommentsCount(); // 预加载相邻章节的评论数量
+        this.preloadCommentsCount();
 
         // 更新相邻章节的评论数量显示
         this.commentsCount = this.preloadComments[this.currentChapterIndex];
+
+        // 修改 URL
+        history.pushState(
+          null,
+          "",
+          `/docs/lib/novel.html?index=${this.currentChapter.id}`
+        );
+        console.log(
+          "URL 已更新为:",
+          `/docs/lib/novel.html?index=${this.currentChapter.id}`
+        );
       }
     },
+    prevChapter() {
+      if (this.currentChapterIndex > 0) {
+        this.currentChapterIndex--;
+        this.saveCurrentChapterIndex();
+        this.scrollToTop();
+        this.updateTwikooMagicPath();
+        this.getCommentsCount();
+        this.commentsVisible = false;
+        this.preloadCommentsCount();
+
+        // 更新相邻章节的评论数量显示
+        this.commentsCount = this.preloadComments[this.currentChapterIndex];
+
+        // 修改 URL
+        history.pushState(
+          null,
+          "",
+          `/docs/lib/novel.html?index=${this.currentChapter.id}`
+        );
+        console.log(
+          "URL 已更新为:",
+          `/docs/lib/novel.html?index=${this.currentChapter.id}`
+        );
+      }
+    },
+
     toggleDrawer(drawerName) {
       if (drawerName === "danmaku") {
         this.danmakuVisible = !this.danmakuVisible;
@@ -267,7 +292,7 @@ export default {
       }
     },
     selectChapter(chapter) {
-      this.commentsVisible = false; // 关闭当前章节的评论区
+      this.commentsVisible = false;
 
       this.currentChapterIndex = this.chapters.findIndex(
         (ch) => ch.id === chapter.id
@@ -279,9 +304,12 @@ export default {
       this.updateTwikooMagicPath();
       this.getCommentsCount();
       this.commentsVisible = false;
-      this.preloadCommentsCount(); // 预加载相邻章节的评论数量
-    },
+      this.preloadCommentsCount();
 
+      // 修改 URL
+      history.pushState(null, "", `/docs/lib/novel.html?index=${chapter.id}`);
+      console.log("URL 已更新为:", `/docs/lib/novel.html?index=${chapter.id}`);
+    },
     scrollToBottom() {
       // 获取评论区域的 DOM 元素
       const commentContainer = document.querySelector(".comment-container");
@@ -323,7 +351,8 @@ export default {
     },
     updateTwikooMagicPath() {
       if (this.currentChapter) {
-        window.TWIKOO_MAGIC_PATH = "/docs/lib/novel.html?index=" + this.currentChapter.id;
+        window.TWIKOO_MAGIC_PATH =
+          "/docs/lib/novel.html?index=" + this.currentChapter.id;
         console.log("更新 Twikoo 路径:", window.TWIKOO_MAGIC_PATH);
       }
     },
@@ -436,7 +465,7 @@ export default {
         this.settingsVisible = false;
       }
     },
-        toggleDanmakuVisibility() {
+    toggleDanmakuVisibility() {
       this.danmakuVisible = !this.danmakuVisible;
       console.log("弹幕显示状态切换:", this.danmakuVisible);
     },
@@ -444,46 +473,36 @@ export default {
 
   mounted() {
     this.isDesktop = window.innerWidth >= 1024;
-    
-    // 输出当前是否为桌面端
-    console.log("是否为桌面端:", this.isDesktop);
-    
+
     // 获取 URL 中的查询参数
     const urlParams = new URLSearchParams(window.location.search);
     const chapterParam = urlParams.get("index");
-    
+
     if (chapterParam) {
-        console.log("URL 中检测到 index 参数:", chapterParam);
-        
-        // 查找对应的章节索引
-        const chapterIndex = this.chapters.findIndex(chapter => chapter.id === parseInt(chapterParam));
-        
-        if (chapterIndex !== -1) {
-            console.log("找到章节 ID 对应的索引:", chapterIndex);
-            this.currentChapterIndex = chapterIndex;
-            this.scrollToTop();  // 跳转后滚动到页面顶部
-            console.log("跳转到章节顶部");
-            this.updateTwikooMagicPath();  // 更新 Twikoo 路径
-            console.log("更新 Twikoo 路径为:", window.TWIKOO_MAGIC_PATH);
-            this.getCommentsCount();  // 获取评论数量
-            console.log("获取当前章节的评论数量");
-        } else {
-            console.log("未找到对应的章节，保持当前章节索引:", this.currentChapterIndex);
-        }
+      const chapterIndex = this.chapters.findIndex(
+        (chapter) => chapter.id === parseInt(chapterParam)
+      );
+
+      if (chapterIndex !== -1) {
+        this.currentChapterIndex = chapterIndex;
+        this.scrollToTop(); // 跳转后滚动到页面顶部
+        this.updateTwikooMagicPath(); // 更新 Twikoo 路径
+        this.getCommentsCount(); // 获取评论数量
+      } else {
+        console.log(
+          "未找到对应的章节，保持当前章节索引:",
+          this.currentChapterIndex
+        );
+      }
     } else {
-        console.log("URL 中未检测到 chapter 参数，尝试从本地存储加载阅读进度");
-        // 如果不存在 chapter 参数，则从本地存储加载保存的阅读进度
-        this.loadSavedChapterIndex();
-        console.log("已从本地存储加载章节索引:", this.currentChapterIndex);
+      this.loadSavedChapterIndex();
     }
 
     window.addEventListener("scroll", this.handleScroll);
     window.addEventListener("keyup", this.handleKeyUp);
     document.addEventListener("click", this.handleClickOutside);
     this.loadPsVisibility();
-    console.log("加载 PS 显示状态:", this.psVisible);
     this.getCommentsCount();
-    console.log("初次获取评论数量完成");
   },
   beforeDestroy() {
     window.removeEventListener("scroll", this.handleScroll);
