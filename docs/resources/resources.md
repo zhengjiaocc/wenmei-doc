@@ -61,5 +61,5 @@ title: 资源
   </a>
 </div>
 
-## 最后修改：2024/08/15
+<Twikoo :key="resources" />
 ---

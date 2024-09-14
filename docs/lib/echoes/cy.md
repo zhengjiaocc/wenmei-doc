@@ -47,7 +47,7 @@ description: 问题妹妹恋上我女角色
 
 
 <br>
-<Twikoo/>
+<Twikoo :key="echoes-cy" />
 
 
 
