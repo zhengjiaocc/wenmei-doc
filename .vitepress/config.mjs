@@ -114,7 +114,11 @@ export default defineConfig({
       //     <span>提供加速服务</span>
       //   </a>
       // `,
-      copyright: "Copyright © 2024-present ZhangHanXiao",
+
+
+
+      message: "转载请标明出处",
+      copyright: "Copyright © 2024-缘盟",
     },
     sidebar: [
       {
