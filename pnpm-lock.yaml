@@ -9,7 +9,7 @@ importers:
   .:
     dependencies:
       axios:
-        specifier: ^1.7.7
+        specifier: ^1.7.5
         version: 1.7.7
       canvas-confetti:
         specifier: ^1.9.3
