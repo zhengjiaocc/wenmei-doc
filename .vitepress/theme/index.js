@@ -10,6 +10,7 @@ import Danmaku from './components/Danmaku.vue'
 import Visit from './components/Visit.vue'
 import Team from './components/Team.vue'
 import confetti from "./components/confetti.vue"
+import notice from './components/notice.vue'
 import "vitepress-markdown-timeline/dist/theme/index.css";
 import './style/index.css'
 /** @type {import('vitepress').Theme} */
@@ -28,9 +29,15 @@ DefaultTheme.enhanceApp = ({ app, router, siteData }) => {
 
 export default {
   extends: DefaultTheme,
-  Layout: () => {
+  // Layout: () => {
+  //   return h(DefaultTheme.Layout, null, {
+  //     // https://vitepress.dev/guide/extending-default-theme#layout-slots
+  //   })
+  // },
+
+  Layout() { 
     return h(DefaultTheme.Layout, null, {
-      // https://vitepress.dev/guide/extending-default-theme#layout-slots
+      'layout-top': () => h(notice), // 使用layout-top插槽
     })
   },
   enhanceApp({ app, router, siteData }) {
