@@ -3,7 +3,7 @@ import { ref, onMounted } from 'vue'
 
 // 当前公告的ID
 const currentBulletinId = '2024091901'; // 示例公告ID
-const visible = ref(true);
+const visible = ref(false); // 初始设置为 false，等拿到存储后再决定
 const closeMessage = ref(false); // 控制是否显示关闭提示信息
 
 // 页面加载时执行
@@ -11,9 +11,9 @@ onMounted(() => {
   // 从本地存储获取上次公告ID
   const storedBulletinId = localStorage.getItem('bulletinId');
   
-  // 如果存储的公告ID与当前公告ID一致，则不显示公告
-  if (storedBulletinId === currentBulletinId) {
-    visible.value = false;
+  // 在拿到存储的公告ID后，才决定是否显示公告
+  if (storedBulletinId !== currentBulletinId) {
+    visible.value = true;
   }
 });
 
@@ -27,12 +27,13 @@ function closeBulletin() {
   // 显示关闭提示信息
   closeMessage.value = true;
 
-  // 3秒后自动隐藏提示信息
+  // 6秒后自动隐藏提示信息
   setTimeout(() => {
     closeMessage.value = false;
   }, 6000);
 }
 </script>
+
 
 <template>
   <div>
