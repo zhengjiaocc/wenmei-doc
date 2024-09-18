@@ -12,9 +12,9 @@ onMounted(() => {
   const storedBulletinId = localStorage.getItem('bulletinId');
   
   // 如果存储的公告ID与当前公告ID一致，则不显示公告
-//   if (storedBulletinId === currentBulletinId) {
-//     visible.value = false;
-//   }
+  if (storedBulletinId === currentBulletinId) {
+    visible.value = false;
+  }
 });
 
 function closeBulletin() {
