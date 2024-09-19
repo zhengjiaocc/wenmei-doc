@@ -2,18 +2,26 @@
 import { ref, onMounted } from 'vue'
 
 // 当前公告的ID
-const currentBulletinId = '2024091901'; // 示例公告ID
+const currentBulletinId = '2024091903'; // 示例公告ID
 const visible = ref(false); // 初始设置为 false，等拿到存储后再决定
 const closeMessage = ref(false); // 控制是否显示关闭提示信息
+const showAccelerateButton = ref(true); // 控制是否显示加速访问按钮
 
 // 页面加载时执行
 onMounted(() => {
+  console.log("hostname:",window.location.hostname)
+
   // 从本地存储获取上次公告ID
   const storedBulletinId = localStorage.getItem('bulletinId');
   
   // 在拿到存储的公告ID后，才决定是否显示公告
   if (storedBulletinId !== currentBulletinId) {
     visible.value = true;
+  }
+
+  // 判断当前域名，如果是 wm.zhengjiao.cc，则不显示加速访问按钮
+  if (window.location.hostname === 'wm.zhengjiao.cc') {
+    showAccelerateButton.value = false;
   }
 });
 
@@ -33,7 +41,6 @@ function closeBulletin() {
   }, 6000);
 }
 </script>
-
 
 <template>
   <div>
@@ -57,16 +64,17 @@ function closeBulletin() {
         <h3 class="bulletin-h3">本次更新：</h3>
 
         <p style="color: red;">章节1900至1910已经更新</p>
+        <p style=""><a href="/docs/resources/resources" style="text-decoration: underline;">Bug反馈、建议请留言</a></p>
         <hr>
         <p>粉丝加群,优先选择</p>
         <p>2群-->261599177</p>
         <p>4群-->546542165</p>
-        
 
-        <!-- <hr>
-        <div class="btn-group">
-          <a class="btn" href="/docs/resources/resources" target="_blank">前往</a>
-        </div> -->
+        <hr>
+        <!-- 加速访问按钮，只有在 showAccelerateButton 为 true 时显示 -->
+        <div class="btn-group" v-if="showAccelerateButton">
+          <a class="btn" href="https://wm.zhengjiao.cc" target="_blank">加速访问</a>
+        </div>
       </div>
     </div>
 
@@ -145,16 +153,15 @@ hr {
 }
 .btn {
     display: inline-block;
-    height: 3.5rem;
-    width: 3.5rem;
+    width: 100%;
+    height: 100%;
     cursor: pointer;
-    border-radius: 50%;
-    background-color: #1b1446;
+    border-radius: 5px;
+    background-color: #1b1446cc;
     text-align: center;
     line-height: 3.5rem;
     color: #ffffff;
 }
-/* 关闭提示信息样式 */
 .close-message {
     position: fixed;
     bottom: 2rem;
@@ -168,7 +175,6 @@ hr {
     animation: fade-in-out 3s ease forwards;
 }
 
-/* 添加淡入淡出动画 */
 @keyframes fade-in-out {
     0% { opacity: 0; transform: translateY(100%); }
     10% { opacity: 1; transform: translateY(0); }

@@ -13,7 +13,7 @@
 
         <div class="extra-navigation" v-if="isDesktop">
           <a href="/docs/info/author">负是非</a>
-          <a href="/">主页</a>
+          <a href="/index">主页</a>
         </div>
         <div
           class="mobile-settings-button"
