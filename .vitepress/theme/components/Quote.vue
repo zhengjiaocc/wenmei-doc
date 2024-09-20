@@ -99,13 +99,19 @@
 }
 
   
-  .quote-text {
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 1.5;
-    color: #333;
-    margin-bottom: 8px; /* 让语句与角色/章节有一些间距 */
-  }
+.quote-text {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #333;
+  margin-bottom: 8px; /* 让语句与角色/章节有一些间距 */
+  display: -webkit-box; /* 需要结合 webkit-box 模型 */
+  -webkit-line-clamp: 2; /* 限制最多显示两行 */
+  -webkit-box-orient: vertical; /* 垂直布局 */
+  overflow: hidden; /* 隐藏超出的内容 */
+  text-overflow: ellipsis; /* 超出部分显示省略号 */
+}
+
   
   .quote-meta {
     font-size: 0.85rem;
