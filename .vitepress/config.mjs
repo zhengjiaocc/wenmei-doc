@@ -79,7 +79,7 @@ export default defineConfig({
           { text: '初绽瞬间', link: '/docs/lib/first' },
           { text: '重复之章', link: '/docs/lib/count' },
           { text: '巅峰角逐', link: '/docs/lib/sort' },
-          { text: '岁月流年', link: '/docs/lib/fleeting' },
+          // { text: '岁月流年', link: '/docs/lib/fleeting' },
           { text: '角色尺度大公开', link: '/docs/lib/reveal' },
           {
             text: '角色档案',
@@ -108,7 +108,8 @@ export default defineConfig({
     ],
     footer: {
       message: "转载请标明出处",
-      copyright: "Copyright © 2024-缘盟",
+      // copyright: `Copyright © 2024-${new Date().getFullYear()} 缘盟`,
+            copyright: `Copyright © 2024 缘盟`,
     },
     sidebar: [
       {
@@ -156,20 +157,14 @@ export default defineConfig({
           { text: '初绽瞬间', link: '/docs/lib/first' },
           { text: '重复之章', link: '/docs/lib/count' },
           { text: '巅峰角逐', link: '/docs/lib/sort' },
-          { text: '岁月流年', link: '/docs/lib/fleeting' },
+          // { text: '岁月流年', link: '/docs/lib/fleeting' },
           { text: '角色尺度大公开', link: '/docs/lib/reveal' },
 
         ],
       },
       {
         text: '资源/反馈',
-        collapsible: true,
-        collapsed: true,
-        items: [
-          { text: '相关资源', link: '/docs/resources/resources.md' },
-          { text: '在线阅读', link: '/docs/lib/novel.md' },
-
-        ],
+        link: '/docs/resources/resources.md' 
       },
 
     ],

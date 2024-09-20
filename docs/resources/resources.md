@@ -1,5 +1,6 @@
 ---
 title: 资源
+lastUpdated: true
 ---
 
 ::: warning 重要通知
