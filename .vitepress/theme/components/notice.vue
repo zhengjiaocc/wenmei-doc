@@ -3,7 +3,7 @@ import { ref, onMounted } from "vue";
 
 // 当前公告的ID
 const currentBulletinId = "2024091903"; // 示例公告ID
-const visible = ref(true); // 初始设置为 false，等拿到存储后再决定
+const visible = ref(false); // 初始设置为 false，等拿到存储后再决定
 const closeMessage = ref(false); // 控制是否显示关闭提示信息
 const showAccelerateButton = ref(true); // 控制是否显示加速访问按钮
 
