@@ -84,20 +84,20 @@
   <style scoped>
   /* 默认设置为手机端，居中对齐 */
   .quote-container {
-    height: 90px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center; /* 手机端默认居中 */
-    font-family: "Arial", sans-serif;
-    padding: 0;
-    margin: 0;
-    margin-top: 10px;
-    margin-bottom: -45px;
-    background-color: rgb(246, 246, 247);
-    border-radius: 8px;
-    display: none;
-  }
+  height: 90px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center; /* 手机端默认居中 */
+  font-family: "Arial", sans-serif;
+  padding: 0;
+  margin: 0;
+  margin-top: 10px;
+  margin-bottom: -45px;
+  background: linear-gradient(to right, rgba(246, 246, 247, 1), rgba(246, 246, 247, 0.6)); /* 从左到右渐变，右侧透明 */
+  border-radius: 8px;
+}
+
   
   .quote-text {
     font-size: 14px;
