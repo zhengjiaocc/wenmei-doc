@@ -84,18 +84,19 @@
   <style scoped>
   /* 默认设置为手机端，居中对齐 */
   .quote-container {
-  height: 90px;
+height: 100px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: center; /* 手机端默认居中 */
   font-family: "Arial", sans-serif;
   padding: 0;
+  padding-top: 0;
   margin: 0;
   margin-top: 10px;
   margin-bottom: -45px;
   background: linear-gradient(to right, rgba(246, 246, 247, 1), rgba(246, 246, 247, 0.6)); /* 从左到右渐变，右侧透明 */
-  border-radius: 8px;
+  border-radius: 10px;
 }
 
   
@@ -106,7 +107,7 @@
   color: #333;
   margin-bottom: 8px; /* 让语句与角色/章节有一些间距 */
   display: -webkit-box; /* 需要结合 webkit-box 模型 */
-  -webkit-line-clamp: 2; /* 限制最多显示两行 */
+  -webkit-line-clamp: 3; /* 限制最多显示两行 */
   -webkit-box-orient: vertical; /* 垂直布局 */
   overflow: hidden; /* 隐藏超出的内容 */
   text-overflow: ellipsis; /* 超出部分显示省略号 */
@@ -130,6 +131,7 @@
   /* 电脑端样式，屏幕宽度大于768px时 */
   @media (min-width: 768px) {
     .quote-container {
+        height: 90px;
       text-align: left; /* 电脑端靠左对齐 */
       padding-left: 10px; /* 增加左侧的内边距 */
       display: flex;
