@@ -16,16 +16,12 @@ const { Layout } = DefaultTheme
         </template>
 
         <template #nav-bar-title-after>
-          <NavVisitor class="visitor"></NavVisitor>
+          <NavVisitor/>
         </template>
     </Layout>
 </template>
 
 <style scoped>
-@media (min-width: 768px) and (max-width: 920px) {
-  .visitor {
-    display: none;
-  }
-}
+
 
 </style>
