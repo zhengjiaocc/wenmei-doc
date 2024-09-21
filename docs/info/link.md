@@ -74,7 +74,7 @@ description: 《问题妹妹恋上我》QQ群，贴吧
 ## 贴吧
 
 <div class="linkcard">
-  <a href="https://tieba.baidu.com/f?kw=%E7%BC%98%E7%9B%9F&fr=fenter&prequery=%E7%BC%98%E7%9B%9F%E5%90%A7" target="_blank">
+  <a href="https://tieba.baidu.com/f?ie=utf-8&kw=%E7%BC%98%E7%9B%9F&fr=search" target="_blank">
     <p class="description">缘盟吧<br><span>负是非书迷大本营</span></p>
     <div class="logo">
         <img alt="Logo" width="70px" height="70px" src="/ymb.jpg" />
@@ -83,7 +83,7 @@ description: 《问题妹妹恋上我》QQ群，贴吧
 </div>
 <hr>
 <div class="linkcard">
-  <a href="http://tieba.baidu.com/" target="_blank">
+  <a href="https://tieba.baidu.com/f?ie=utf-8&kw=%E9%97%AE%E9%A2%98%E5%A6%B9%E5%A6%B9%E6%81%8B%E4%B8%8A%E6%88%91&fr=search#" target="_blank">
     <p class="description">问题妹妹恋上我吧<br><span>小说连载和妖孽聚集地</span></p>
     <div class="logo">
         <img alt="Logo" width="70px" height="70px" src="/wtmmlsw.jpg" />
