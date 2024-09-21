@@ -32,7 +32,6 @@
   
   <style scoped>
   .visitor {
-    margin-top: 1px;
     margin-left: 3px;
   }
   </style>
