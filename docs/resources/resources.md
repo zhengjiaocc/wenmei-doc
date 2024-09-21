@@ -1,7 +1,14 @@
----
-title: 资源
-lastUpdated: true
----
+---  
+title: 资源与反馈
+description: 问题妹妹恋上我最全资源，与反馈无广纯净。  
+head:  
+  - - meta  
+    - name: description  
+      content: 问题妹妹恋上我资源下载，人物关系图下载。  
+  - - meta  
+    - name: keywords  
+      content:  问题妹妹恋上我小说全集，人物关系图
+---  
 
 ::: warning 重要通知
 我们已经新增加速域名 [https://wm.zhengjiao.cc](https://wm.zhengjiao.cc/)<br>

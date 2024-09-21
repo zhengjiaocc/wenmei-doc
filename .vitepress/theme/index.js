@@ -12,6 +12,7 @@ import confetti from "./components/confetti.vue"
 import notice from './components/notice.vue'
 import MyLayout from './components/MyLayout.vue'
 import Quote from './components/Quote.vue';
+import NavVisitor  from './components/NavVisitor.vue';
 import "vitepress-markdown-timeline/dist/theme/index.css";
 import './style/index.css'
 /** @type {import('vitepress').Theme} */
@@ -53,7 +54,8 @@ export default {
     app.component('confetti', confetti)
     app.component('notice',notice)
     app.component('Quote',Quote)
+    app.component('NavVisitor',NavVisitor)
 
-  }
+  },
 }
 

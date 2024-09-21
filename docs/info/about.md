@@ -1,7 +1,15 @@
 ---
 title: 关于我们
-description: 《问题妹妹恋上我》文档站起源
+description: 探讨问题妹妹恋上我文档站的起源，原因发起人，与共同维护者
+head: 
+  - - meta
+    - name: description
+      content: 探讨问题妹妹恋上我文档站的起源，原因发起人，与共同维护者
+  - - meta
+    - name: keywords
+      content: 问题妹妹恋上我文档站，问妹文档站，问妹文档库
 ---
+
 
 # <center>关于我们</center>
 
@@ -51,4 +59,3 @@ description: 《问题妹妹恋上我》文档站起源
 
 
 ---
-

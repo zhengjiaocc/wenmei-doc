@@ -1,33 +1,41 @@
 ---
 title: 缘盟
-description: 《问题妹妹恋上我》QQ群，贴吧
+description: 负是非小说问题妹妹恋上我大本营，多种联系方式，贴吧，QQ群，问题妹妹恋上我文档站
+head: 
+  - - meta
+    - name: description
+      content: 负是非小说问题妹妹恋上我大本营，多种联系方式，贴吧，QQ群，问题妹妹恋上我文档站
+  - - meta
+    - name: keywords
+      content: 问题妹妹恋上我，缘盟
 ---
 
-# <center>加入我们 </center> 
+# <center>加入我们 </center>
 
-## 书迷QQ群
+## 书迷 QQ 群
+
 最后更新：2024/7/8
 
-| 群名称                 | 群号              | 备注       |
-|----------------------|---------------|------------|
-| 缘盟一群               | 17****22     |  满员  |
-| 缘盟二群               | 261599177    | 可加此群   |
-| 缘盟三群               | 248516430     | 满员       |
-| 缘盟四群               | 546542165    |     可加此群        |
-| 缘盟五群               | 391951351   |    满员        |
-| 缘盟六群               | 458281450    |    满员        |
-| 缘盟七群               | 829327576    | 满员   |
-| 缘盟八群               |   717666809  |    满员        |
-| 缘盟九群               |  661616789   | 满员   |
-| 缘盟交流群             | 248157094    |     满员       |
-| 潜水看书群             | 564283965    | 满员       |
+| 群名称     | 群号         | 备注     |
+| ---------- | ------------ | -------- |
+| 缘盟一群   | 17\*\*\*\*22 | 满员     |
+| 缘盟二群   | 261599177    | 可加此群 |
+| 缘盟三群   | 248516430    | 满员     |
+| 缘盟四群   | 546542165    | 可加此群 |
+| 缘盟五群   | 391951351    | 满员     |
+| 缘盟六群   | 458281450    | 满员     |
+| 缘盟七群   | 829327576    | 满员     |
+| 缘盟八群   | 717666809    | 满员     |
+| 缘盟九群   | 661616789    | 满员     |
+| 缘盟交流群 | 248157094    | 满员     |
+| 潜水看书群 | 564283965    | 满员     |
 
-## 妹妹实体书 QQ群
+## 妹妹实体书 QQ 群
 
-| 群名称         | 群号         | 备注                      |
-|--------------|------------|------------------------|
-| 妹妹实体书一期意向群 | 已结束  | 已结束      |
-| 妹妹实体书二期意向群 | 950337837   | 进行中      |
+| 群名称               | 群号      | 备注   |
+| -------------------- | --------- | ------ |
+| 妹妹实体书一期意向群 | 已结束    | 已结束 |
+| 妹妹实体书二期意向群 | 950337837 | 进行中 |
 
 <div id="declaration">
    <h2>重要声明：</h2>
@@ -70,22 +78,26 @@ description: 《问题妹妹恋上我》QQ群，贴吧
   </form>
 </div>
 
-
 ## 贴吧
 
-<div style="display: flex; align-items: flex-start;">
-  <div style="margin-right: 20px; text-align: center;">
-    <div>缘盟吧</div>
-    <a href="http://tieba.baidu.com/" style="display: block; width: 150px; height: 150px;">
-      <img src="/ymb.jpg" alt="缘盟吧" style="width: 100%; height: 100%; object-fit: cover; border: 3px solid gray;">
-    </a>
-  </div>
-  <div style="text-align: center;">
-    <div>问题妹妹恋上我吧</div>
-    <a href="http://tieba.baidu.com/" style="display: block; width: 150px; height: 150px;">
-      <img src="/wtmmlsw.jpg" alt="问题妹妹恋上我吧" style="width: 100%; height: 100%; object-fit: cover; border: 3px solid gray;">
-    </a>
-  </div>
+<div class="linkcard">
+  <a href="https://tieba.baidu.com/f?ie=utf-8&kw=%E7%BC%98%E7%9B%9F&fr=search" target="_blank">
+    <p class="description">缘盟吧<br><span>负是非书迷大本营</span></p>
+    <div class="logo">
+        <img alt="Logo" width="70px" height="70px" src="/ymb.jpg" />
+    </div>
+  </a>
 </div>
+<hr>
+<div class="linkcard">
+  <a href="https://tieba.baidu.com/f?ie=utf-8&kw=%E9%97%AE%E9%A2%98%E5%A6%B9%E5%A6%B9%E6%81%8B%E4%B8%8A%E6%88%91&fr=search#" target="_blank">
+    <p class="description">问题妹妹恋上我吧<br><span>小说连载和妖孽聚集地</span></p>
+    <div class="logo">
+        <img alt="Logo" width="70px" height="70px" src="/wtmmlsw.jpg" />
+    </div>
+  </a>
+</div>
+
+
 
 

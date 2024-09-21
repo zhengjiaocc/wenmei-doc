@@ -14,9 +14,14 @@ const { Layout } = DefaultTheme
         <template #home-hero-actions-after>
             <Quote/>
         </template>
+
+        <template #nav-bar-title-after>
+          <NavVisitor/>
+        </template>
     </Layout>
 </template>
 
-<style>
+<style scoped>
+
 
 </style>

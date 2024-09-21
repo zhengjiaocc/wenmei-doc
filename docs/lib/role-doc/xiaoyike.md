@@ -1,6 +1,14 @@
----
-layout: doc
----
+---  
+title: 个人档案-萧一可
+description: 萧一可的详细介绍，了解萧一可的性格，心里变化  
+head:  
+  - - meta  
+    - name: description  
+      content: 萧一可的详细介绍，了解萧一可的性格，心里变化   
+  - - meta  
+    - name: keywords  
+      content:  萧波波，萧一可，波波还是小点好
+---  
 # 个人档案：萧一可
 
 ## 基本信息

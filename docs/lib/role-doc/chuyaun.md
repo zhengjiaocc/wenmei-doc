@@ -1,6 +1,14 @@
----
-layout: doc
----
+---  
+title: 个人档案-楚缘
+description: 楚缘的详细介绍，了解楚缘的性格，心里变化  
+head:  
+  - - meta  
+    - name: description  
+      content: 楚缘的详细介绍，了解楚缘的性格，心里变化   
+  - - meta  
+    - name: keywords  
+      content:  楚缘，慕容缘缘，楚缘介绍
+---  
 # 个人档案：楚缘
 ## 基本信息
 
