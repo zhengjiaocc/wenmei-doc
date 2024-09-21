@@ -6,7 +6,7 @@
         <!-- 调整访客位置，进一步靠左，字体放大并居中 -->
         <text x="12" y="13" fill="white" font-size="10" font-family="Arial" text-anchor="start">访客</text>
         <!-- 调整数字位置，字体放大并居中 -->
-        <text x="72" y="13" fill="white" font-size="10" font-family="Arial" text-anchor="end">{{ totalVisitors }}</text>
+        <text x="73" y="13" fill="white" font-size="10" font-family="Arial" text-anchor="end">{{ totalVisitors }}</text>
       </svg>
     </div>
   </template>
