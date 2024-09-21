@@ -1,6 +1,13 @@
 ---
 title: 缘盟
-description: 《问题妹妹恋上我》QQ群，贴吧
+description: 负是非小说问题妹妹恋上我大本营，多种联系方式，贴吧，QQ群，问题妹妹恋上我文档站
+head: 
+  - - meta
+    - name: description
+      content: 负是非小说问题妹妹恋上我大本营，多种联系方式，贴吧，QQ群，问题妹妹恋上我文档站
+  - - meta
+    - name: keywords
+      content: 问题妹妹恋上我，缘盟
 ---
 
 # <center>加入我们 </center>

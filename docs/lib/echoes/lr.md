@@ -1,6 +1,13 @@
 ---
 title: 轻语-东方怜人
-description: 问题妹妹恋上我女角色
+description: 经典语录集锦，探索东方怜人在《问题妹妹恋上我》中的情感世界。  
+head: 
+  - - meta
+    - name: description
+      content: 经典语录集锦，探索东方怜人在《问题妹妹恋上我》中的情感世界。
+  - - meta
+    - name: keywords
+      content: 东方怜人 ,东方妹妹，三小姐，冉亦白，问题妹妹恋上我，经典语录
 ---
 
 # 轻语——东方怜人

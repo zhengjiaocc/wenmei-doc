@@ -1,6 +1,13 @@
 ---
 title: 事记
-description: 《问题妹妹恋上我》历程，负是非
+description: 问题妹妹恋上我十余年发生的大事记录，抄袭，断更回忆那些年遇到的困难
+head: 
+  - - meta
+    - name: description
+      content: 问题妹妹恋上我十余年发生的大事记录，回忆那些年遇到的困难
+  - - meta
+    - name: keywords
+      content: 问题妹妹恋上我记录，问题妹妹恋上我抄袭，问题妹妹恋上我更新
 ---
 
 # 问题妹妹恋上我-事记

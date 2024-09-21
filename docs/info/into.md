@@ -1,6 +1,13 @@
 ---
-title: 简介
-description: 《问题妹妹恋上我》介绍
+title: 作品简介
+description: 负是非作品问题妹妹恋上我详解，了解连续更新十余年感情细腻的妹控精品小说
+head: 
+  - - meta
+    - name: description
+      content: 负是非作品问题妹妹恋上我详解，了解连续更新十余年感情细腻的妹控精品小说
+  - - meta
+    - name: keywords
+      content: 问题妹妹恋上我，负是非，楚缘，楚南，东方怜人，萧一可
 ---
 
 # 《问题妹妹恋上我》 —— 负是非
