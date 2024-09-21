@@ -1,6 +1,14 @@
----
-layout: doc
----
+---  
+title: 个人档案-东方怜人
+description: 东方怜人的详细介绍，了解楚缘的性格，心里变化  
+head:  
+  - - meta  
+    - name: description  
+      content: 东方怜人的详细介绍，了解东方怜人的性格，心里变化   
+  - - meta  
+    - name: keywords  
+      content:  东方怜人，东方大小姐，三小姐，可怜不是女人
+---  
 
 # 个人档案：东方怜人
 
