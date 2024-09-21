@@ -14,9 +14,18 @@ const { Layout } = DefaultTheme
         <template #home-hero-actions-after>
             <Quote/>
         </template>
+
+        <template #nav-bar-title-after>
+          <NavVisitor class="visitor"></NavVisitor>
+        </template>
     </Layout>
 </template>
 
-<style>
+<style scoped>
+@media (min-width: 768px) and (max-width: 920px) {
+  .visitor {
+    display: none;
+  }
+}
 
 </style>

@@ -130,6 +130,17 @@
   --vp-custom-block-tip-code-bg: var(--vp-c-brand-soft);
   
 }
+/* 自定义样式 */
+
+/**
+ * Component: Sidebar
+ * -------------------------------------------------------------------------- */
+
+ :root {
+  /* --vp-sidebar-width: 277px; */
+  --vp-sidebar-bg-color: var(--vp-c-bg-alt);
+}
+
 
 /**
  * Component: Algolia
