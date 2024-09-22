@@ -8,7 +8,7 @@
       </div>
       <!-- 显示角色名和章节，独立一行 -->
       <div class="quote-meta" v-if="metaDisplayed">
-        —— <span class="quote-character">{{ currentQuote.character }}</span>，
+        —— <span class="quote-character">{{ currentQuote.character }}</span> ，
         <span class="quote-chapter">{{ currentQuote.chapter }}</span>
       </div>
     </div>

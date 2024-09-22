@@ -43,10 +43,25 @@
       <div
         class="drawer"
         :class="{ open: drawerOpen }"
-        v-if="drawer === 'catalog'"
+        v-show="drawer === 'catalog'"
       >
         <div class="drawer-content">
-          <ul>
+          <div class="drawer-content__fixed">
+            <div class="drawer-content__fixed__search">
+              <input type="text" />
+              <div class="drawer-content__fixed__search__btn">搜索</div>
+            </div>
+            <div
+              class="drawer-content__fixed__sort"
+              :class="{ 'drawer-content__fixed__sort-active': isSort }"
+              @click="setSort()"
+            ></div>
+          </div>
+
+          <ul
+            class="drawer-content__box"
+            :class="{ 'drawer-content__box-reverse': isSort }"
+          >
             <li
               v-for="chapter in chapters"
               :key="chapter.id"
@@ -166,6 +181,7 @@ export default {
       preloadComments: [], // 预加载评论数组
       settingsVisible: false, // 控制设置工具栏显示
       psVisible: false, // 控制PS内容显示
+      isSort: false, // 控制目录是否倒序
     };
   },
   computed: {
@@ -174,6 +190,10 @@ export default {
     },
   },
   methods: {
+    setSort() {
+      this.isSort = !this.isSort;
+      this.setTop();
+    },
     handleScroll() {
       clearTimeout(this.scrollTimeout); // 每次滚动时清除之前的定时器
 
@@ -290,6 +310,33 @@ export default {
           this.drawerOpen = true;
         }
       }
+      this.setTop();
+    },
+    setTop() {
+      setTimeout(() => {
+        if (localStorage.getItem("logChapterIndex")) {
+          document.querySelectorAll(".drawer-content__box li")[
+            Number(localStorage.getItem("logChapterIndex"))
+          ].className = "";
+        }
+        let boxHeight = document.querySelectorAll(".drawer-content__box")[0]
+          .clientHeight;
+        console.debug(this.currentChapterIndex);
+        if (this.isSort) {
+          document.querySelectorAll(".drawer-content")[0].scrollTop =
+            boxHeight - this.currentChapterIndex * 45.6 - 96;
+        } else {
+          document.querySelectorAll(".drawer-content")[0].scrollTop =
+            this.currentChapterIndex * 45.6 - 1;
+        }
+        document.querySelectorAll(".drawer-content__box li")[
+          this.currentChapterIndex
+        ].className = "drawer-content__select";
+        localStorage.setItem(
+          "logChapterIndex",
+          this.currentChapterIndex.toString()
+        );
+      }, 0);
     },
     selectChapter(chapter) {
       this.commentsVisible = false;
@@ -537,7 +584,7 @@ export default {
 
 
 
-<style scoped>
+<style scoped lang="less">
 .novel-reader-container {
   position: relative;
   top: 0;
@@ -586,6 +633,7 @@ export default {
 .top-bar .center {
   text-align: center;
   line-height: 1;
+  margin-top: 0 !important;
 }
 
 .extra-navigation {
@@ -726,19 +774,90 @@ export default {
 .drawer ul {
   list-style-type: none;
   padding: 0;
-  margin: 10px;
 }
 
 .drawer ul li {
-  padding: 10px;
+  padding: 10px !important;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  border-bottom: 2px solid rgba(232, 232, 232, 0.69);
+  border-bottom: 2px solid rgba(232, 232, 232) !important;
+  color: #3c3c43 !important;
 }
 
 .drawer ul li:hover {
   background-color: #ddd;
 }
+
+.drawer {
+  &-content {
+    &__fixed {
+      min-height: 49.6px;
+      display: flex;
+      position: fixed;
+      transform: translateY(-1px);
+      justify-content: space-between;
+      align-items: center;
+      width: calc(100% - 10px);
+      background: #fafafa;
+      padding: 10px 10px 10px 15px;
+      &__search {
+        display: flex;
+        align-items: center;
+        margin-left: 24px;
+        border-radius: 4px;
+        border: 1px solid #c3c3c3;
+        opacity: 0;
+        input {
+          padding: 2px;
+          padding-left: 8px;
+        }
+        &__btn {
+          background: #c3c3c3;
+          height: 28px;
+          font-size: 14px;
+          border-radius: 0 4px 4px 0;
+          display: flex;
+          align-items: center;
+          padding: 0 8px;
+          color: #c3c3c3;
+        }
+      }
+      &__sort {
+        width: 20px;
+        height: 20px;
+        background: url(data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNDgiIGhlaWdodD0iNDgiPjxwYXRoIGQ9Ik0xNTYuMzkzIDY1Ni41MjRhNDMuNTIgNDMuNTIgMCAwIDEgNjEuMjA3IDcuMjE0bDExMy4xMDUgMTQ0LjA1OFY5MC4yOThhNDMuNzUzIDQzLjc1MyAwIDEgMSA4Ny4yNzMgMHY4NDMuNDA0YTQzLjc1MyA0My43NTMgMCAwIDEtMjkuMzIzIDQxLjQyNSA0Mi4xMjQgNDIuMTI0IDAgMCAxLTE0LjE5NyAyLjMyOCA0My4yODcgNDMuMjg3IDAgMCAxLTM0LjIxLTE2Ljc1N0wxNDguOTQ0IDcxNy43MzFhNDMuNTIgNDMuNTIgMCAwIDEgNy40NDgtNjEuMjA3ek02MzQuNDE1IDQ4Ljg3M2E0My43NTMgNDMuNzUzIDAgMCAxIDQ4LjY0IDE0LjQyOWwxOTEuMDY5IDI0Mi45NjdhNDMuNzUzIDQzLjc1MyAwIDEgMS02OS44MTkgNTMuOTkzTDY5Mi4zNjQgMjE2LjIwNHY3MTcuNDk4YTQzLjc1MyA0My43NTMgMCAxIDEtODcuMjczIDBWOTAuMjk4YTQ0LjIxOCA0NC4yMTggMCAwIDEgMjkuMzI0LTQxLjQyNXoiLz48L3N2Zz4=);
+        background-size: cover;
+        background-repeat: no-repeat;
+        opacity: 0.7;
+        cursor: pointer;
+        &-active {
+          filter: brightness(0) saturate(100%) invert(53%) sepia(66%)
+            saturate(368%) hue-rotate(352deg) brightness(112%) contrast(108%);
+        }
+      }
+    }
+    & &__select {
+      color: #f4a54a !important;
+    }
+    &__box {
+      display: flex;
+      flex-direction: column;
+      li {
+        flex-shrink: 0;
+      }
+      &-reverse {
+        flex-direction: column-reverse;
+      }
+    }
+  }
+  ul {
+    padding-top: 49.6px !important;
+    li {
+      background: #ddd;
+    }
+  }
+}
+
 .comment-container {
   padding: 10px;
   width: 100%;
@@ -828,9 +947,6 @@ export default {
 }
 
 @media (max-width: 1023px) {
-  .mobile-settings-button {
-    margin-top: 9px;
-  }
   .comment-container {
     background-color: rgb(250, 250, 250);
   }
