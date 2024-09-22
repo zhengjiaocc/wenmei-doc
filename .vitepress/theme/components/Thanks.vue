@@ -436,6 +436,7 @@ export default {
   .team-introduction {
     margin-left: 10px;
     margin-right: 10px;
+    padding: 20px 10px 10px 20px;
   }
 
   .member-cards {
@@ -463,6 +464,10 @@ export default {
 
   .member-card:hover {
     transform: none; /* 禁用 hover 的位移效果 */
+  }
+
+  .team-introduction p{
+    padding: 0 10px;
   }
 }
 </style>
