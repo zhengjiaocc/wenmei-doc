@@ -26,6 +26,7 @@
       <div class="group-header">
         <h2 class="group-title">{{ level.level_name }}</h2>
       </div>
+      <p class="group-slogan">{{ level.slogan }}</p> <!-- 添加级别的slogan -->
 
       <!-- 展开和收起控制具体平台的内容 -->
       <div class="group-content">
@@ -42,7 +43,11 @@
             >
               {{ group.open ? "收起" : "展开" }}
             </button>
+
           </div>
+
+          <p class="group-slogan">{{ group.slogan }}</p> <!-- 添加平台的slogan -->
+
 
           <!-- 展开和收起控制具体组别的内容 -->
           <div v-if="group.open" class="member-cards">
@@ -58,9 +63,16 @@
               >
                 <!-- 正面 -->
                 <div class="member-info front" v-if="!member.flipped">
-                  <div class="member-avatar">
-                    <img :src="member.avatar" alt="avatar" />
+                  <!-- 包裹头像和加入时间的盒子 -->
+                  <div class="member-avatar-wrapper">
+                    <div class="member-avatar">
+                      <img :src="member.avatar" alt="avatar" />
+                    </div>
+                    <div class="member-join-time">
+                      {{ member.year }}
+                    </div>
                   </div>
+
                   <div class="member-details">
                     <div>
                       <p class="member-name">{{ member.name }}</p>
@@ -100,6 +112,7 @@
   </div>
 </template>
 
+
 <script>
 import thanksData from "../data/thanks.json";
 
@@ -129,8 +142,6 @@ export default {
     },
   },
 };
-
-
 </script>
 
   
@@ -290,18 +301,42 @@ export default {
   width: 100%; /* 确保宽度占满 */
 }
 
-.member-avatar {
-  flex: 0 0 64px; /* 固定头像宽度 */
-  height: 64px; /* 固定高度 */
-  border-radius: 50%; /* 圆形头像 */
-  overflow: hidden; /* 避免超出圆形 */
+
+
+/* 新增的外层盒子样式 */
+.member-avatar-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* 修改为 center，确保上下居中对齐 */
+  width: 64px;
+  height: 100%;
   margin-right: 20px;
 }
 
+/* 头像样式 */
+.member-avatar {
+  display: flex;
+  flex-direction: column; /* 让子元素垂直排列 */
+  justify-content: space-between; /* 在主轴上分散对齐，内容分别靠上和靠下 */
+  height: 100%; /* 确保有足够的高度来显示分散的效果 */
+}
+
+
+
 .member-avatar img {
-  width: 100%; /* 让图片宽度占满 */
-  height: 100%; /* 让图片高度占满 */
-  object-fit: cover; /* 保持宽高比例，裁剪多余部分 */
+  margin-top: 6px;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+}
+
+/* 加入时间样式 */
+.member-join-time {
+  color: #666;
+  text-align: center;
+  flex: 0;
+  font-weight: 300px;
 }
 
 .member-details {
@@ -319,15 +354,13 @@ export default {
   font-size: 13px;
 }
 
-.member-name{
+.member-name {
   font-size: 16px;
   font-weight: bold;
-
 }
 
 .member-description {
   flex: 2 1 60%; /* 占据60%的高度 */
-  margin-bottom: 5px;
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -392,6 +425,8 @@ export default {
   margin-left: auto; /* 确保按钮与标题右对齐 */
 }
 
+
+
 /* 响应式设计 */
 @media (max-width: 768px) {
   .team-group {
@@ -414,6 +449,7 @@ export default {
     margin-bottom: 0;
     transform: none; /* 取消悬浮效果的transform */
     transition: none; /* 禁用动画过渡 */
+    box-shadow: #ddd;
   }
 
   .member-introduction p {
