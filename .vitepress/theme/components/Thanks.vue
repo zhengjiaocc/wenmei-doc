@@ -25,13 +25,10 @@
     >
       <div class="group-header">
         <h2 class="group-title">{{ level.level_name }}</h2>
-        <button class="toggle-button" @click="toggleLevel(levelIndex)">
-          {{ level.open ? "收起" : "展开" }}
-        </button>
       </div>
 
-      <!-- 展开和收起控制整个等级的内容 -->
-      <div v-if="level.open" class="group-content">
+      <!-- 展开和收起控制具体平台的内容 -->
+      <div class="group-content">
         <div
           v-for="(group, groupIndex) in level.groups"
           :key="groupIndex"
@@ -101,10 +98,8 @@
     </div>
   </div>
 </template>
-  
-  
-  
-  <script>
+
+<script>
 import thanksData from "../data/thanks.json";
 
 export default {
@@ -112,7 +107,6 @@ export default {
     return {
       levels: thanksData.levels.map((level) => ({
         ...level,
-        open: true, // 默认开启每个级别
         groups: level.groups.map((group) => ({
           ...group,
           open: true, // 默认开启每个组
@@ -121,11 +115,7 @@ export default {
     };
   },
   methods: {
-    // 切换每个级别的展开/收起状态
-    toggleLevel(levelIndex) {
-      this.levels[levelIndex].open = !this.levels[levelIndex].open;
-    },
-    // 切换每个组的展开/收起状态
+    // 切换每个平台组的展开/收起状态
     toggleGroup(levelIndex, groupIndex) {
       this.levels[levelIndex].groups[groupIndex].open =
         !this.levels[levelIndex].groups[groupIndex].open;
@@ -145,11 +135,12 @@ export default {
   },
 };
 </script>
+
   
   <style scoped>
 /* 整体布局样式 */
 .team-members {
-  padding: 20px;
+  padding: 20px 0;
 }
 
 /* 页面标题和描述 */
@@ -224,7 +215,6 @@ export default {
 .group-description {
   font-size: 16px;
   color: #666;
-  margin-bottom: 20px;
 }
 
 /* 卡片容器布局 */
@@ -286,31 +276,51 @@ export default {
 .member-info {
   display: flex;
   align-items: center;
+  width: 100%; /* 确保宽度占满 */
 }
 
 .member-avatar {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  overflow: hidden;
+  flex: 0 0 64px; /* 固定头像宽度 */
+  height: 64px; /* 固定高度 */
+  border-radius: 50%; /* 圆形头像 */
+  overflow: hidden; /* 避免超出圆形 */
   margin-right: 20px;
 }
 
+.member-avatar img {
+  width: 100%; /* 让图片宽度占满 */
+  height: 100%; /* 让图片高度占满 */
+  object-fit: cover; /* 保持宽高比例，裁剪多余部分 */
+}
 .member-details {
-  flex: 1;
+  flex: 1; /* 剩余空间占满 */
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* 占满父元素高度 */
 }
 
 .member-name {
-  font-size: 18px;
-  font-weight: bold;
+  flex: 1 1 20%; /* 占据20%的高度 */
   margin-bottom: 5px;
+  line-height: 30px; /* 垂直居中 */
+}
+
+.member-motto {
+  flex: 1 1 20%; /* 占据20%的高度 */
+  margin-bottom: 5px;
+  line-height: 20px; /* 垂直居中 */
 }
 
 .member-description {
-  font-size: 14px;
-  color: #666;
+  flex: 2 1 60%; /* 占据60%的高度 */
   margin-bottom: 5px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2; /* 显示最多两行 */
+  line-height: 20px; /* 每行高度 */
 }
+
 
 /* 标签设置 */
 .member-tags {
@@ -332,6 +342,8 @@ export default {
 .back {
   display: none; /* 初始状态隐藏背面 */
   font-size: 14px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
 }
 
 .flip .back {
@@ -366,8 +378,13 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border: 1px solid #e0e0e09c; /* 添加淡灰色边框 */
+  padding: 10px; /* 添加内边距使内容不紧贴边框 */
+  border-radius: 12px; /* 可选，增加圆角效果 */
   margin-bottom: 10px;
 }
+
+
 
 .platform-toggle-button {
   margin-left: auto; /* 确保按钮与标题右对齐 */
