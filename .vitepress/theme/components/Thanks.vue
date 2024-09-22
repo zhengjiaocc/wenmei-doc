@@ -50,11 +50,12 @@
               v-for="(member, memIdx) in group.members"
               :key="memIdx"
               class="member-card"
-              :class="{ flip: member.flipped }"
-              @mouseenter="hoverMember(member)"
-              @mouseleave="unhoverMember(member)"
             >
-              <div class="card-content">
+              <div
+                class="card-content"
+                :class="{ flip: member.flipped }"
+                @click="toggleFlip(member)"
+              >
                 <!-- 正面 -->
                 <div class="member-info front" v-if="!member.flipped">
                   <div class="member-avatar">
@@ -120,24 +121,20 @@ export default {
       this.levels[levelIndex].groups[groupIndex].open =
         !this.levels[levelIndex].groups[groupIndex].open;
     },
-    // 当鼠标移到成员卡片上时翻转
-    hoverMember(member) {
+    // 点击时翻转成员卡片
+    toggleFlip(member) {
       if (member.details) {
-        member.flipped = true;
-      }
-    },
-    // 当鼠标离开成员卡片时恢复
-    unhoverMember(member) {
-      if (member.details) {
-        member.flipped = false;
+        member.flipped = !member.flipped; // 翻转状态切换
       }
     },
   },
 };
+
+
 </script>
 
   
-  <style scoped>
+<style scoped>
 /* 整体布局样式 */
 .team-members {
   padding: 20px 0;
@@ -178,6 +175,7 @@ export default {
   padding: 0 20px;
 }
 
+/* 引言标题 */
 .introduction-title {
   font-size: 18px;
   font-weight: bold;
@@ -187,7 +185,7 @@ export default {
 
 /* 分组显示布局 */
 .team-group {
-  padding: 20px 20px;
+  padding: 20px;
   border: 1px solid #e0e0e0;
   border-radius: 20px;
   margin: 20px 70px;
@@ -223,38 +221,38 @@ export default {
   flex-wrap: wrap;
   gap: 20px; /* 卡片之间的间距 */
   justify-content: flex-start; /* 从左到右对齐 */
-  margin-left: 0; /* 去除容器左边距 */
-  margin-right: 0; /* 去除容器右边距 */
-  padding-left: 0; /* 去除容器左内边距 */
-  padding-right: 0; /* 去除容器右内边距 */
+  margin: 0; /* 去除容器左右边距 */
+  padding: 0; /* 去除容器内边距 */
 }
 
 /* 成员卡片布局 */
-/* 卡片容器布局 */
 .member-card {
   background-color: rgb(246, 246, 247);
   width: calc(25% - 15px); /* 每行显示4个卡片 */
-  height: 140px;
-  border-radius: 8px;
-  padding: 20px;
+  height: 130px;
+  border-radius: 20px;
+  padding: 10px;
   margin-bottom: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.6s;
-  position: relative;
-  transform-style: preserve-3d;
-  perspective: 1000px;
+  perspective: 1000px; /* 让子元素有3D效果 */
+  transition: transform 0.3s ease-in-out; /* 添加平滑的悬浮动画 */
 }
 
-.flip {
-  transform: rotateY(180deg); /* 卡片翻转 */
+.member-card:hover {
+  transform: translateY(-5px); /* 悬停效果 */
 }
 
+/* 卡片内容翻转效果 */
 .card-content {
   position: relative;
   width: 100%;
   height: 100%;
-  transform-style: preserve-3d;
-  transition: transform 0.6s ease;
+  transform-style: preserve-3d; /* 保持3D效果 */
+  transition: transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.flip {
+  transform: rotateX(180deg); /* 改为上下翻转 */
 }
 
 .front,
@@ -264,12 +262,25 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  backface-visibility: hidden;
+  backface-visibility: hidden; /* 隐藏背面和正面 */
 }
 
-/* 鼠标悬停时让卡片浮起 */
-.member-card:hover {
-  transform: translateY(-5px);
+.front {
+  z-index: 2; /* 确保正面在翻转时显示在上层 */
+  transform: rotateX(0deg); /* 正面保持不变 */
+}
+
+.back {
+  display: none; /* 初始状态隐藏背面 */
+  font-size: 14px;
+  /* background-color: #f0f0f0; */
+  border-radius: 5px;
+  transform: rotateX(180deg); /* 背面上下翻转 */
+  z-index: 1;
+}
+
+.flip .back {
+  display: block; /* 翻转后显示背面 */
 }
 
 /* 卡片内部信息布局 */
@@ -292,6 +303,7 @@ export default {
   height: 100%; /* 让图片高度占满 */
   object-fit: cover; /* 保持宽高比例，裁剪多余部分 */
 }
+
 .member-details {
   flex: 1; /* 剩余空间占满 */
   display: flex;
@@ -299,16 +311,18 @@ export default {
   height: 100%; /* 占满父元素高度 */
 }
 
-.member-name {
-  flex: 1 1 20%; /* 占据20%的高度 */
+.member-name,
+.member-motto {
+  flex: 1 1 20%; /* 各占20%的高度 */
   margin-bottom: 5px;
   line-height: 30px; /* 垂直居中 */
+  font-size: 13px;
 }
 
-.member-motto {
-  flex: 1 1 20%; /* 占据20%的高度 */
-  margin-bottom: 5px;
-  line-height: 20px; /* 垂直居中 */
+.member-name{
+  font-size: 16px;
+  font-weight: bold;
+
 }
 
 .member-description {
@@ -319,14 +333,14 @@ export default {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2; /* 显示最多两行 */
   line-height: 20px; /* 每行高度 */
+  font-size: 13px;
 }
-
 
 /* 标签设置 */
 .member-tags {
   position: absolute;
-  top: 0px;
-  right: 0px;
+  top: 0;
+  right: 0;
 }
 
 .member-tags .tag {
@@ -338,17 +352,7 @@ export default {
   margin-left: 5px;
 }
 
-/* 背面样式 */
-.back {
-  display: none; /* 初始状态隐藏背面 */
-  font-size: 14px;
-  background-color: #f0f0f0;
-  border-radius: 5px;
-}
-
-.flip .back {
-  display: block; /* 翻转后显示背面 */
-}
+/* 按钮样式 */
 .toggle-button {
   background-color: #3498db;
   color: white;
@@ -384,8 +388,6 @@ export default {
   margin-bottom: 10px;
 }
 
-
-
 .platform-toggle-button {
   margin-left: auto; /* 确保按钮与标题右对齐 */
 }
@@ -393,25 +395,38 @@ export default {
 /* 响应式设计 */
 @media (max-width: 768px) {
   .team-group {
-    padding: 20px 20px;
-    border: 1px solid #e0e0e0;
-    border-radius: 20px;
-    margin: 5px 0;
+    margin: 10px;
   }
 
   .team-introduction {
-    margin-left: 20px;
-    margin-right: 20px;
-    padding: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
   }
 
   .member-cards {
-    flex-direction: column;
-    align-items: center;
+    flex-direction: column; /* 纵向布局 */
+    align-items: center; /* 水平居中对齐 */
   }
 
   .member-card {
-    width: 100%;
+    width: 100%; /* 卡片宽度设置为 100%，适应小屏幕 */
+    max-width: 400px; /* 添加一个最大宽度，避免过宽 */
+    margin-bottom: 0;
+    transform: none; /* 取消悬浮效果的transform */
+    transition: none; /* 禁用动画过渡 */
+  }
+
+  .member-introduction p {
+    padding: 0;
+  }
+
+  .group-content {
+    padding: 0;
+    margin: 0;
+  }
+
+  .member-card:hover {
+    transform: none; /* 禁用 hover 的位移效果 */
   }
 }
 </style>
