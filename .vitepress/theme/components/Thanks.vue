@@ -352,6 +352,10 @@ export default {
   margin-bottom: 5px;
   line-height: 30px; /* 垂直居中 */
   font-size: 13px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1; /* 显示最多两行 */
+  overflow: hidden;
 }
 
 .member-name {
