@@ -26,7 +26,8 @@
       <div class="group-header">
         <h2 class="group-title">{{ level.level_name }}</h2>
       </div>
-      <p class="group-slogan">{{ level.slogan }}</p> <!-- 添加级别的slogan -->
+      <p class="group-slogan">{{ level.slogan }}</p>
+      <!-- 添加级别的slogan -->
 
       <!-- 展开和收起控制具体平台的内容 -->
       <div class="group-content">
@@ -43,11 +44,10 @@
             >
               {{ group.open ? "收起" : "展开" }}
             </button>
-
           </div>
 
-          <p class="group-slogan">{{ group.slogan }}</p> <!-- 添加平台的slogan -->
-
+          <p class="group-slogan">{{ group.slogan }}</p>
+          <!-- 添加平台的slogan -->
 
           <!-- 展开和收起控制具体组别的内容 -->
           <div v-if="group.open" class="member-cards">
@@ -81,11 +81,16 @@
                     </div>
                     <div class="member-tags">
                       <span
-                        v-for="(tag, tagIdx) in member.tags"
+                        v-for="(tagId, tagIdx) in member.tags
+                          .sort((a, b) => a - b)
+                          .slice(0, 3)"
                         :key="tagIdx"
                         class="tag"
-                        >{{ tag }}</span
+                        :style="{ backgroundColor: getTagColor(tagId) }"
                       >
+                        {{ tagsMapping[tagId] }}
+                        <!-- 使用映射获取标签名称 -->
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -119,6 +124,8 @@ import thanksData from "../data/thanks.json";
 export default {
   data() {
     return {
+      flippedMember: null, // 存储当前翻转的成员
+      tagsMapping: thanksData.tags_mapping, // 引入标签映射
       levels: thanksData.levels.map((level) => ({
         ...level,
         groups: level.groups.map((group) => ({
@@ -126,6 +133,12 @@ export default {
           open: true, // 默认开启每个组
         })),
       })),
+      tagColors: {
+        1: "#3498db", // 淡蓝色
+        2: "#1abc9c", // 青绿色
+        3: "#e67e22", // 橙色
+        4: "#E6A57E",
+      },
     };
   },
   methods: {
@@ -136,9 +149,18 @@ export default {
     },
     // 点击时翻转成员卡片
     toggleFlip(member) {
-      if (member.details) {
-        member.flipped = !member.flipped; // 翻转状态切换
+      if (this.flippedMember && this.flippedMember !== member) {
+        this.flippedMember.flipped = false; // 将之前翻转的卡片翻转回去
       }
+      member.flipped = !member.flipped; // 切换当前成员的翻转状态
+      this.flippedMember = member.flipped ? member : null; // 更新当前翻转的成员
+    },
+    // 根据标签样式获取颜色
+    getTagColor(style) {
+      return this.tagColors[style] || "#3498db"; // 默认使用淡蓝色
+    },
+    getTagName(tagId) {
+      return this.tagsMapping[tagId] || "未知标签"; // 返回标签名称
     },
   },
 };
@@ -301,8 +323,6 @@ export default {
   width: 100%; /* 确保宽度占满 */
 }
 
-
-
 /* 新增的外层盒子样式 */
 .member-avatar-wrapper {
   display: flex;
@@ -321,8 +341,6 @@ export default {
   justify-content: space-between; /* 在主轴上分散对齐，内容分别靠上和靠下 */
   height: 100%; /* 确保有足够的高度来显示分散的效果 */
 }
-
-
 
 .member-avatar img {
   margin-top: 6px;
@@ -354,7 +372,7 @@ export default {
   font-size: 13px;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1; /* 显示最多两行 */
+  -webkit-line-clamp: 1; /* 显示最多1行 */
   overflow: hidden;
 }
 
@@ -406,7 +424,6 @@ export default {
 
 /* 为组别和平台的内容部分添加适当的间距 */
 .group-content {
-  margin-left: 20px;
   margin-top: 10px;
 }
 
@@ -428,8 +445,13 @@ export default {
 .platform-toggle-button {
   margin-left: auto; /* 确保按钮与标题右对齐 */
 }
-
-
+.member-tags .tag {
+  color: #fff; /* 字体颜色 */
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  margin-left: 5px;
+}
 
 /* 响应式设计 */
 @media (max-width: 768px) {
@@ -454,7 +476,7 @@ export default {
     margin-bottom: 0;
     transform: none; /* 取消悬浮效果的transform */
     transition: none; /* 禁用动画过渡 */
-    box-shadow: #ddd;
+    box-shadow: white;
   }
 
   .member-introduction p {
@@ -470,7 +492,7 @@ export default {
     transform: none; /* 禁用 hover 的位移效果 */
   }
 
-  .team-introduction p{
+  .team-introduction p {
     padding: 0 10px;
   }
 }
