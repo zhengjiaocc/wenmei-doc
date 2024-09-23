@@ -779,7 +779,9 @@ export default {
 }
 
 .drawer ul li {
-  padding: 10px !important;
+  min-height:46px;
+  display:flex;
+  align-items:center;
   cursor: pointer;
   transition: background-color 0.3s ease;
   border-bottom: 2px solid rgba(232, 232, 232) !important;
@@ -834,6 +836,7 @@ export default {
         background-repeat: no-repeat;
         opacity: 0.7;
         cursor: pointer;
+        margin-right:8px;
         &-active {
           filter: brightness(0) saturate(100%) invert(53%) sepia(66%)
             saturate(368%) hue-rotate(352deg) brightness(112%) contrast(108%);
@@ -974,8 +977,9 @@ export default {
   }
 
   .drawer {
-    width: 100%;
+    width: 100vw;
     max-width: 100vw;
+    min-width:100vw;
     left: 0;
     right: 0;
     border-radius: 0;
@@ -994,7 +998,6 @@ export default {
   .drawer ul li:nth-child(even) {
     border: 0;
     background-color: whitesmoke;
-    padding: 8px 0px;
     cursor: pointer;
     transition: background-color 0.1s ease;
   }
@@ -1002,7 +1005,6 @@ export default {
   .drawer ul li:nth-child(odd) {
     border: 0;
     background-color: rgba(245, 245, 245, 0.633);
-    padding: 8px 0px;
     cursor: pointer;
     transition: background-color 0.1s ease;
   }
