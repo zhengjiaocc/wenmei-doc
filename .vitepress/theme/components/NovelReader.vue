@@ -319,15 +319,17 @@ export default {
             Number(localStorage.getItem("logChapterIndex"))
           ].className = "";
         }
-        let boxHeight = document.querySelectorAll(".drawer-content__box")[0]
+        let height = document.querySelectorAll(".drawer-content__box")[0]
+          .clientHeight;
+          let boxHeight = document.querySelectorAll(".drawer")[0]
           .clientHeight;
         console.debug(this.currentChapterIndex);
         if (this.isSort) {
           document.querySelectorAll(".drawer-content")[0].scrollTop =
-            boxHeight - this.currentChapterIndex * 45.6 - 96;
+            height - this.currentChapterIndex * 46 - 96 - boxHeight/2 +46;
         } else {
           document.querySelectorAll(".drawer-content")[0].scrollTop =
-            this.currentChapterIndex * 45.6 - 1;
+            this.currentChapterIndex * 46  -boxHeight/2 +46;
         }
         document.querySelectorAll(".drawer-content__box li")[
           this.currentChapterIndex
@@ -794,10 +796,11 @@ export default {
       min-height: 49.6px;
       display: flex;
       position: fixed;
-      transform: translateY(-1px);
+      top:0;
+      left:0;
       justify-content: space-between;
       align-items: center;
-      width: calc(100% - 10px);
+      width: 100%;
       background: #fafafa;
       padding: 10px 10px 10px 15px;
       &__search {
@@ -807,6 +810,7 @@ export default {
         border-radius: 4px;
         border: 1px solid #c3c3c3;
         opacity: 0;
+        pointer-events:none;
         input {
           padding: 2px;
           padding-left: 8px;
