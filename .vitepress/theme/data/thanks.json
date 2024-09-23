@@ -6,15 +6,16 @@
         "slogan": "给那些拼命更新和维护，还带头搞二创的大佬们，你们真的超给力！",
         "groups": [
           {
-            "platform": "GitHub 贡献者",
-            "slogan": "githubxxx",
+            "platform": "目前核心管理、开发",
+            "slogan": "",
             "members": [
               {
-                "name": "Alice",
+                "name": "张涵筱",
                 "avatar": "https://pic.imgdb.cn/item/64a27f5d1ddac507ccc88b2b.jpg",
-                "motto": "代码即诗。",
-                "descr": "Alice 是项目的核心贡献者，主要负责前端开发。",
-                "tags": ["开发者", "前端"],
+                "motto": "憧憬等来幻灭",
+                "descr": "小码农，本站技术支持：专注问妹文档站开发维护",
+                "tags": ["开发者"],
+                "year": 2023,
                 "details": {
                   "info": "Alice 在多个开源项目上做出了重大贡献。",
                   "links": [
@@ -22,16 +23,18 @@
                     { "text": "个人主页", "url": "https://alice.dev" }
                   ]
                 },
+
                 "flipped": false
               },
               {
-                "name": "Bob",
-                "avatar": "https://pic.imgdb.cn/item/64a27f5d1ddac507ccc88b2b.jpg",
-                "motto": "简洁是终极复杂。",
-                "descr": "Bob 专注于项目的后端架构设计和实现。",
-                "tags": ["后端", "架构师"],
+                "name": "苏唯冰",
+                "avatar": "https://hexo-blog-anzhiyu-zhengjiao.oss-cn-hongkong.aliyuncs.com/img/202407172159713.jpg",
+                "motto": "缘起北天，始于终嫣。",
+                "descr": "实体书主要策划，并完成印刷排版，内容校准等",
+                "tags": ["实体书"],
+                "year": 2018,
                 "details": {
-                  "info": "Bob 领导了微服务架构的设计。",
+                  "info": "",
                   "links": [
                     { "text": "GitHub", "url": "https://github.com/bob" }
                   ]
@@ -39,11 +42,12 @@
                 "flipped": false
               },
               {
-                "name": "Charlie",
-                "avatar": "https://pic.imgdb.cn/item/64a27f5d1ddac507ccc88b2b.jpg",
-                "motto": "测试驱动开发。",
-                "descr": "Charlie 是项目的测试专家，负责所有的自动化测试。",
-                "tags": ["测试", "自动化"],
+                "name": "【缘盟】 悠",
+                "avatar": "https://hexo-blog-anzhiyu-zhengjiao.oss-cn-hongkong.aliyuncs.com/img/202407172158719.jpg",
+                "motto": "我们终将得到就输，或者就这么死去",
+                "descr": "人称妹学家。贴吧吧主，梳理全书，整理了关于本书的大量资料",
+                "tags": ["管理", "资料"],
+                "year": 2016,
                 "details": {
                   "info": "Charlie 确保了项目的高质量交付。",
                   "links": [
@@ -53,11 +57,12 @@
                 "flipped": false
               },
               {
-                "name": "Charlie",
-                "avatar": "https://pic.imgdb.cn/item/64a27f5d1ddac507ccc88b2b.jpg",
-                "motto": "测试驱动开发。",
-                "descr": "Charlie 是项目的测试专家，负责所有的自动化测试。",
-                "tags": ["测试", "自动化"],
+                "name": "【缘盟】南哥哥",
+                "avatar": "https://hexo-blog-anzhiyu-zhengjiao.oss-cn-hongkong.aliyuncs.com/img/202409230314067.bmp",
+                "motto": "期待六月明媚的阳光",
+                "descr": "前端工程师，本站的技术支持之一，参与本站开发与维护",
+                "tags": ["技术"],
+                "year":2018,
                 "details": {
                   "info": "Charlie 确保了项目的高质量交付。",
                   "links": [
@@ -67,11 +72,12 @@
                 "flipped": false
               },
               {
-                "name": "Alice",
-                "avatar": "https://pic.imgdb.cn/item/64a27f5d1ddac507ccc88b2b.jpg",
-                "motto": "代码即诗。",
-                "descr": "Alice 是项目的核心贡献者，主要负责前端开发。",
+                "name": "【缘盟】道长",
+                "avatar": "https://hexo-blog-anzhiyu-zhengjiao.oss-cn-hongkong.aliyuncs.com/img/202409230322133.png",
+                "motto": "待君成华盖，绒蒿花自开",
+                "descr": "《问题妹妹恋上我》实体书一期策划之一",
                 "tags": ["开发者", "前端"],
+                "year": 2017,
                 "details": {
                   "info": "Alice 在多个开源项目上做出了重大贡献。",
                   "links": [
