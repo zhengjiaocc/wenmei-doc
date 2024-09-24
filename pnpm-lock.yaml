@@ -14,6 +14,9 @@ importers:
       canvas-confetti:
         specifier: ^1.9.3
         version: 1.9.3
+      js-pinyin:
+        specifier: ^0.2.7
+        version: 0.2.7
       js-yaml:
         specifier: ^4.1.0
         version: 4.1.0
@@ -630,6 +633,9 @@ packages:
   is-what@4.1.16:
     resolution: {integrity: sha512-ZhMwEosbFJkA0YhFnNDgTM4ZxDRsS6HqTo7qsZM08fehyRYIYa0yHu5R6mgo1n/8MgaPBXiPimPD77baVFYg+A==}
     engines: {node: '>=12.13'}
+
+  js-pinyin@0.2.7:
+    resolution: {integrity: sha512-Dbm7qJDwlC2MRHRXQo7GrVrL5w975tEOX6sfc0M8Z3oL9VhR4uUqgkwaETMqh4bAJ14w4zVs3tXsi9pDxWUmNg==}
 
   js-yaml@4.1.0:
     resolution: {integrity: sha512-wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA==}
@@ -1464,6 +1470,8 @@ snapshots:
   is-what@3.14.1: {}
 
   is-what@4.1.16: {}
+
+  js-pinyin@0.2.7: {}
 
   js-yaml@4.1.0:
     dependencies:
