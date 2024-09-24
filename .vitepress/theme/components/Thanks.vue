@@ -272,7 +272,7 @@ export default {
   border-radius: 20px;
   padding: 10px;
   margin-bottom: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 18%);
   perspective: 1000px; /* 让子元素有3D效果 */
   transition: transform 0.3s ease-in-out; /* 添加平滑的悬浮动画 */
 }
@@ -444,7 +444,7 @@ export default {
   align-items: center;
   border: 1px solid #e0e0e09c; /* 添加淡灰色边框 */
   padding: 10px; /* 添加内边距使内容不紧贴边框 */
-  border-radius: 12px; /* 可选，增加圆角效果 */
+  border-radius: 11px; /* 可选，增加圆角效果 */
   margin-bottom: 10px;
 }
 
@@ -483,6 +483,7 @@ export default {
     transform: none; /* 取消悬浮效果的transform */
     transition: none; /* 禁用动画过渡 */
     box-shadow: white;
+    border-radius: 11px;
   }
 
   .member-introduction p {
