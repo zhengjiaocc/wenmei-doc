@@ -120,17 +120,23 @@
 
 <script>
 import thanksData from "../data/thanks.json";
-
+import pinyin from 'js-pinyin'
 export default {
   data() {
     return {
       flippedMember: null, // 存储当前翻转的成员
       tagsMapping: thanksData.tags_mapping, // 引入标签映射
+      // 其他数据...
       levels: thanksData.levels.map((level) => ({
         ...level,
         groups: level.groups.map((group) => ({
           ...group,
-          open: true, // 默认开启每个组
+          members: group.members.sort((a, b) => {
+            const aPinyin = pinyin.getCamelChars(a.name);
+            const bPinyin = pinyin.getCamelChars(b.name);
+            return aPinyin.localeCompare(bPinyin);
+          }),
+          open: true,
         })),
       })),
       tagColors: {
