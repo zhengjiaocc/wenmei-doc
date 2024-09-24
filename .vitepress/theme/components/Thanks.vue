@@ -201,7 +201,7 @@ export default {
   color: #666; /* 字体颜色稍淡 */
   margin: 30px 0;
   padding: 20px; /* 增加适当的 padding，左右上下各20px */
-  background-color: #f5f5f7; /* 苹果风格浅灰色背景 */
+  background-color: rgb(0 0 0 / 6%); /* 苹果风格浅灰色背景 */
   border-radius: 16px; /* 圆角 */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* 轻微阴影 */
   max-width: 100%; /* 宽度与卡片容器对齐 */
