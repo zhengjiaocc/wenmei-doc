@@ -64,7 +64,10 @@
                 <!-- 正面 -->
                 <div class="member-info front" v-if="!member.flipped">
                   <!-- 判断是否显示年份和描述，根据level_id控制 -->
-                  <div class="member-avatar-wrapper">
+                  <div
+                    class="member-avatar-wrapper"
+                    :class="{ 'no-margin-top': level.level_id === 2 }"
+                  >
                     <div class="member-avatar">
                       <img :src="member.avatar" alt="avatar" />
                     </div>
@@ -81,7 +84,8 @@
                         {{ member.descr }}
                       </p>
                     </div>
-                    <div class="member-tags">
+                    <!-- 标签部分，根据 level_id 控制显示 -->
+                    <div class="member-tags" v-if="level.level_id === 1">
                       <span
                         v-for="(tagId, tagIdx) in member.tags
                           .sort((a, b) => a - b)
@@ -91,6 +95,19 @@
                         :style="{ backgroundColor: getTagColor(tagId) }"
                       >
                         {{ tagsMapping[tagId] }}
+                      </span>
+                    </div>
+
+                    <!-- 当 level_id 为 2 时，显示 qq_group 代替 Tags -->
+                    <div
+                      class="member-tags"
+                      v-if="level.level_id === 2 && member.qq_group.length"
+                    >
+                      <span
+                        class="tag"
+                        :style="{ backgroundColor: getQqGroupTagColor() }"
+                      >
+                        {{ getQqGroupDisplay(member.qq_group) }}
                       </span>
                     </div>
                   </div>
@@ -145,6 +162,7 @@ export default {
         2: "#1abc9c", // 青绿色
         3: "#e67e22", // 橙色
         4: "#E6A57E",
+        5: "#1abc9c", // 青绿色
       },
     };
   },
@@ -178,6 +196,16 @@ export default {
     getQqGroupDisplay(groups) {
       if (groups.length === 0) return null;
       return groups.sort().join(" - ");
+    },
+    // 获取QQ群显示样式
+    getQqGroupTagColor() {
+      return "#1abc9c"; // 青色标签
+    },
+
+    // 根据QQ群组信息获取排序和连接后的字符串
+    getQqGroupDisplay(groups) {
+      if (groups.length === 0) return null;
+      return groups.sort((a, b) => a - b).join(" - ");
     },
   },
 };
@@ -484,6 +512,20 @@ export default {
   border-radius: 12px;
   font-size: 12px;
   margin-left: 5px;
+}
+
+.member-tags .tag {
+  background-color: #1abc9c; /* 青色背景 */
+  color: #fff; /* 字体颜色 */
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  margin-left: 5px;
+}
+
+
+.member-avatar-wrapper.no-margin-top img {
+  margin-top: 0; /* 取消上边距 */
 }
 
 /* 响应式设计 */

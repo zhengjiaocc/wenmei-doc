@@ -4,7 +4,8 @@
       "1": "开发",
       "2": "管理",
       "3": "资料",
-      "4": "实体书"
+      "4": "实体书",
+      "5": "管理督导"
     },
     "levels": [
       {
@@ -100,6 +101,7 @@
                 "motto": "爱与被爱同时发生，爱才有意义。",
                 "descr": "Eummm...是个女孩，其他我也不知道吖...",
                 "tags": [2],
+                "year": 2015,
                 "details": {
                   "info": "",
                   "links": [
@@ -113,6 +115,7 @@
                 "avatar": "https://hexo-blog-anzhiyu-zhengjiao.oss-cn-hongkong.aliyuncs.com/img/202409240055741.bmp",
                 "motto": "落日一点红如豆，己把相思写满天。",
                 "descr": "群主，应该挺爱看樱花的",
+                "year": 2013,
                 "tags": [2],
                 "details": {
                   "info": "Charlie 确保了项目的高质量交付。",
@@ -127,6 +130,7 @@
                 "avatar": "https://hexo-blog-anzhiyu-zhengjiao.oss-cn-hongkong.aliyuncs.com/img/202409240103630.png",
                 "motto": "Eummm...很神秘",
                 "descr": "不晓得...正如我所说，很神秘",
+                "year": 2013,
                 "tags": [2],
                 "details": {
                   "info": "Charlie 确保了项目的高质量交付。",
@@ -135,50 +139,35 @@
                   ]
                 },
                 "flipped": false
-              }
-            ]
-          },
-          {
-            "platform": "设计团队",
-            "members": [
+              },
               {
-                "name": "Daisy",
-                "avatar": "https://pic.imgdb.cn/item/64a27f5d1ddac507ccc88b2b.jpg",
-                "motto": "设计无极限。",
-                "descr": "Daisy 负责整个项目的 UI/UX 设计。",
+                "name": "语默",
+                "avatar": "https://q4.qlogo.cn/headimg_dl?dst_uin=852575722&spec=140",
+                "motto": "Eummm...很神秘",
+                "descr": "不晓得...正如我所说，很神秘",
+                "year": 2017,
+                "tags": [5],
+                "qq_group": [""],
+                "details": {
+                  "info": "Grace 为项目提供了详细的质量报告。",
+                  "links": [
+                    { "text": "LinkedIn", "url": "https://linkedin.com/grace" }
+                  ]
+                },
+                "flipped": false
+              },
+              {
+                "name": "狐仙",
+                "avatar": "https://q4.qlogo.cn/headimg_dl?dst_uin=852575722&spec=140",
+                "motto": "Eummm...很神秘",
+                "descr": "不晓得...正如我所说，很神秘",
                 "tags": [2],
+                "year": 2018,
+                "qq_group": [""],
                 "details": {
-                  "info": "Daisy 在项目中创造了多个创新设计。",
+                  "info": "Grace 为项目提供了详细的质量报告。",
                   "links": [
-                    { "text": "Dribbble", "url": "https://dribbble.com/daisy" }
-                  ]
-                },
-                "flipped": false
-              },
-              {
-                "name": "Eve",
-                "avatar": "https://pic.imgdb.cn/item/64a27f5d1ddac507ccc88b2b.jpg",
-                "motto": "设计即体验。",
-                "descr": "Eve 专注于用户体验的优化。",
-                "tags": [1],
-                "details": {
-                  "info": "Eve 带领团队提升了用户的整体满意度。",
-                  "links": [
-                    { "text": "Dribbble", "url": "https://dribbble.com/eve" }
-                  ]
-                },
-                "flipped": false
-              },
-              {
-                "name": "Frank",
-                "avatar": "https://pic.imgdb.cn/item/64a27f5d1ddac507ccc88b2b.jpg",
-                "motto": "每一像素都值得雕琢。",
-                "descr": "Frank 负责项目的图标和微交互设计。",
-                "tags": [1,2,3,4],
-                "details": {
-                  "info": "Frank 设计了多个标志性图标。",
-                  "links": [
-                    { "text": "Dribbble", "url": "https://dribbble.com/frank" }
+                    { "text": "LinkedIn", "url": "https://linkedin.com/grace" }
                   ]
                 },
                 "flipped": false
@@ -193,15 +182,15 @@
         "slogan":"感谢那些到处宣传、管理QQ群和贴吧的小伙伴们，你们辛苦了，干得漂亮！",
         "groups": [
           {
-            "platform": "测试团队",
+            "platform": "QQ群管理",
             "members": [
               {
-                "name": "Grace",
-                "avatar": "https://pic.imgdb.cn/item/64a27f5d1ddac507ccc88b2b.jpg",
-                "motto": "发现问题，解决问题。",
-                "descr": "Grace 是测试团队的负责人。",
-                "tags": [2,4],
-                "qq_group": [1,6,7,9],
+                "name": "神烦",
+                "avatar": "https://q4.qlogo.cn/headimg_dl?dst_uin=1113289382&spec=140",
+                "descr": "",
+                "motto": "做一个开心的吃货",
+                "tags": [],
+                "qq_group": ["缘盟-1"],
                 "details": {
                   "info": "Grace 为项目提供了详细的质量报告。",
                   "links": [
@@ -211,33 +200,126 @@
                 "flipped": false
               },
               {
-                "name": "Henry",
-                "avatar": "https://pic.imgdb.cn/item/64a27f5d1ddac507ccc88b2b.jpg",
-                "motto": "自动化让一切更简单。",
-                "descr": "Henry 负责自动化测试的开发。",
-                "tags": [1,3],
+                "name": "嘤嘤",
+                "avatar": "https://q2.qlogo.cn/headimg_dl?dst_uin=1137006279&spec=140",
+                "motto": "Eummm...很神秘",
+                "descr": "不晓得...正如我所说，很神秘",
+                "tags": [],
+                "qq_group": ["缘盟-实习-8"],
                 "details": {
-                  "info": "Henry 开发了多个自动化测试框架。",
+                  "info": "Grace 为项目提供了详细的质量报告。",
                   "links": [
-                    { "text": "LinkedIn", "url": "https://linkedin.com/henry" }
+                    { "text": "LinkedIn", "url": "https://linkedin.com/grace" }
                   ]
                 },
                 "flipped": false
               },
               {
-                "name": "Ivy",
-                "avatar": "https://pic.imgdb.cn/item/64a27f5d1ddac507ccc88b2b.jpg",
-                "motto": "没有漏洞是最好的代码。",
-                "descr": "Ivy 是渗透测试专家，确保项目安全性。",
-                "tags": [2,3],
+                "name": "夜泽",
+                "avatar": "https://q1.qlogo.cn/headimg_dl?dst_uin=1606871938&spec=140",
+                "motto": "Eummm...很神秘",
+                "descr": "",
+                "tags": [],
+                "qq_group": ["缘盟-2"],
                 "details": {
-                  "info": "Ivy 发现并修复了多个安全漏洞。",
+                  "info": "Grace 为项目提供了详细的质量报告。",
                   "links": [
-                    { "text": "LinkedIn", "url": "https://linkedin.com/ivy" }
+                    { "text": "LinkedIn", "url": "https://linkedin.com/grace" }
+                  ]
+                },
+                "flipped": false
+              },
+              {
+                "name": "唐宋",
+                "avatar": "https://q1.qlogo.cn/headimg_dl?dst_uin=2908867657&spec=140",
+                "motto": "Eummm...很神秘",
+                "descr": "不晓得...正如我所说，很神秘",
+                "tags": [],
+                "qq_group": ["缘盟-6"],
+                "details": {
+                  "info": "Grace 为项目提供了详细的质量报告。",
+                  "links": [
+                    { "text": "LinkedIn", "url": "https://linkedin.com/grace" }
+                  ]
+                },
+                "flipped": false
+              },
+              {
+                "name": "三草",
+                "avatar": "https://q3.qlogo.cn/headimg_dl?dst_uin=1296795987&spec=140",
+                "motto": "Eummm...很神秘",
+                "descr": "不晓得...正如我所说，很神秘",
+                "tags": [],
+                "qq_group": ["缘盟-1"],
+                "details": {
+                  "info": "Grace 为项目提供了详细的质量报告。",
+                  "links": [
+                    { "text": "LinkedIn", "url": "https://linkedin.com/grace" }
+                  ]
+                },
+                "flipped": false
+              },
+              {
+                "name": "祁阳",
+                "avatar": "https://q1.qlogo.cn/headimg_dl?dst_uin=3279910935&spec=140",
+                "motto": "Eummm...很神秘",
+                "descr": "不晓得...正如我所说，很神秘",
+                "tags": [],
+                "qq_group": ["缘盟-实习"],
+                "details": {
+                  "info": "Grace 为项目提供了详细的质量报告。",
+                  "links": [
+                    { "text": "LinkedIn", "url": "https://linkedin.com/grace" }
+                  ]
+                },
+                "flipped": false
+              },
+              {
+                "name": "煎饼果子",
+                "avatar": "https://q4.qlogo.cn/headimg_dl?dst_uin=2187455799&spec=140",
+                "motto": "Eummm...很神秘",
+                "descr": "不晓得...正如我所说，很神秘",
+                "tags": [],
+                "qq_group": ["缘盟-5"],
+                "details": {
+                  "info": "Grace 为项目提供了详细的质量报告。",
+                  "links": [
+                    { "text": "LinkedIn", "url": "https://linkedin.com/grace" }
+                  ]
+                },
+                "flipped": false
+              },
+              {
+                "name": "郝冰",
+                "avatar": " https://q3.qlogo.cn/headimg_dl?dst_uin=1484094618&spec=140",
+                "motto": "Eummm...很神秘",
+                "descr": "不晓得...正如我所说，很神秘",
+                "tags": [],
+                "qq_group": ["缘盟-5"],
+                "details": {
+                  "info": "Grace 为项目提供了详细的质量报告。",
+                  "links": [
+                    { "text": "LinkedIn", "url": "https://linkedin.com/grace" }
+                  ]
+                },
+                "flipped": false
+              },
+              {
+                "name": "白的",
+                "avatar": "https://q3.qlogo.cn/headimg_dl?dst_uin=1945913738&spec=140",
+                "motto": "Eummm...很神秘",
+                "descr": "不晓得...正如我所说，很神秘",
+                "tags": [],
+                "qq_group": ["缘盟-2-6"],
+                "details": {
+                  "info": "Grace 为项目提供了详细的质量报告。",
+                  "links": [
+                    { "text": "LinkedIn", "url": "https://linkedin.com/grace" }
                   ]
                 },
                 "flipped": false
               }
+              
             ]
           }
         ]
