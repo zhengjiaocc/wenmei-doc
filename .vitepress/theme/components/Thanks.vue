@@ -272,7 +272,7 @@ export default {
   border-radius: 20px;
   padding: 10px;
   margin-bottom: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 18%);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 14%);
   perspective: 1000px; /* 让子元素有3D效果 */
   transition: transform 0.3s ease-in-out; /* 添加平滑的悬浮动画 */
 }
@@ -482,8 +482,8 @@ export default {
     margin-bottom: 0;
     transform: none; /* 取消悬浮效果的transform */
     transition: none; /* 禁用动画过渡 */
-    box-shadow: white;
     border-radius: 11px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 16%);
   }
 
   .member-introduction p {
