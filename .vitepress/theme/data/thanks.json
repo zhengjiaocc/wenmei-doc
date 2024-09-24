@@ -189,7 +189,7 @@
       },
       {
         "level_name": "深切致谢",
-        "level_id": 1, 
+        "level_id": 2, 
         "slogan":"感谢那些到处宣传、管理QQ群和贴吧的小伙伴们，你们辛苦了，干得漂亮！",
         "groups": [
           {
@@ -201,6 +201,7 @@
                 "motto": "发现问题，解决问题。",
                 "descr": "Grace 是测试团队的负责人。",
                 "tags": [2,4],
+                "qq_group": [1,6,7,9],
                 "details": {
                   "info": "Grace 为项目提供了详细的质量报告。",
                   "links": [

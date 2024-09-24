@@ -52,9 +52,9 @@
           <!-- 展开和收起控制具体组别的内容 -->
           <div v-if="group.open" class="member-cards">
             <div
-              v-for="(member, memIdx) in group.members"
-              :key="memIdx"
-              class="member-card"
+              v-for="member in group.members"
+              :key="member.id"
+              :class="['member-card', `member-card-level-${level.level_id}`]"
             >
               <div
                 class="card-content"
@@ -63,12 +63,12 @@
               >
                 <!-- 正面 -->
                 <div class="member-info front" v-if="!member.flipped">
-                  <!-- 包裹头像和加入时间的盒子 -->
+                  <!-- 判断是否显示年份和描述，根据level_id控制 -->
                   <div class="member-avatar-wrapper">
                     <div class="member-avatar">
                       <img :src="member.avatar" alt="avatar" />
                     </div>
-                    <div class="member-join-time">
+                    <div v-if="level.level_id === 1" class="member-join-time">
                       {{ member.year }}
                     </div>
                   </div>
@@ -77,7 +77,9 @@
                     <div>
                       <p class="member-name">{{ member.name }}</p>
                       <p class="member-motto">{{ member.motto }}</p>
-                      <p class="member-description">{{ member.descr }}</p>
+                      <p v-if="level.level_id === 1" class="member-description">
+                        {{ member.descr }}
+                      </p>
                     </div>
                     <div class="member-tags">
                       <span
@@ -89,7 +91,6 @@
                         :style="{ backgroundColor: getTagColor(tagId) }"
                       >
                         {{ tagsMapping[tagId] }}
-                        <!-- 使用映射获取标签名称 -->
                       </span>
                     </div>
                   </div>
@@ -120,7 +121,7 @@
 
 <script>
 import thanksData from "../data/thanks.json";
-import pinyin from 'js-pinyin'
+import pinyin from "js-pinyin";
 export default {
   data() {
     return {
@@ -153,6 +154,7 @@ export default {
       this.levels[levelIndex].groups[groupIndex].open =
         !this.levels[levelIndex].groups[groupIndex].open;
     },
+
     // 点击时翻转成员卡片
     toggleFlip(member) {
       if (this.flippedMember && this.flippedMember !== member) {
@@ -161,12 +163,21 @@ export default {
       member.flipped = !member.flipped; // 切换当前成员的翻转状态
       this.flippedMember = member.flipped ? member : null; // 更新当前翻转的成员
     },
-    // 根据标签样式获取颜色
+
+    // 获取显示的标签颜色
     getTagColor(style) {
       return this.tagColors[style] || "#3498db"; // 默认使用淡蓝色
     },
-    getTagName(tagId) {
-      return this.tagsMapping[tagId] || "未知标签"; // 返回标签名称
+
+    // 获取QQ群显示样式
+    getQqGroupTagColor() {
+      return "#1abc9c"; // 绿色标签
+    },
+
+    // 根据QQ群组信息获取排序和连接后的字符串
+    getQqGroupDisplay(groups) {
+      if (groups.length === 0) return null;
+      return groups.sort().join(" - ");
     },
   },
 };
@@ -268,7 +279,6 @@ export default {
 .member-card {
   background-color: rgb(246, 246, 247);
   width: calc(25% - 15px); /* 每行显示4个卡片 */
-  height: 130px;
   border-radius: 20px;
   padding: 10px;
   margin-bottom: 20px;
@@ -276,7 +286,24 @@ export default {
   perspective: 1000px; /* 让子元素有3D效果 */
   transition: transform 0.3s ease-in-out; /* 添加平滑的悬浮动画 */
 }
+/* 等级1卡片样式 */
+.member-card-level-1 {
+  height: 130px; /* 原高度 */
+}
+.member-card-level-1 .member-description,
+.member-card-level-1 .member-join-time {
+  display: block;
+}
 
+/* 等级2卡片样式 */
+.member-card-level-2 {
+  height: 100px; /* 调整高度 */
+}
+
+.member-card-level-2 .member-description,
+.member-card-level-2 .member-join-time {
+  display: none; /* 隐藏年份和描述 */
+}
 .member-card:hover {
   transform: translateY(-5px); /* 悬停效果 */
 }
