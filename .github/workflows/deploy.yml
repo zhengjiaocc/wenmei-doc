@@ -53,7 +53,8 @@ jobs:
       - name: Deploy to Server
         uses: appleboy/scp-action@v0.1.1
         with:
-          host: 152.32.210.227
+          # host: 152.32.210.227
+          host: 193.112.106.238
           username: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           target: /var/www/wtmmlsw/html
@@ -62,7 +63,8 @@ jobs:
       - name: Restart Nginx
         uses: appleboy/ssh-action@v0.1.1
         with:
-          host: 152.32.210.227
+          # host: 152.32.210.227
+          host: 193.112.106.238
           username: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
