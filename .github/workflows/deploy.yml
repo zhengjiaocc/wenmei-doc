@@ -21,7 +21,10 @@ jobs:
         with:
           node-version: 20
           cache: npm # 使用 npm 进行缓存
-          
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
       - name: Install dependencies
         run: npm ci # 使用 npm ci 安装依赖
 
@@ -29,8 +32,9 @@ jobs:
         run: npm run docs:build  # 使用 VitePress 构建项目
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-artifact@v3  # 修改为正确的上传动作
         with:
+          name: build-artifact  # 工件名称
           path: .vitepress/dist
 
   # Deploy job
@@ -40,7 +44,9 @@ jobs:
 
     steps:
       - name: Download artifact
-        uses: actions/download-pages-artifact@v3
+        uses: actions/download-artifact@v3  # 下载上传的工件
+        with:
+          name: build-artifact  # 与上传的工件名称一致
 
       - name: Deploy to Server
         uses: appleboy/scp-action@v0.1.1
@@ -49,7 +55,7 @@ jobs:
           username: root  # 替换为你的服务器用户名
           key: ${{ secrets.SSH_PRIVATE_KEY }}  # 使用 GitHub Secret 中的私钥
           target: /var/www/wtmmlsw/html  # 服务器上的目标路径
-          source: ".vitepress/dist/*"  # 要上传的文件
+          source: "./.vitepress/dist/*"  # 要上传的文件
 
       - name: Restart Nginx
         uses: appleboy/ssh-action@v0.1.1
