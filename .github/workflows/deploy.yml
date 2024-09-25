@@ -48,7 +48,7 @@ jobs:
           name: build-artifact
 
       - name: List downloaded files
-        run: ls -alh ./wenmei-doc/.vitepress/dist/
+        run: ls -alh /home/runner/work/wenmei-doc/wenmei-doc
 
       - name: Deploy to Server
         uses: appleboy/scp-action@v0.1.1
@@ -57,7 +57,7 @@ jobs:
           username: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           target: /var/www/wtmmlsw/html
-          source: ./wenmei-doc/.vitepress/dist/
+          source: /home/runner/work/wenmei-doc/wenmei-doc
 
       - name: Restart Nginx
         uses: appleboy/ssh-action@v0.1.1
