@@ -57,7 +57,7 @@ jobs:
           host: 193.112.106.238
           username: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          target: /var/www/wtmmlsw/html
+          target: /var/www/wtmmlsw-site/html
           source: /home/runner/work/wenmei-doc/wenmei-doc
 
       - name: Restart Nginx
