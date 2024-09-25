@@ -20,19 +20,16 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm # 使用 npm 进行缓存
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
+          cache: npm  # 使用 npm 进行缓存
 
       - name: Install dependencies
-        run: npm ci # 使用 npm ci 安装依赖
+        run: npm ci  # 安装项目依赖
 
       - name: Build with VitePress
         run: npm run docs:build  # 使用 VitePress 构建项目
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3  # 修改为正确的上传动作
+        uses: actions/upload-artifact@v3  # 上传构建工件
         with:
           name: build-artifact  # 工件名称
           path: .vitepress/dist
@@ -44,21 +41,21 @@ jobs:
 
     steps:
       - name: Download artifact
-        uses: actions/download-artifact@v3  # 下载上传的工件
+        uses: actions/download-artifact@v3  # 下载构建工件
         with:
-          name: build-artifact  # 与上传的工件名称一致
+          name: build-artifact
 
       - name: Deploy to Server
-        uses: appleboy/scp-action@v0.1.1
+        uses: appleboy/scp-action@v0.1.1  # 使用 SCP 上传到服务器
         with:
           host: 152.32.210.227  # 服务器 IP 地址
-          username: root  # 替换为你的服务器用户名
-          key: ${{ secrets.SSH_PRIVATE_KEY }}  # 使用 GitHub Secret 中的私钥
-          target: /var/www/wtmmlsw/html  # 服务器上的目标路径
+          username: root  # 服务器用户名
+          key: ${{ secrets.SSH_PRIVATE_KEY }}  # GitHub Secrets 中的私钥
+          target: /var/www/wtmmlsw/html  # 服务器的目标路径
           source: "./.vitepress/dist/*"  # 要上传的文件
 
       - name: Restart Nginx
-        uses: appleboy/ssh-action@v0.1.1
+        uses: appleboy/ssh-action@v0.1.1  # 使用 SSH 重启 Nginx
         with:
           host: 152.32.210.227
           username: root
