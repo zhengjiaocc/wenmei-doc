@@ -37,7 +37,7 @@ export default {
   //     // https://vitepress.dev/guide/extending-default-theme#layout-slots
   //   })
   // },
-  Layout: MyLayout, 
+  // Layout: MyLayout, 
   // Layout() {
   //   return h(DefaultTheme.Layout, null, {
   //     'layout-top': () => h(notice), // 使用layout-top插槽
