@@ -29,7 +29,13 @@ jobs:
         run: npm run docs:build  # 使用 VitePress 构建项目
 
       - name: List dist directory
-        run: ls -alh .vitepress/dist  # 检查 dist 目录是否生成内容
+        run: ls -alh .vitepress/dist  # 列出构建输出
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3  # 上传构建工件
+        with:
+          name: build-artifact  # 工件名称
+          path: .vitepress/dist
 
   # Deploy job
   deploy:
@@ -37,6 +43,11 @@ jobs:
     needs: build  # 依赖 build 任务完成
 
     steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v3  # 下载构建工件
+        with:
+          name: build-artifact
+
       - name: Deploy to Server
         uses: appleboy/scp-action@v0.1.1  # 使用 SCP 上传到服务器
         with:
@@ -44,8 +55,7 @@ jobs:
           username: root  # 服务器用户名
           key: ${{ secrets.SSH_PRIVATE_KEY }}  # GitHub Secrets 中的私钥
           target: /var/www/wtmmlsw/html  # 服务器的目标路径
-          source: ".vitepress/dist"  # 上传整个目录
-          debug: true  # 开启调试模式
+          source: .vitepress/dist/  # 上传整个目录
 
       - name: Restart Nginx
         uses: appleboy/ssh-action@v0.1.1  # 使用 SSH 重启 Nginx
