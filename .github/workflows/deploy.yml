@@ -1,0 +1,43 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16' # 使用你的项目所需的 Node.js 版本
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build the project
+      run: npm run build
+
+    - name: Copy files to server
+      uses: appleboy/scp-action@v0.1.1
+      with:
+        host: 152.32.210.227
+        username: root # 替换为服务器上的用户名
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        source: "./docs/.vitepress/dist/*"
+        target: "/var/www/wtmmlsw/html" # 服务器上的目标路径，确保该路径有写权限
+
+    - name: Restart Nginx
+      uses: appleboy/ssh-action@v0.1.1
+      with:
+        host: 152.32.210.227
+        username: root
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+          sudo systemctl restart nginx
