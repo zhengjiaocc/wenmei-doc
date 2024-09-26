@@ -36,7 +36,7 @@ head:
 ## 1. 小说
 
 - **《问题妹妹恋上我》全集**
-  - [本站下载链接](https://pan.zhengjiao.cc/%E9%97%AE%E9%A2%98%E5%A6%B9%E5%A6%B9%E6%81%8B%E4%B8%8A%E6%88%91/%E7%AB%A0%E8%8A%82)（点击即可下载）
+  - [本站下载链接](https://pan.zhengjiao.cc/%E9%97%AE%E9%A2%98%E5%A6%B9%E5%A6%B9%E6%81%8B%E4%B8%8A%E6%88%91/%E5%85%AC%E5%BC%80/%E7%AB%A0%E8%8A%82)（点击即可下载）
   - **注意**：百度网盘链接及备用链接已失效，请直接使用本站提供的下载链接。
   
   
@@ -45,13 +45,13 @@ head:
 
 ### 旧版
 - **《问题妹妹恋上我》人物关系图**
-  - [本站下载链接](![/resources/《问题妹妹恋上我》人物关系图(第一版).zip](https://pan.zhengjiao.cc/d/%E9%97%AE%E9%A2%98%E5%A6%B9%E5%A6%B9%E6%81%8B%E4%B8%8A%E6%88%91/%E3%80%8A%E9%97%AE%E9%A2%98%E5%A6%B9%E5%A6%B9%E6%81%8B%E4%B8%8A%E6%88%91%E3%80%8B%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE(%E7%AC%AC%E4%B8%80%E7%89%88).jpg?sign=qznecbfO9rTBI460cadiJL8wYUBMly2cdlPxLfdICIg=:0))（点击即可下载）
+  - [本站下载链接](https://pan.zhengjiao.cc/d/%E9%97%AE%E9%A2%98%E5%A6%B9%E5%A6%B9%E6%81%8B%E4%B8%8A%E6%88%91/%E5%85%AC%E5%BC%80/%E3%80%8A%E9%97%AE%E9%A2%98%E5%A6%B9%E5%A6%B9%E6%81%8B%E4%B8%8A%E6%88%91%E3%80%8B%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE(%E7%AC%AC%E4%B8%80%E7%89%88).jpg?sign=qAfgsdWQXWBnJz3qDj0sBFKo7cIT3YcxzblU0IUyb68=:0)（点击即可下载）
 
 
 
 ### 新版
 - **《问题妹妹恋上我》人物关系图（新版PDF）**
-  - [本站下载链接]([/resources/《问题妹妹恋上我》人物关系图(新版).zip](https://pan.zhengjiao.cc/d/%E9%97%AE%E9%A2%98%E5%A6%B9%E5%A6%B9%E6%81%8B%E4%B8%8A%E6%88%91/%E3%80%8A%E9%97%AE%E9%A2%98%E5%A6%B9%E5%A6%B9%E6%81%8B%E4%B8%8A%E6%88%91%E3%80%8B%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.pdf?sign=2XRKx6Ux-zyuC4axsCHgFw-dRZ4trTHjO6hm1WypTDY=:0))（点击即可下载）
+  - [本站下载链接](https://pan.zhengjiao.cc/d/%E9%97%AE%E9%A2%98%E5%A6%B9%E5%A6%B9%E6%81%8B%E4%B8%8A%E6%88%91/%E5%85%AC%E5%BC%80/%E3%80%8A%E9%97%AE%E9%A2%98%E5%A6%B9%E5%A6%B9%E6%81%8B%E4%B8%8A%E6%88%91%E3%80%8B%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.pdf?sign=zc4xfUfIAWkrkJNYmAgH0lVbiVi7WwvcS8R1GvTxk3Y=:0)（点击即可下载）
    - *制作：AE托尼斯塔克*
    - *整理：妹萝控*
 
