@@ -163,7 +163,7 @@
 </template>
 
 <script>
-import novelData from "../data/chapters.json"; // 导入小说数据
+// import novelData from "../data/chapters.json"; // 导入小说数据
 
 export default {
   name: "NovelReader",

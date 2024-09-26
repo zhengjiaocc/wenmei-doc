@@ -80,7 +80,9 @@ function closeBulletin() {
 
         <div class="bulletin-content">
           <h3 class="bulletin-h3">本次更新：</h3>
-          <p style="color: red">章节1900至1910已经更新</p>
+          <!-- <p style="color: red">章节1900至1910已经更新</p> -->
+          <p style="color: red">在线阅读下架升级...</p>
+
           <p><a href="/docs/resources/resources" style="text-decoration: underline">Bug反馈、建议请留言</a></p>
           <hr />
           <p>活动</p>

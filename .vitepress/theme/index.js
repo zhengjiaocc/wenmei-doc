@@ -48,7 +48,7 @@ export default {
     // ...
     app.component("Twikoo", Twikoo);
     app.component("Comment", Comment);
-    app.component('NovelReader', NovelReader)
+    // app.component('NovelReader', NovelReader)
     app.component('Danmaku', Danmaku)
     app.component('Visit', Visit)
     app.component('Team', Team)
