@@ -12,19 +12,19 @@
       </div>
     </div>
 
-    <transition name="slide">
+    <transition name="navbar-slide">
       <div class="navbar" v-if="isNavBarVisible">
         <button @click="goToHome">主页</button>
       </div>
     </transition>
 
-    <transition name="slide">
+    <transition name="toolbar-slide">
       <div class="toolbar" v-if="isToolBarVisible">
         <button @click="showDirectory">目录</button>
       </div>
     </transition>
 
-    <transition name="slide">
+    <transition name="directory-slide">
       <div class="directory" v-if="isDirectoryVisible">
         <div class="directory-header">
           <div class="directory-title-container">
@@ -82,7 +82,6 @@ export default {
       try {
         const data = await getAllChapterDirectory();
         chapters.value = data;
-        console.log("获取的章节数据:", chapters.value);
         if (chapters.value.length > 0) {
           selectChapter(chapters.value[0].id); // 默认选择第一章
         }
@@ -100,8 +99,6 @@ export default {
         };
         currentContent.value = chapter.chapterContent || "";
         currentAdditionalInfo.value = chapter.additionalInfo || "";
-        console.log("当前章节内容:", currentContent.value);
-        console.log("当前章节附加信息:", currentAdditionalInfo.value);
         isDirectoryVisible.value = false;
         isToolBarVisible.value = false;
       } catch (error) {
@@ -151,7 +148,7 @@ export default {
       showDirectory,
       hideDirectory,
       goToHome,
-      reverseChapters, // 导出反转章节的函数
+      reverseChapters,
     };
   },
 };
@@ -164,7 +161,7 @@ export default {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgb(247, 247, 247); /* 修改背景颜色 */
+  background-color: rgb(247, 247, 247);
   color: black;
   overflow: hidden;
 }
@@ -192,7 +189,7 @@ export default {
 
 .content-area {
   position: absolute;
-  top: 40px;
+  top: 50px;
   bottom: 0;
   left: 0;
   right: 0;
@@ -212,7 +209,7 @@ export default {
   left: 0;
   right: 0;
   height: 40px;
-  background-color: rgb(255, 255, 255); /* 修改为白色 */
+  background-color: rgb(255, 255, 255);
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -225,7 +222,7 @@ export default {
   left: 0;
   right: 0;
   height: 40px;
-  background-color: rgb(255, 255, 255); /* 修改为白色 */
+  background-color: rgb(255, 255, 255);
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -236,93 +233,111 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
-  height: calc(100vh * 9 / 10); /* 修改为占据视口的90% */
-
-  background-color: white; /* 背景颜色为白色 */
-  color: black; /* 字体颜色为黑色 */
+  height: calc(100vh * 9 / 10);
+  background-color: white;
+  color: black;
   display: flex;
-  flex-direction: column; /* 垂直布局 */
-  z-index: 10; /* 确保目录在上方 */
-  overflow-y: auto; /* 允许垂直滚动 */
+  flex-direction: column;
+  z-index: 10;
+  overflow-y: auto;
   padding: 0 20px 20px 20px;
   border-radius: 35px 35px 0 0;
 }
 
 .directory-header {
-  position: sticky; /* 固定头部 */
-  top: 0; /* 距离顶部 0 */
-  z-index: 20; /* 确保头部在上方 */
-  background-color: white; /* 设置头部背景色为白色 */
-  padding: 10px 0; /* 增加上下内边距 */
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background-color: white;
+  padding: 10px 0;
 }
 
 .directory-title-container {
-  display: flex; /* 使用flexbox */
-  justify-content: space-between; /* 左右分布 */
-  align-items: center; /* 垂直居中 */
-  width: 100%; /* 宽度100% */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
   border-bottom: 1px solid gray;
 }
 
 .directory-title {
-  font-size: 14px; /* 字体大小 */
-  flex-grow: 1; /* 使标题占据剩余空间 */
-  text-align: left; /* 左对齐 */
+  font-size: 14px;
+  flex-grow: 1;
+  text-align: left;
   padding: 10px 0;
 }
 
 .close-button {
-  background: none; /* 去掉默认样式 */
-  border: none; /* 去掉边框 */
-  color: black; /* 字体颜色 */
-  font-size: 25px; /* 修改为14px */
+  background: none;
+  border: none;
+  color: black;
+  font-size: 25px;
   font-weight: bold;
-  cursor: pointer; /* 鼠标悬停为手型 */
+  cursor: pointer;
 }
 
 .directory-controls {
-  display: flex; /* 水平排列 */
-  align-items: center; /* 垂直居中 */
-  font-size: 14px; /* 修改为14px */
-  justify-content: space-between; /* 分布对齐 */
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  justify-content: space-between;
 }
 
 .reverse-button {
-  margin-left: 10px; /* 按钮之间留出一些空间 */
-  padding: 5px 10px; /* 按钮内边距 */
+  margin-left: 10px;
+  padding: 5px 10px;
 }
 
 .chapter-list {
-  padding: 10px 0; /* 为章节列表添加上下内边距 */
+  padding: 10px 0;
 }
 
 .chapter-list ul {
-  list-style-type: none; /* 去掉列表样式 */
-  padding: 0; /* 去掉内边距 */
-  margin: 0; /* 去掉外边距 */
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
 }
 
 .chapter-list li {
-  padding: 8px 0; /* 为每个章节项添加上下内边距 */
-  cursor: pointer; /* 鼠标悬停为手型 */
+  padding: 8px 0;
+  cursor: pointer;
 }
 
 .chapter-list li:hover {
-  background-color: #f0f0f0; /* 鼠标悬停时的背景色 */
+  background-color: #f0f0f0;
 }
 
 /* 添加过渡动画效果 */
-.slide-enter-active,
-.slide-leave-active {
+.navbar-slide-enter-active,
+.navbar-slide-leave-active,
+.toolbar-slide-enter-active,
+.toolbar-slide-leave-active,
+.directory-slide-enter-active,
+.directory-slide-leave-active {
   transition: transform 0.5s ease-in-out; /* 修改持续时间为0.5秒，使用ease-in-out缓动函数 */
 }
 
-.slide-enter {
+.navbar-slide-enter {
   transform: translateY(-100%);
 }
 
-.slide-leave-to {
+.navbar-slide-leave-to {
   transform: translateY(-100%);
+}
+
+.toolbar-slide-enter {
+  transform: translateY(100%);
+}
+
+.toolbar-slide-leave-to {
+  transform: translateY(100%);
+}
+
+.directory-slide-enter {
+  transform: translateY(0%);
+}
+
+.directory-slide-leave-to {
+  transform: translateY(100%);
 }
 </style>
-
