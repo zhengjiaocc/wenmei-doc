@@ -92,6 +92,10 @@ export default {
 
     const selectChapter = async (id) => {
       try {
+        // 立即收起目录
+        isDirectoryVisible.value = false;
+        isToolBarVisible.value = false;
+
         const chapter = await getChapter(id);
         currentChapter.value = {
           title: chapter.chapterTitle || "未命名章节",
@@ -99,8 +103,12 @@ export default {
         };
         currentContent.value = chapter.chapterContent || "";
         currentAdditionalInfo.value = chapter.additionalInfo || "";
-        isDirectoryVisible.value = false;
-        isToolBarVisible.value = false;
+
+        // 等待 DOM 更新后滚动到顶部
+        await nextTick();
+        document
+          .querySelector(".content-area")
+          .scrollTo({ top: 0, behavior: "smooth" });
       } catch (error) {
         console.error(`获取章节 ${id} 失败:`, error);
       }
@@ -195,7 +203,7 @@ export default {
   right: 0;
   overflow-y: auto;
   padding: 20px; /* 增加内边距 */
-  font-family: 'Serif'; /* 使用 serif 字体 */
+  font-family: "Serif"; /* 使用 serif 字体 */
   font-size: 16px; /* 字体大小 */
   line-height: 1.6; /* 行间距 */
   color: #333; /* 字体颜色 */
@@ -229,7 +237,7 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 40px;
+  height: 55px;
   background-color: rgb(255, 255, 255);
   display: flex;
   justify-content: space-around;
