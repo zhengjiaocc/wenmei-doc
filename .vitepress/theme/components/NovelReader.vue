@@ -194,12 +194,20 @@ export default {
   left: 0;
   right: 0;
   overflow-y: auto;
-  padding: 10px;
+  padding: 20px; /* 增加内边距 */
+  font-family: 'Serif'; /* 使用 serif 字体 */
+  font-size: 16px; /* 字体大小 */
+  line-height: 1.6; /* 行间距 */
+  color: #333; /* 字体颜色 */
+}
+
+.content-area p {
+  margin: 1em 0; /* 段落上下间距 */
 }
 
 .additional-info {
   margin-top: 10px;
-  font-size: 12px;
+  font-size: 14px;
   color: #666;
 }
 
