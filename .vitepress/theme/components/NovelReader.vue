@@ -356,4 +356,5 @@ export default {
 .directory-slide-leave-to {
   transform: translateY(100%);
 }
+
 </style>
