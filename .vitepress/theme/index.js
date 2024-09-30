@@ -16,6 +16,7 @@ import NavVisitor  from './components/NavVisitor.vue';
 import Thanks from './components/Thanks.vue';
 import "vitepress-markdown-timeline/dist/theme/index.css";
 import './style/index.css'
+import Test from './components/Test.vue';
 /** @type {import('vitepress').Theme} */
 
 DefaultTheme.enhanceApp = ({ app, router, siteData }) => {
@@ -48,7 +49,7 @@ export default {
     // ...
     app.component("Twikoo", Twikoo);
     app.component("Comment", Comment);
-    // app.component('NovelReader', NovelReader)
+    app.component('NovelReader', NovelReader)
     app.component('Danmaku', Danmaku)
     app.component('Visit', Visit)
     app.component('Team', Team)
@@ -57,6 +58,7 @@ export default {
     app.component('Quote',Quote)
     app.component('NavVisitor',NavVisitor)
     app.component('Thanks',Thanks)
+    app.component('Test',Test)
 
   },
 }
