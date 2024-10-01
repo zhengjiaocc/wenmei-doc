@@ -109,7 +109,7 @@ export default {
     const currentChapter = ref({ title: "", wordCount: 0 });
     const currentContent = ref("");
     const currentAdditionalInfo = ref("");
-    const fontSize = ref(16);
+    const fontSize = ref(18);
     const backgroundColor = ref("color-white");
 
     const colors = ref([
