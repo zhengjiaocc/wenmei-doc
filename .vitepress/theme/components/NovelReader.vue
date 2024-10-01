@@ -5,12 +5,12 @@
       <span class="chapter-word-count">{{ currentChapter.wordCount }} 字</span>
     </div>
 
-    <div
-      class="content-area"
-      :class="backgroundColor"
-      :style="{ fontSize: fontSize + 'px' }"
-    >
-      <div v-html="currentContent"></div>
+    <div class="content-area" :class="backgroundColor" :style="{ fontSize: fontSize + 'px' }">
+      <div v-if="loading" class="loading-container">
+        <div class="loading-spinner"></div> <!-- 旋转的圆圈 -->
+        <span class="loading-text">正在加载...</span> <!-- 加载文本 -->
+      </div>
+      <div v-html="currentContent" v-else></div>
       <div v-if="currentAdditionalInfo" class="additional-info">
         {{ currentAdditionalInfo }}
       </div>
@@ -74,7 +74,6 @@
               <span class="font-size-label">A+</span>
             </div>
           </div>
-          <!-- 背景颜色调节部分 -->
           <div class="background-color-setting">
             <div class="color-selector">
               <div
@@ -109,8 +108,9 @@ export default {
     const currentChapter = ref({ title: "", wordCount: 0 });
     const currentContent = ref("");
     const currentAdditionalInfo = ref("");
-    const fontSize = ref(18);
+    const fontSize = ref(16);
     const backgroundColor = ref("color-white");
+    const loading = ref(false); // 添加 loading 状态
 
     const colors = ref([
       { name: "White", class: "color-white", rgb: "rgb(245, 245, 245)" },
@@ -130,7 +130,6 @@ export default {
     };
 
     const toggleNavAndToolBar = () => {
-      // 如果设置和目录可见，则不切换导航栏和工具栏
       if (!isSettingsVisible.value && !isDirectoryVisible.value) {
         isNavBarVisible.value = !isNavBarVisible.value;
         isToolBarVisible.value = !isToolBarVisible.value;
@@ -138,6 +137,7 @@ export default {
     };
 
     const fetchChapters = async () => {
+      loading.value = true; // 开始加载
       try {
         const data = await getAllChapterDirectory();
         chapters.value = data;
@@ -146,6 +146,8 @@ export default {
         }
       } catch (error) {
         console.error("获取章节目录失败:", error);
+      } finally {
+        loading.value = false; // 结束加载
       }
     };
 
@@ -153,6 +155,7 @@ export default {
       if (event) {
         event.stopPropagation();
       }
+      loading.value = true; // 开始加载
       try {
         isDirectoryVisible.value = false;
         isToolBarVisible.value = false;
@@ -169,6 +172,8 @@ export default {
         document.querySelector(".content-area").scrollTop = 0; // 修改这里
       } catch (error) {
         console.error(`获取章节 ${id} 失败:`, error);
+      } finally {
+        loading.value = false; // 结束加载
       }
     };
 
@@ -247,6 +252,7 @@ export default {
       currentContent,
       currentAdditionalInfo,
       fontSize,
+      loading, // 返回 loading 状态
       toggleNavAndToolBar,
       selectChapter,
       showDirectory,
@@ -265,6 +271,7 @@ export default {
 </script>
 
 <style scoped>
+
 .novel-container {
   position: fixed;
   top: 0;
@@ -338,11 +345,12 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 60px;
+  height: 70px;
   background-color: rgb(255, 255, 255);
   display: flex;
   justify-content: space-around;
   align-items: center;
+  border-radius: 18px 18px 0 0;
 }
 
 .directory {
@@ -559,8 +567,38 @@ input[type="range"] {
   background-color: rgb(240, 218, 220);
 }
 
-button:hover,
-button:focus {
-  outline: none; /* 移除悬停和聚焦状态的轮廓 */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
+
+.loading-spinner {
+  border: 4px solid rgba(128, 128, 128, 0.5); /* 浅灰色边框 */
+  border-left-color: gray; /* 左侧为深灰色 */
+  border-radius: 50%;
+  width: 16px; /* 圆圈的宽度 */
+  height: 16px; /* 圆圈的高度 */
+  animation: spin 1s linear infinite; /* 添加旋转动画 */
+  margin-right: 5px; /* 圆圈与文本的间距 */
+}
+
+.loading-text {
+  font-size: 0.9em; /* 较小的文本大小 */
+  color: gray; /* 文本颜色为灰色 */
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+
+
 </style>
