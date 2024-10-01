@@ -471,6 +471,8 @@ export default {
   align-items: center;
   border-radius: 35px 35px 0 0;
   z-index: 10;
+  width: 100%;
+  padding: 20px;
 }
 
 .settings-content {
@@ -556,5 +558,10 @@ input[type="range"] {
 
 .color-light-pink {
   background-color: rgb(240, 218, 220);
+}
+
+button:hover,
+button:focus {
+  outline: none; /* 移除悬停和聚焦状态的轮廓 */
 }
 </style>
