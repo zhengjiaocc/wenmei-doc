@@ -21,6 +21,8 @@
     <transition name="toolbar-slide">
       <div class="toolbar" v-if="isToolBarVisible">
         <button @click="showDirectory">目录</button>
+        <button @click="showSettings">设置</button>
+        <!-- 添加设置按钮 -->
       </div>
     </transition>
 
@@ -51,11 +53,39 @@
         </div>
       </div>
     </transition>
+
+    <transition name="settings-slide">
+      <div class="settings" v-if="isSettingsVisible">
+        <div class="settings-content">
+          <div class="font-size-control">
+            <span class="label">A-</span>
+            <div class="slider">
+              <div class="scale">
+                <div
+                  class="tick"
+                  v-for="i in 10"
+                  :key="i"
+                  :class="{ active: i === selectedFontSize }"
+                  @click="changeFontSize(i)"
+                >
+                  <div
+                    class="tick-indicator"
+                    v-if="i === selectedFontSize"
+                  ></div>
+                </div>
+              </div>
+            </div>
+            <span class="label">A+</span>
+          </div>
+          <button class="close-button" @click="hideSettings">×</button>
+        </div>
+      </div>
+    </transition>
   </div>
 </template>
 
 <script>
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, onMounted, onUnmounted, nextTick } from "vue";
 import { getAllChapterDirectory, getChapter } from "../utils/api";
 
 export default {
@@ -63,6 +93,7 @@ export default {
     const isNavBarVisible = ref(false);
     const isToolBarVisible = ref(true);
     const isDirectoryVisible = ref(false);
+    const isSettingsVisible = ref(false); // 新增状态
     const chapters = ref([]);
     const currentChapter = ref({ title: "", wordCount: 0 });
     const currentContent = ref("");
@@ -92,10 +123,8 @@ export default {
 
     const selectChapter = async (id) => {
       try {
-        // 立即收起目录
         isDirectoryVisible.value = false;
         isToolBarVisible.value = false;
-
         const chapter = await getChapter(id);
         currentChapter.value = {
           title: chapter.chapterTitle || "未命名章节",
@@ -104,7 +133,6 @@ export default {
         currentContent.value = chapter.chapterContent || "";
         currentAdditionalInfo.value = chapter.additionalInfo || "";
 
-        // 等待 DOM 更新后滚动到顶部
         await nextTick();
         document
           .querySelector(".content-area")
@@ -133,6 +161,17 @@ export default {
       chapters.value.reverse(); // 反转章节顺序
     };
 
+    const showSettings = () => {
+      isNavBarVisible.value = false;
+      isToolBarVisible.value = false;
+      isSettingsVisible.value = true;
+    };
+
+    const hideSettings = () => {
+      isSettingsVisible.value = false;
+      isToolBarVisible.value = true;
+    };
+
     fetchChapters();
 
     onMounted(() => {
@@ -147,6 +186,7 @@ export default {
       isNavBarVisible,
       isToolBarVisible,
       isDirectoryVisible,
+      isSettingsVisible, // 返回状态
       chapters,
       currentChapter,
       currentContent,
@@ -157,6 +197,8 @@ export default {
       hideDirectory,
       goToHome,
       reverseChapters,
+      showSettings, // 返回函数
+      hideSettings, // 返回函数
     };
   },
 };
@@ -357,4 +399,35 @@ export default {
   transform: translateY(100%);
 }
 
+.settings {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 25%; /* 高度为屏幕的1/6 */
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 35px 35px 0 0;
+  z-index: 10;
+}
+
+.settings-content {
+  text-align: center;
+  font-size: 16px;
+}
+
+.settings-slide-enter-active,
+.settings-slide-leave-active {
+  transition: transform 0.5s ease-in-out;
+}
+
+.settings-slide-enter {
+  transform: translateY(100%);
+}
+
+.settings-slide-leave-to {
+  transform: translateY(100%);
+}
 </style>
