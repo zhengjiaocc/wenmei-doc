@@ -5,10 +5,16 @@
       <span class="chapter-word-count">{{ currentChapter.wordCount }} 字</span>
     </div>
 
-    <div class="content-area" :class="backgroundColor" :style="{ fontSize: fontSize + 'px' }">
+    <div
+      class="content-area"
+      :class="backgroundColor"
+      :style="{ fontSize: fontSize + 'px' }"
+    >
       <div v-if="loading" class="loading-container">
-        <div class="loading-spinner"></div> <!-- 旋转的圆圈 -->
-        <span class="loading-text">正在加载...</span> <!-- 加载文本 -->
+        <div class="loading-spinner"></div>
+        <!-- 旋转的圆圈 -->
+        <span class="loading-text">正在加载...</span>
+        <!-- 加载文本 -->
       </div>
       <div v-html="currentContent" v-else></div>
       <div v-if="currentAdditionalInfo" class="additional-info">
@@ -16,9 +22,14 @@
       </div>
     </div>
 
-    <transition name="navbar-slide">
+    <transition name="navbar-slide" @click.stop>
       <div class="navbar" v-if="isNavBarVisible">
         <button @click="goToHome">主页</button>
+        <!-- 主页按钮 -->
+        <div class="navbar-right">
+          <button @click="toggleNavAndToolBar">更多</button>
+          <!-- 其他按钮 -->
+        </div>
       </div>
     </transition>
 
@@ -204,7 +215,7 @@ export default {
     };
 
     const goToHome = () => {
-      alert("返回主页！");
+      window.location.href = "/"; // 跳转到主页
     };
 
     const reverseChapters = () => {
@@ -271,7 +282,6 @@ export default {
 </script>
 
 <style scoped>
-
 .novel-container {
   position: fixed;
   top: 0;
@@ -335,7 +345,7 @@ export default {
   height: 50px;
   background-color: rgb(255, 255, 255);
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between; /* 修改为space-between以将主页按钮放到左侧 */
   align-items: center;
   padding: 0 10px;
 }
@@ -597,8 +607,4 @@ input[type="range"] {
     transform: rotate(360deg);
   }
 }
-
-
-
-
 </style>
