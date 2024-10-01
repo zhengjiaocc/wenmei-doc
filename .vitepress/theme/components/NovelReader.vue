@@ -164,10 +164,9 @@ export default {
         currentContent.value = chapter.chapterContent || "";
         currentAdditionalInfo.value = chapter.additionalInfo || "";
 
+        // 直接滚动到顶部，不使用动画
         await nextTick();
-        document
-          .querySelector(".content-area")
-          .scrollTo({ top: 0, behavior: "smooth" });
+        document.querySelector(".content-area").scrollTop = 0; // 修改这里
       } catch (error) {
         console.error(`获取章节 ${id} 失败:`, error);
       }
