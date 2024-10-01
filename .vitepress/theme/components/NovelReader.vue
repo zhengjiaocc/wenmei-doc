@@ -338,7 +338,7 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 55px;
+  height: 60px;
   background-color: rgb(255, 255, 255);
   display: flex;
   justify-content: space-around;
