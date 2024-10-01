@@ -5,7 +5,7 @@
       <span class="chapter-word-count">{{ currentChapter.wordCount }} 字</span>
     </div>
 
-    <div class="content-area">
+    <div class="content-area" :style="{ fontSize: fontSize + 'px' }">
       <div v-html="currentContent"></div>
       <div v-if="currentAdditionalInfo" class="additional-info">
         {{ currentAdditionalInfo }}
@@ -57,25 +57,20 @@
     <transition name="settings-slide">
       <div class="settings" v-if="isSettingsVisible">
         <div class="settings-content">
-          <div class="font-size-control">
-            <span class="label">A-</span>
-            <div class="slider">
-              <div class="scale">
-                <div
-                  class="tick"
-                  v-for="i in 10"
-                  :key="i"
-                  :class="{ active: i === selectedFontSize }"
-                  @click="changeFontSize(i)"
-                >
-                  <div
-                    class="tick-indicator"
-                    v-if="i === selectedFontSize"
-                  ></div>
-                </div>
-              </div>
+          <div class="font-size-setting">
+            <label for="fontSizeRange">调整字号：</label>
+            <div class="slider-container">
+              <span class="font-size-label">A-</span>
+              <input
+                id="fontSizeRange"
+                type="range"
+                min="12"
+                max="24"
+                step="2"
+                v-model="fontSize"
+              />
+              <span class="font-size-label">A+</span>
             </div>
-            <span class="label">A+</span>
           </div>
           <button class="close-button" @click="hideSettings">×</button>
         </div>
@@ -98,6 +93,7 @@ export default {
     const currentChapter = ref({ title: "", wordCount: 0 });
     const currentContent = ref("");
     const currentAdditionalInfo = ref("");
+    const fontSize = ref(16); // 默认字体大小
 
     const toggleNavBar = () => {
       if (!isNavBarVisible.value && !isToolBarVisible.value) {
@@ -191,6 +187,7 @@ export default {
       currentChapter,
       currentContent,
       currentAdditionalInfo,
+      fontSize, // 返回字体大小状态
       toggleNavBar,
       selectChapter,
       showDirectory,
@@ -199,6 +196,7 @@ export default {
       reverseChapters,
       showSettings, // 返回函数
       hideSettings, // 返回函数
+      fontSize, // 返回字体大小状态
     };
   },
 };
@@ -430,4 +428,22 @@ export default {
 .settings-slide-leave-to {
   transform: translateY(100%);
 }
+.slider-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+input[type="range"] {
+  width: 200px;
+  margin: 0 10px;
+}
+
+.font-size-label {
+  font-size: 14px;
+  color: #333;
+}
+
+
 </style>
