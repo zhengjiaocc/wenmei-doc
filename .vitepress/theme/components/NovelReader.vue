@@ -1,11 +1,15 @@
 <template>
   <div class="novel-container" @click="toggleNavBar">
-    <div class="chapter-info">
+    <div class="chapter-info" :class="backgroundColor">
       <span class="chapter-title">{{ currentChapter.title.trim() }}</span>
       <span class="chapter-word-count">{{ currentChapter.wordCount }} 字</span>
     </div>
 
-    <div class="content-area" :style="{ fontSize: fontSize + 'px' }">
+    <div
+      class="content-area"
+      :class="backgroundColor"
+      :style="{ fontSize: fontSize + 'px' }"
+    >
       <div v-html="currentContent"></div>
       <div v-if="currentAdditionalInfo" class="additional-info">
         {{ currentAdditionalInfo }}
@@ -58,7 +62,6 @@
       <div class="settings" v-if="isSettingsVisible">
         <div class="settings-content">
           <div class="font-size-setting">
-            <label for="fontSizeRange">调整字号：</label>
             <div class="slider-container">
               <span class="font-size-label">A-</span>
               <input
@@ -72,7 +75,21 @@
               <span class="font-size-label">A+</span>
             </div>
           </div>
-          <button class="close-button" @click="hideSettings">×</button>
+          <!-- 背景颜色调节部分 -->
+          <div class="background-color-setting">
+            <div class="color-selector">
+              <div
+                v-for="color in colors"
+                :key="color.name"
+                :class="[
+                  'color-circle',
+                  color.class,
+                  { selected: backgroundColor === color.class },
+                ]"
+                @click="changeBackgroundColor(color.class)"
+              ></div>
+            </div>
+          </div>
         </div>
       </div>
     </transition>
@@ -94,6 +111,25 @@ export default {
     const currentContent = ref("");
     const currentAdditionalInfo = ref("");
     const fontSize = ref(16); // 默认字体大小
+    const backgroundColor = ref("color-white"); // 默认背景颜色
+
+    const colors = ref([
+      { name: "White", class: "color-white", rgb: "rgb(245, 245, 245)" }, // 默认颜色
+      { name: "Gray", class: "color-gray", rgb: "rgb(224, 224, 224)" },
+      { name: "Peach", class: "color-peach", rgb: "rgb(252, 237, 208)" },
+      { name: "Orange", class: "color-orange", rgb: "rgb(239, 198, 144)" },
+      { name: "Green", class: "color-green", rgb: "rgb(201, 232, 200)" },
+      {
+        name: "Light Pink",
+        class: "color-light-pink",
+        rgb: "rgb(240, 218, 220)",
+      },
+    ]);
+
+    // 修改背景颜色方法
+    const changeBackgroundColor = (colorClass) => {
+      backgroundColor.value = colorClass;
+    };
 
     const toggleNavBar = () => {
       if (!isNavBarVisible.value && !isToolBarVisible.value) {
@@ -170,14 +206,6 @@ export default {
 
     fetchChapters();
 
-    onMounted(() => {
-      document.addEventListener("click", handleClickOutsideSettings);
-    });
-
-    onUnmounted(() => {
-      document.removeEventListener("click", handleClickOutsideSettings);
-    });
-
     return {
       isNavBarVisible,
       isToolBarVisible,
@@ -197,6 +225,10 @@ export default {
       showSettings, // 返回函数
       hideSettings, // 返回函数
       fontSize, // 返回字体大小状态
+
+      backgroundColor, // 背景颜色状态
+      colors, // 颜色选项
+      changeBackgroundColor, // 修改背景颜色方法
     };
   },
 };
@@ -224,7 +256,6 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding: 0 10px;
-  background-color: #f9f9f9;
 }
 
 .chapter-title {
@@ -264,7 +295,7 @@ export default {
   top: 0;
   left: 0;
   right: 0;
-  height: 40px;
+  height: 50px;
   background-color: rgb(255, 255, 255);
   display: flex;
   justify-content: flex-end;
@@ -289,7 +320,7 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
-  height: calc(100vh * 9 / 10);
+  height: calc(100vh * 8.8 / 10);
   background-color: white;
   color: black;
   display: flex;
@@ -445,5 +476,55 @@ input[type="range"] {
   color: #333;
 }
 
+.background-color-setting {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
+}
 
+.color-selector {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.color-circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* 选中状态 */
+.color-circle.selected {
+  border: 2px solid #4285f4; /* 蓝色外边框，表示已选中 */
+  box-shadow: 0 0 5px rgba(66, 133, 244, 0.5); /* 可选的阴影效果 */
+}
+
+
+.color-white {
+  background-color: rgb(245, 245, 245);
+}
+
+.color-gray {
+  background-color: rgb(224, 224, 224);
+}
+
+.color-peach {
+  background-color: rgb(252, 237, 208);
+}
+
+.color-orange {
+  background-color: rgb(239, 198, 144);
+}
+
+.color-green {
+  background-color: rgb(201, 232, 200);
+}
+
+.color-light-pink {
+  background-color: rgb(240, 218, 220);
+}
 </style>
