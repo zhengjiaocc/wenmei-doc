@@ -1,5 +1,5 @@
 <template>
-  <div class="novel-container" @click="toggleNavBar">
+  <div class="novel-container" @click="toggleNavAndToolBar">
     <div class="chapter-info" :class="backgroundColor">
       <span class="chapter-title">{{ currentChapter.title.trim() }}</span>
       <span class="chapter-word-count">{{ currentChapter.wordCount }} 字</span>
@@ -24,14 +24,13 @@
 
     <transition name="toolbar-slide">
       <div class="toolbar" v-if="isToolBarVisible">
-        <button @click="showDirectory">目录</button>
-        <button @click="showSettings">设置</button>
-        <!-- 添加设置按钮 -->
+        <button @click.stop="showDirectory">目录</button>
+        <button @click.stop="showSettings">设置</button>
       </div>
     </transition>
 
     <transition name="directory-slide">
-      <div class="directory" v-if="isDirectoryVisible">
+      <div class="directory" v-if="isDirectoryVisible" @click.stop>
         <div class="directory-header">
           <div class="directory-title-container">
             <span class="directory-title">目录</span>
@@ -49,7 +48,7 @@
             <li
               v-for="chapter in chapters"
               :key="chapter.id"
-              @click="selectChapter(chapter.id)"
+              @click="(event) => selectChapter(chapter.id, event)"
             >
               {{ chapter.chapterTitle.trim() }}
             </li>
@@ -59,7 +58,7 @@
     </transition>
 
     <transition name="settings-slide">
-      <div class="settings" v-if="isSettingsVisible">
+      <div class="settings" v-if="isSettingsVisible" @click.stop>
         <div class="settings-content">
           <div class="font-size-setting">
             <div class="slider-container">
@@ -103,18 +102,18 @@ import { getAllChapterDirectory, getChapter } from "../utils/api";
 export default {
   setup() {
     const isNavBarVisible = ref(false);
-    const isToolBarVisible = ref(true);
+    const isToolBarVisible = ref(false);
     const isDirectoryVisible = ref(false);
-    const isSettingsVisible = ref(false); // 新增状态
+    const isSettingsVisible = ref(false);
     const chapters = ref([]);
     const currentChapter = ref({ title: "", wordCount: 0 });
     const currentContent = ref("");
     const currentAdditionalInfo = ref("");
-    const fontSize = ref(16); // 默认字体大小
-    const backgroundColor = ref("color-white"); // 默认背景颜色
+    const fontSize = ref(16);
+    const backgroundColor = ref("color-white");
 
     const colors = ref([
-      { name: "White", class: "color-white", rgb: "rgb(245, 245, 245)" }, // 默认颜色
+      { name: "White", class: "color-white", rgb: "rgb(245, 245, 245)" },
       { name: "Gray", class: "color-gray", rgb: "rgb(224, 224, 224)" },
       { name: "Peach", class: "color-peach", rgb: "rgb(252, 237, 208)" },
       { name: "Orange", class: "color-orange", rgb: "rgb(239, 198, 144)" },
@@ -126,18 +125,15 @@ export default {
       },
     ]);
 
-    // 修改背景颜色方法
     const changeBackgroundColor = (colorClass) => {
       backgroundColor.value = colorClass;
     };
 
-    const toggleNavBar = () => {
-      if (!isNavBarVisible.value && !isToolBarVisible.value) {
-        isNavBarVisible.value = true;
-        isToolBarVisible.value = true;
-      } else {
-        isNavBarVisible.value = false;
-        isToolBarVisible.value = false;
+    const toggleNavAndToolBar = () => {
+      // 如果设置和目录可见，则不切换导航栏和工具栏
+      if (!isSettingsVisible.value && !isDirectoryVisible.value) {
+        isNavBarVisible.value = !isNavBarVisible.value;
+        isToolBarVisible.value = !isToolBarVisible.value;
       }
     };
 
@@ -146,14 +142,17 @@ export default {
         const data = await getAllChapterDirectory();
         chapters.value = data;
         if (chapters.value.length > 0) {
-          selectChapter(chapters.value[0].id); // 默认选择第一章
+          selectChapter(chapters.value[0].id);
         }
       } catch (error) {
         console.error("获取章节目录失败:", error);
       }
     };
 
-    const selectChapter = async (id) => {
+    const selectChapter = async (id, event) => {
+      if (event) {
+        event.stopPropagation();
+      }
       try {
         isDirectoryVisible.value = false;
         isToolBarVisible.value = false;
@@ -174,7 +173,8 @@ export default {
       }
     };
 
-    const showDirectory = () => {
+    const showDirectory = (event) => {
+      event.stopPropagation();
       isNavBarVisible.value = false;
       isToolBarVisible.value = false;
       isDirectoryVisible.value = true;
@@ -182,18 +182,12 @@ export default {
 
     const hideDirectory = () => {
       isDirectoryVisible.value = false;
-      isToolBarVisible.value = true;
+      isToolBarVisible.value = false;
+      isNavBarVisible.value = false;
     };
 
-    const goToHome = () => {
-      alert("返回主页！");
-    };
-
-    const reverseChapters = () => {
-      chapters.value.reverse(); // 反转章节顺序
-    };
-
-    const showSettings = () => {
+    const showSettings = (event) => {
+      event.stopPropagation();
       isNavBarVisible.value = false;
       isToolBarVisible.value = false;
       isSettingsVisible.value = true;
@@ -201,34 +195,71 @@ export default {
 
     const hideSettings = () => {
       isSettingsVisible.value = false;
-      isToolBarVisible.value = true;
+      isToolBarVisible.value = false;
+      isNavBarVisible.value = false;
     };
 
-    fetchChapters();
+    const goToHome = () => {
+      alert("返回主页！");
+    };
+
+    const reverseChapters = () => {
+      chapters.value.reverse();
+    };
+
+    // 点击事件处理函数
+    const handleClickOutside = (event) => {
+      const directory = document.querySelector(".directory");
+      const settings = document.querySelector(".settings");
+      const toolbar = document.querySelector(".toolbar");
+
+      if (
+        directory &&
+        !directory.contains(event.target) &&
+        isDirectoryVisible.value
+      ) {
+        hideDirectory();
+      }
+      if (
+        settings &&
+        !settings.contains(event.target) &&
+        isSettingsVisible.value
+      ) {
+        hideSettings();
+      }
+    };
+
+    onMounted(() => {
+      fetchChapters();
+      document.addEventListener("click", handleClickOutside); // 添加全局点击事件
+    });
+
+    onUnmounted(() => {
+      document.removeEventListener("click", handleClickOutside); // 清除全局点击事件
+    });
 
     return {
       isNavBarVisible,
       isToolBarVisible,
       isDirectoryVisible,
-      isSettingsVisible, // 返回状态
+      isSettingsVisible,
       chapters,
       currentChapter,
       currentContent,
       currentAdditionalInfo,
-      fontSize, // 返回字体大小状态
-      toggleNavBar,
+      fontSize,
+      toggleNavAndToolBar,
       selectChapter,
       showDirectory,
       hideDirectory,
       goToHome,
       reverseChapters,
-      showSettings, // 返回函数
-      hideSettings, // 返回函数
-      fontSize, // 返回字体大小状态
-
-      backgroundColor, // 背景颜色状态
-      colors, // 颜色选项
-      changeBackgroundColor, // 修改背景颜色方法
+      showSettings,
+      hideSettings,
+      fontSize,
+      backgroundColor,
+      colors,
+      changeBackgroundColor,
     };
   },
 };
@@ -502,7 +533,6 @@ input[type="range"] {
   border: 2px solid #4285f4; /* 蓝色外边框，表示已选中 */
   box-shadow: 0 0 5px rgba(66, 133, 244, 0.5); /* 可选的阴影效果 */
 }
-
 
 .color-white {
   background-color: rgb(245, 245, 245);
