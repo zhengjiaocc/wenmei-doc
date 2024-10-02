@@ -99,6 +99,27 @@
               ></div>
             </div>
           </div>
+          <div class="page-turning-setting">
+            <span class="setting-label">翻页模式</span>
+            <div class="radio-group">
+              <label>
+                <input
+                  type="radio"
+                  v-model="pageTurningMode"
+                  value="horizontal"
+                />
+                水平翻页
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  v-model="pageTurningMode"
+                  value="vertical"
+                />
+                上下翻页
+              </label>
+            </div>
+          </div>
         </div>
       </div>
     </transition>
@@ -122,6 +143,8 @@ export default {
     const fontSize = ref(16);
     const backgroundColor = ref("color-white");
     const loading = ref(false); // 添加 loading 状态
+    const pageTurningMode = ref("horizontal");
+
 
     const colors = ref([
       { name: "White", class: "color-white", rgb: "rgb(245, 245, 245)" },
@@ -276,6 +299,7 @@ export default {
       backgroundColor,
       colors,
       changeBackgroundColor,
+      pageTurningMode,
     };
   },
 };
@@ -607,4 +631,33 @@ input[type="range"] {
     transform: rotate(360deg);
   }
 }
+
+.page-turning-setting {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.setting-label {
+  font-size: 16px;
+  color: #333;
+}
+
+.radio-group {
+  display: flex;
+  gap: 10px;
+}
+
+.radio-group label {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+.radio-group input[type="radio"] {
+  margin-right: 5px;
+}
+
 </style>
+
