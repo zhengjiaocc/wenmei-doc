@@ -1,5 +1,9 @@
 <template>
-  <div class="novel-container" @click="toggleNavAndToolBar">
+  <div
+    ref="fullScreenContainer"
+    class="novel-container"
+    @click="toggleNavAndToolBar"
+  >
     <div class="chapter-info" :class="backgroundColor">
       <span class="chapter-title">{{ currentChapter.title.trim() }}</span>
       <span class="chapter-word-count">{{ currentChapter.wordCount }} 字</span>
@@ -35,6 +39,7 @@
 
     <transition name="toolbar-slide">
       <div class="toolbar" v-if="isToolBarVisible">
+        <button @click.stop="goToHomeAndExitFullscreen">返回</button> 
         <button @click.stop="showDirectory">目录</button>
         <button @click.stop="showSettings">设置</button>
       </div>
@@ -173,6 +178,48 @@ export default {
       },
     ]);
 
+    const fullScreenContainer = ref(null); // 用于获取 DOM 引用
+    const goToHomeAndExitFullscreen = () => {
+      exitFullScreen(); // 退出全屏
+      goToHome(); // 跳转到主页
+    };
+    // 尝试进入全屏
+    const tryFullScreen = () => {
+      const element = fullScreenContainer.value;
+      if (element && element.requestFullscreen) {
+        element
+          .requestFullscreen()
+          .then(() => {
+            console.log("自动进入全屏成功");
+          })
+          .catch((error) => {
+            console.error("自动进入全屏失败: ", error);
+          });
+      }
+    };
+
+    // 退出全屏
+    const exitFullScreen = () => {
+      if (document.exitFullscreen) {
+        document
+          .exitFullscreen()
+          .then(() => {
+            console.log("退出全屏成功");
+          })
+          .catch((error) => {
+            console.error("退出全屏失败: ", error);
+          });
+      }
+    };
+
+    // 监听全屏状态变化
+    const handleFullscreenChange = () => {
+      if (document.fullscreenElement) {
+        console.log("当前全屏的元素: ", document.fullscreenElement);
+      } else {
+        console.log("已退出全屏模式");
+      }
+    };
     const saveSettingsToLocal = () => {
       const settings = {
         fontSize: fontSize.value,
@@ -464,6 +511,10 @@ export default {
       document.addEventListener("click", handleClickOutside); // 添加点击事件
       document.addEventListener("touchstart", handleTouchStart); // 监听触摸事件
       document.addEventListener("touchend", handleTouchEnd); // 监听触摸结束事件
+      tryFullScreen();
+
+      // 监听全屏状态变化
+      document.addEventListener("fullscreenchange", handleFullscreenChange);
     });
 
     onUnmounted(() => {
@@ -499,6 +550,10 @@ export default {
       filteredChapters,
       searchQuery,
       handleSearch,
+      fullScreenContainer,
+      exitFullScreen,
+      goToHomeAndExitFullscreen,
+
     };
   },
 };
