@@ -4,8 +4,12 @@
     class="novel-container"
     @click="toggleNavAndToolBar"
   >
-    <div class="chapter-info" :class="backgroundColor">
-      <span class="chapter-title">{{ currentChapter.title.trim() }}</span>
+    <div v-if="!loading" class="chapter-info" :class="backgroundColor">
+      <div class="chapter-title-container">
+        <span class="chapter-symbol"></span>
+        <!-- 使用伪元素 -->
+        <span class="chapter-title">{{ currentChapter.title.trim() }}</span>
+      </div>
       <span class="chapter-word-count">{{ currentChapter.wordCount }} 字</span>
     </div>
 
@@ -37,9 +41,9 @@
       </div>
     </transition>
 
-    <transition name="toolbar-slide">
+    <transition name="toolbar-slide" @click.stop>
       <div class="toolbar" v-if="isToolBarVisible">
-        <button @click.stop="goToHomeAndExitFullscreen">返回</button> 
+        <button @click.stop="goToHomeAndExitFullscreen">返回</button>
         <button @click.stop="showDirectory">目录</button>
         <button @click.stop="showSettings">设置</button>
       </div>
@@ -553,7 +557,6 @@ export default {
       fullScreenContainer,
       exitFullScreen,
       goToHomeAndExitFullscreen,
-
     };
   },
 };
@@ -932,6 +935,22 @@ input[type="range"] {
 .search-input {
   flex-grow: 1; /* 占用剩余的所有空间 */
   margin-left: 10px;
+}
+.chapter-title-container {
+  display: flex; /* 使用 flexbox */
+  align-items: center; /* 垂直居中对齐 */
+  color: #666;
+}
+
+.chapter-symbol {
+  display: inline-block;
+  width: 11px; /* 符号宽度 */
+  height: 11px; /* 符号高度 */
+  background-color: transparent; /* 透明背景 */
+  border: 2px solid #666;; /* 符号边框颜色 */
+  clip-path: polygon(0 0, 100% 0, 0 100%); /* 创建镂空的形状 */
+  margin-right: 3px; /* 与标题之间的间距 */
+  transform: rotate(315deg); /* 旋转成类似小于号的直角 */
 }
 </style>
 
