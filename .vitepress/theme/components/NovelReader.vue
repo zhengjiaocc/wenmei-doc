@@ -60,6 +60,7 @@
               v-for="chapter in chapters"
               :key="chapter.id"
               @click="(event) => selectChapter(chapter.id, event)"
+              :class="{ 'current-chapter': chapter.id === currentChapter.id }"
             >
               {{ chapter.chapterTitle.trim() }}
             </li>
@@ -128,7 +129,7 @@
 
 <script>
 import { ref, onMounted, onUnmounted, nextTick } from "vue";
-import { getAllChapterDirectory, getChapter, getChapters } from "../utils/api";
+import { getAllChapterDirectory, getChapter } from "../utils/api";
 
 export default {
   setup() {
@@ -161,8 +162,48 @@ export default {
       },
     ]);
 
+    const saveSettingsToLocal = () => {
+      const settings = {
+        fontSize: fontSize.value,
+        backgroundColor: backgroundColor.value,
+        pageTurningMode: pageTurningMode.value,
+      };
+      localStorage.setItem("readerSettings", JSON.stringify(settings));
+    };
+
+    const loadSettingsFromLocal = () => {
+      const savedSettings = localStorage.getItem("readerSettings");
+      if (savedSettings) {
+        const settings = JSON.parse(savedSettings);
+        fontSize.value = settings.fontSize;
+        backgroundColor.value = settings.backgroundColor;
+        pageTurningMode.value = settings.pageTurningMode;
+      }
+    };
+
+    const saveReadingProgress = () => {
+      const progress = {
+        chapterId: currentChapter.value.id,
+      };
+      localStorage.setItem("readingProgress", JSON.stringify(progress));
+    };
+
+    const loadReadingProgress = () => {
+      const savedProgress = localStorage.getItem("readingProgress");
+      if (savedProgress) {
+        const progress = JSON.parse(savedProgress);
+        return progress.chapterId;
+      }
+      return null;
+    };
+
     const changeBackgroundColor = (colorClass) => {
       backgroundColor.value = colorClass;
+      saveSettingsToLocal();
+    };
+
+    const saveFontSize = () => {
+      saveSettingsToLocal();
     };
 
     const toggleNavAndToolBar = () => {
@@ -177,7 +218,11 @@ export default {
       try {
         const data = await getAllChapterDirectory();
         chapters.value = data;
-        if (chapters.value.length > 0) {
+
+        const lastChapterId = loadReadingProgress();
+        if (lastChapterId) {
+          selectChapter(lastChapterId);
+        } else if (chapters.value.length > 0) {
           selectChapter(chapters.value[0].id);
         }
       } catch (error) {
@@ -249,7 +294,8 @@ export default {
         }
 
         await nextTick();
-        document.querySelector(".content-area").scrollTop = 0; // 修改这里
+        document.querySelector(".content-area").scrollTop = 0;
+        saveReadingProgress(); // 保存阅读进度
       } catch (error) {
         console.error(`获取章节 ${id} 失败:`, error);
       } finally {
@@ -262,6 +308,17 @@ export default {
       isNavBarVisible.value = false;
       isToolBarVisible.value = false;
       isDirectoryVisible.value = true;
+
+      nextTick(() => {
+        const currentChapterElement =
+          document.querySelector(".current-chapter");
+        if (currentChapterElement) {
+          currentChapterElement.scrollIntoView({
+            block: "center",
+            behavior: "auto",
+          });
+        }
+      });
     };
 
     const hideDirectory = () => {
@@ -289,6 +346,16 @@ export default {
 
     const reverseChapters = () => {
       chapters.value.reverse();
+      nextTick(() => {
+        const currentChapterElement =
+          document.querySelector(".current-chapter");
+        if (currentChapterElement) {
+          currentChapterElement.scrollIntoView({
+            block: "center",
+            behavior: "auto",
+          });
+        }
+      });
     };
 
     // 点击事件处理函数
@@ -324,10 +391,10 @@ export default {
 
       if (!loading.value) {
         // 确保没有在加载中
-        if (diffX > 100) {
+        if (diffX > 60) {
           // 右滑
           goToPreviousChapter(); // 切换到上一章
-        } else if (diffX < -100) {
+        } else if (diffX < -60) {
           // 左滑
           goToNextChapter(); // 切换到下一章
         }
@@ -355,18 +422,19 @@ export default {
     };
 
     onMounted(() => {
-      fetchChapters();
-      document.addEventListener("click", handleClickOutside);
-      const contentArea = document.querySelector(".content-area");
-      contentArea.addEventListener("touchstart", handleTouchStart);
-      contentArea.addEventListener("touchend", handleTouchEnd);
+      loadSettingsFromLocal(); // 恢复设置
+      fetchChapters(); // 获取章节目录
+      document.addEventListener("input", saveFontSize); // 监听字体大小变化
+      document.addEventListener("click", handleClickOutside); // 添加点击事件
+      document.addEventListener("touchstart", handleTouchStart); // 监听触摸事件
+      document.addEventListener("touchend", handleTouchEnd); // 监听触摸结束事件
     });
 
     onUnmounted(() => {
+      document.removeEventListener("input", saveFontSize);
       document.removeEventListener("click", handleClickOutside);
-      const contentArea = document.querySelector(".content-area");
-      contentArea.removeEventListener("touchstart", handleTouchStart);
-      contentArea.removeEventListener("touchend", handleTouchEnd);
+      document.removeEventListener("touchstart", handleTouchStart);
+      document.removeEventListener("touchend", handleTouchEnd);
     });
 
     return {
@@ -388,7 +456,6 @@ export default {
       reverseChapters,
       showSettings,
       hideSettings,
-      fontSize,
       backgroundColor,
       colors,
       changeBackgroundColor,
@@ -751,5 +818,11 @@ input[type="range"] {
 .radio-group input[type="radio"] {
   margin-right: 5px;
 }
+
+.current-chapter {
+  color: #4285f4;
+  font-weight: bold; /* 可选：让当前章节加粗 */
+}
+
 </style>
 
