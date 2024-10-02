@@ -59,8 +59,8 @@ export default {
   
 <style scoped>  
 .twikoo-container {  
-  padding:  20px;  
-  margin: 30px auto;  
+  padding:  10px;  
+  margin: -20px auto;  
   /* max-width: 800px;   */
   font-family: Arial, sans-serif;  
   background-color: #fff;  

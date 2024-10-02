@@ -73,7 +73,7 @@ export default {
     app.component('Quote',Quote)
     app.component('NavVisitor',NavVisitor)
     app.component('Thanks',Thanks)
-    app.component('Test',Test)
+    // app.component('Test',Test)
     app.component('font-awesome-icon', FontAwesomeIcon)
 
   },
