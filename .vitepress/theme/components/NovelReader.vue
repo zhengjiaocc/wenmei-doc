@@ -293,11 +293,20 @@ export default {
     };
 
     const toggleNavAndToolBar = () => {
-      if (!isSettingsVisible.value && !isDirectoryVisible.value) {
-        isNavBarVisible.value = !isNavBarVisible.value;
-        isToolBarVisible.value = !isToolBarVisible.value;
-      }
-    };
+  if (!isSettingsVisible.value && !isDirectoryVisible.value) {
+    // 检查导航栏和工具栏的状态
+    if (isNavBarVisible.value !== isToolBarVisible.value) {
+      // 如果状态不一致，则都隐藏
+      isNavBarVisible.value = false;
+      isToolBarVisible.value = false;
+    } else {
+      // 如果状态一致，切换它们的可见性
+      const newState = !isNavBarVisible.value; // 切换状态
+      isNavBarVisible.value = newState;
+      isToolBarVisible.value = newState;
+    }
+  }
+};
 
     // 加载章节数据并初始化筛选列表
     const fetchChapters = async () => {
