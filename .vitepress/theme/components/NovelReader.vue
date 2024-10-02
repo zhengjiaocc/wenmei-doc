@@ -45,19 +45,29 @@
         <div class="directory-header">
           <div class="directory-title-container">
             <span class="directory-title">目录</span>
+            <input
+              type="text"
+              v-model="searchQuery"
+              placeholder="搜索章节..."
+              @input="handleSearch"
+              class="search-input"
+            />
+
             <button class="close-button" @click="hideDirectory">×</button>
           </div>
           <div class="directory-controls">
-            <span>共: {{ chapters.length }}章</span>
+            <span>共: {{ filteredChapters.length }}章</span>
+
             <button class="reverse-button" @click="reverseChapters">
               倒序
             </button>
           </div>
         </div>
+
         <div class="chapter-list">
           <ul>
             <li
-              v-for="chapter in chapters"
+              v-for="chapter in filteredChapters"
               :key="chapter.id"
               @click="(event) => selectChapter(chapter.id, event)"
               :class="{ 'current-chapter': chapter.id === currentChapter.id }"
@@ -130,6 +140,7 @@
 <script>
 import { ref, onMounted, onUnmounted, nextTick } from "vue";
 import { getAllChapterDirectory, getChapter } from "../utils/api";
+import { debounce } from "lodash";
 
 export default {
   setup() {
@@ -213,12 +224,13 @@ export default {
       }
     };
 
+    // 加载章节数据并初始化筛选列表
     const fetchChapters = async () => {
-      loading.value = true; // 开始加载
+      loading.value = true;
       try {
         const data = await getAllChapterDirectory();
         chapters.value = data;
-
+        filteredChapters.value = data; // 初始时所有章节都显示
         const lastChapterId = loadReadingProgress();
         if (lastChapterId) {
           selectChapter(lastChapterId);
@@ -228,7 +240,7 @@ export default {
       } catch (error) {
         console.error("获取章节目录失败:", error);
       } finally {
-        loading.value = false; // 结束加载
+        loading.value = false;
       }
     };
 
@@ -421,6 +433,22 @@ export default {
       }
     };
 
+    const filteredChapters = ref([]); // 筛选后的章节列表
+    const searchQuery = ref(""); // 搜索关键字
+
+    const handleSearch = debounce(() => {
+      if (searchQuery.value) {
+        filteredChapters.value = chapters.value.filter((chapter) =>
+          chapter.chapterTitle
+            .trim()
+            .toLowerCase()
+            .includes(searchQuery.value.toLowerCase())
+        );
+      } else {
+        filteredChapters.value = chapters.value;
+      }
+    }, 300); // 使用 lodash 防抖，300 毫秒延迟
+
     onMounted(() => {
       loadSettingsFromLocal(); // 恢复设置
       fetchChapters(); // 获取章节目录
@@ -460,6 +488,9 @@ export default {
       colors,
       changeBackgroundColor,
       pageTurningMode,
+      filteredChapters,
+      searchQuery,
+      handleSearch,
     };
   },
 };
@@ -581,7 +612,6 @@ export default {
 
 .directory-title {
   font-size: 14px;
-  flex-grow: 1;
   text-align: left;
   padding: 10px 0;
 }
@@ -824,5 +854,11 @@ input[type="range"] {
   font-weight: bold; /* 可选：让当前章节加粗 */
 }
 
+
+.search-input {
+  flex-grow: 1; /* 占用剩余的所有空间 */
+  margin-left: 10px;
+
+}
 </style>
 
