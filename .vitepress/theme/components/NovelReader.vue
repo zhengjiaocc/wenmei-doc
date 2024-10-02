@@ -128,23 +128,25 @@
 
 <script>
 import { ref, onMounted, onUnmounted, nextTick } from "vue";
-import { getAllChapterDirectory, getChapter } from "../utils/api";
+import { getAllChapterDirectory, getChapter, getChapters } from "../utils/api";
 
 export default {
   setup() {
+    const chapterCache = ref({}); // 用于缓存章节内容
+
     const isNavBarVisible = ref(false);
     const isToolBarVisible = ref(false);
     const isDirectoryVisible = ref(false);
     const isSettingsVisible = ref(false);
     const chapters = ref([]);
-    const currentChapter = ref({ title: "", wordCount: 0 });
+    const currentChapter = ref({ id: "", title: "", wordCount: 0 });
+
     const currentContent = ref("");
     const currentAdditionalInfo = ref("");
     const fontSize = ref(16);
     const backgroundColor = ref("color-white");
     const loading = ref(false); // 添加 loading 状态
     const pageTurningMode = ref("horizontal");
-
 
     const colors = ref([
       { name: "White", class: "color-white", rgb: "rgb(245, 245, 245)" },
@@ -190,18 +192,62 @@ export default {
         event.stopPropagation();
       }
       loading.value = true; // 开始加载
+
+      currentContent.value = "";
+      currentAdditionalInfo.value = "";
+      currentChapter.value = { id: "", title: "", wordCount: 0 };
+
       try {
         isDirectoryVisible.value = false;
         isToolBarVisible.value = false;
-        const chapter = await getChapter(id);
-        currentChapter.value = {
-          title: chapter.chapterTitle || "未命名章节",
-          wordCount: chapter.chapterContent ? chapter.chapterContent.length : 0,
-        };
-        currentContent.value = chapter.chapterContent || "";
-        currentAdditionalInfo.value = chapter.additionalInfo || "";
 
-        // 直接滚动到顶部，不使用动画
+        // 检查缓存
+        if (chapterCache.value[id]) {
+          const chapter = chapterCache.value[id];
+          currentChapter.value = {
+            id: chapter.id,
+            title: chapter.chapterTitle || "未命名章节",
+            wordCount: chapter.chapterContent
+              ? chapter.chapterContent.length
+              : 0,
+          };
+          currentContent.value = chapter.chapterContent || "";
+          currentAdditionalInfo.value = chapter.additionalInfo || "";
+        } else {
+          const chapter = await getChapter(id); // 获取章节数据
+          chapterCache.value[id] = chapter; // 缓存章节内容
+          currentChapter.value = {
+            id: chapter.id,
+            title: chapter.chapterTitle || "未命名章节",
+            wordCount: chapter.chapterContent
+              ? chapter.chapterContent.length
+              : 0,
+          };
+          currentContent.value = chapter.chapterContent || "";
+          currentAdditionalInfo.value = chapter.additionalInfo || "";
+
+          // 预加载前一章和后一章
+          const currentIndex = chapters.value.findIndex(
+            (chap) => chap.id === id
+          );
+          if (currentIndex > 0) {
+            const previousChapterId = chapters.value[currentIndex - 1].id;
+            if (!chapterCache.value[previousChapterId]) {
+              chapterCache.value[previousChapterId] = await getChapter(
+                previousChapterId
+              );
+            }
+          }
+          if (currentIndex < chapters.value.length - 1) {
+            const nextChapterId = chapters.value[currentIndex + 1].id;
+            if (!chapterCache.value[nextChapterId]) {
+              chapterCache.value[nextChapterId] = await getChapter(
+                nextChapterId
+              );
+            }
+          }
+        }
+
         await nextTick();
         document.querySelector(".content-area").scrollTop = 0; // 修改这里
       } catch (error) {
@@ -267,13 +313,60 @@ export default {
       }
     };
 
+    let startX = 0; // 记录触摸开始的位置
+
+    const handleTouchStart = (event) => {
+      startX = event.touches[0].clientX; // 记录触摸开始的 X 坐标
+    };
+    const handleTouchEnd = (event) => {
+      const endX = event.changedTouches[0].clientX; // 记录触摸结束的 X 坐标
+      const diffX = endX - startX; // 计算滑动的距离
+
+      if (!loading.value) {
+        // 确保没有在加载中
+        if (diffX > 100) {
+          // 右滑
+          goToPreviousChapter(); // 切换到上一章
+        } else if (diffX < -100) {
+          // 左滑
+          goToNextChapter(); // 切换到下一章
+        }
+      }
+    };
+
+    const goToPreviousChapter = async () => {
+      if (!currentChapter.value.id) return; // 确保有 id
+      const currentIndex = chapters.value.findIndex(
+        (chapter) => chapter.id === currentChapter.value.id
+      );
+      if (currentIndex > 0) {
+        await selectChapter(chapters.value[currentIndex - 1].id);
+      }
+    };
+
+    const goToNextChapter = async () => {
+      if (!currentChapter.value.id) return; // 确保有 id
+      const currentIndex = chapters.value.findIndex(
+        (chapter) => chapter.id === currentChapter.value.id
+      );
+      if (currentIndex < chapters.value.length - 1) {
+        await selectChapter(chapters.value[currentIndex + 1].id);
+      }
+    };
+
     onMounted(() => {
       fetchChapters();
-      document.addEventListener("click", handleClickOutside); // 添加全局点击事件
+      document.addEventListener("click", handleClickOutside);
+      const contentArea = document.querySelector(".content-area");
+      contentArea.addEventListener("touchstart", handleTouchStart);
+      contentArea.addEventListener("touchend", handleTouchEnd);
     });
 
     onUnmounted(() => {
-      document.removeEventListener("click", handleClickOutside); // 清除全局点击事件
+      document.removeEventListener("click", handleClickOutside);
+      const contentArea = document.querySelector(".content-area");
+      contentArea.removeEventListener("touchstart", handleTouchStart);
+      contentArea.removeEventListener("touchend", handleTouchEnd);
     });
 
     return {
@@ -658,6 +751,5 @@ input[type="range"] {
 .radio-group input[type="radio"] {
   margin-right: 5px;
 }
-
 </style>
 

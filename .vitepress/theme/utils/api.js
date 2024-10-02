@@ -41,7 +41,7 @@ export const getPagedChapterDirectory = async (page = 1, size = 10) => {
 };
 
 /**
- * 获取所有章节（分页）
+ * 获取章节（分页）
  * @param {number} page - 当前页码，默认为1
  * @param {number} size - 每页返回的章节数量，默认为10
  * @returns {Promise<Object>} - 返回分页的章节列表数据的 Promise
