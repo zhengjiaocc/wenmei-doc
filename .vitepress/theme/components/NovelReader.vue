@@ -78,6 +78,7 @@
         <div class="directory-header">
           <div class="directory-title-container">
             <span class="directory-title">目录</span>
+     
             <input
               type="text"
               v-model="searchQuery"
@@ -85,11 +86,12 @@
               @input="handleSearch"
               class="search-input"
             />
+            <font-awesome-icon class="search-icon" :icon="['fas', 'magnifying-glass']" />
 
-            <button class="close-button" @click="hideDirectory">×</button>
+            <button class="close-button" @click="hideDirectory"><font-awesome-icon :icon="['fas', 'xmark']" /></button>
           </div>
           <div class="directory-controls">
-            <span>共: {{ filteredChapters.length }}章</span>
+            <span>共{{ filteredChapters.length }}章</span>
 
             <button class="reverse-button" @click="reverseChapters">
               倒序
@@ -1000,5 +1002,10 @@ input[type="range"] {
 .button-text {
   font-size: 12px; /* 调整文字大小 */
 }
+
+.search-icon {
+  margin-right: 10px; /* 添加5px的右边距 */
+}
+
 </style>
 
