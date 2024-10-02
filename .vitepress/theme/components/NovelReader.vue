@@ -140,7 +140,8 @@
 <script>
 import { ref, onMounted, onUnmounted, nextTick } from "vue";
 import { getAllChapterDirectory, getChapter } from "../utils/api";
-import { debounce } from "lodash";
+import { debounce } from 'lodash-es';
+
 
 export default {
   setup() {
@@ -447,7 +448,7 @@ export default {
       } else {
         filteredChapters.value = chapters.value;
       }
-    }, 300); // 使用 lodash 防抖，300 毫秒延迟
+    }, 100); // 使用 lodash 防抖，300 毫秒延迟
 
     onMounted(() => {
       loadSettingsFromLocal(); // 恢复设置
