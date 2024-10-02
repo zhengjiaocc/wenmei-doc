@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // 设置基础路径，用于后续所有 API 请求
-// const API_BASE_URL = 'https://n.zhengjiao.cc:10004/api/chapters';
+// const API_BASE_URL = 'http://localhost:11223/api/chapters';
 const API_BASE_URL = 'https://n.zhengjiao.cc/api/chapters';
 
 /**

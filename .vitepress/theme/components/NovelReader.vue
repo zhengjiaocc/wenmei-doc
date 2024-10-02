@@ -140,8 +140,7 @@
 <script>
 import { ref, onMounted, onUnmounted, nextTick } from "vue";
 import { getAllChapterDirectory, getChapter } from "../utils/api";
-import { debounce } from 'lodash-es';
-
+import { debounce } from "lodash-es";
 
 export default {
   setup() {
@@ -318,8 +317,11 @@ export default {
 
     const showDirectory = (event) => {
       event.stopPropagation();
+      // 隐藏导航栏和工具栏，应用无动画类
       isNavBarVisible.value = false;
       isToolBarVisible.value = false;
+      document.querySelector(".navbar").classList.add("navbar-hide");
+      document.querySelector(".toolbar").classList.add("toolbar-hide");
       isDirectoryVisible.value = true;
 
       nextTick(() => {
@@ -328,7 +330,7 @@ export default {
         if (currentChapterElement) {
           currentChapterElement.scrollIntoView({
             block: "center",
-            behavior: "auto",
+            behavior: "smooth",
           });
         }
       });
@@ -336,8 +338,10 @@ export default {
 
     const hideDirectory = () => {
       isDirectoryVisible.value = false;
-      isToolBarVisible.value = false;
-      isNavBarVisible.value = false;
+
+      // 恢复导航栏和工具栏的显示
+      isToolBarVisible.value = true;
+      isNavBarVisible.value = true;
     };
 
     const showSettings = (event) => {
@@ -345,6 +349,9 @@ export default {
       isNavBarVisible.value = false;
       isToolBarVisible.value = false;
       isSettingsVisible.value = true;
+      // 添加无动画隐藏类
+      document.querySelector(".navbar").classList.add("navbar-hide");
+      document.querySelector(".toolbar").classList.add("toolbar-hide");
     };
 
     const hideSettings = () => {
@@ -404,10 +411,10 @@ export default {
 
       if (!loading.value) {
         // 确保没有在加载中
-        if (diffX > 60) {
+        if (diffX > 40) {
           // 右滑
           goToPreviousChapter(); // 切换到上一章
-        } else if (diffX < -60) {
+        } else if (diffX < -40) {
           // 左滑
           goToNextChapter(); // 切换到下一章
         }
@@ -667,6 +674,16 @@ export default {
   transition: transform 0.5s ease-in-out; /* 修改持续时间为0.5秒，使用ease-in-out缓动函数 */
 }
 
+.navbar-hide {
+  transform: translateY(-100%); /* 隐藏状态 */
+  transition: none; /* 禁用过渡 */
+}
+
+.toolbar-hide {
+  transform: translateY(100%); /* 隐藏状态 */
+  transition: none; /* 禁用过渡 */
+}
+
 .navbar-slide-enter {
   transform: translateY(-100%);
 }
@@ -855,11 +872,9 @@ input[type="range"] {
   font-weight: bold; /* 可选：让当前章节加粗 */
 }
 
-
 .search-input {
   flex-grow: 1; /* 占用剩余的所有空间 */
   margin-left: 10px;
-
 }
 </style>
 
