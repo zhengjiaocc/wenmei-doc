@@ -10,9 +10,6 @@ head:
   - - meta
     - name: author
       content: 负是非
-  - - meta
-    - name: viewport
-      content: width=device-width, initial-scale=1.0
 layout: false
 
 ---  
