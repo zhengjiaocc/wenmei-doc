@@ -320,8 +320,8 @@ export default {
       // 隐藏导航栏和工具栏，应用无动画类
       isNavBarVisible.value = false;
       isToolBarVisible.value = false;
-      document.querySelector(".navbar").classList.add("navbar-hide");
-      document.querySelector(".toolbar").classList.add("toolbar-hide");
+      // document.querySelector(".navbar").classList.add("navbar-hide");
+      // document.querySelector(".toolbar").classList.add("toolbar-hide");
       isDirectoryVisible.value = true;
 
       nextTick(() => {
@@ -330,7 +330,7 @@ export default {
         if (currentChapterElement) {
           currentChapterElement.scrollIntoView({
             block: "center",
-            behavior: "smooth",
+            behavior: "auto",
           });
         }
       });
@@ -349,9 +349,9 @@ export default {
       isNavBarVisible.value = false;
       isToolBarVisible.value = false;
       isSettingsVisible.value = true;
-      // 添加无动画隐藏类
-      document.querySelector(".navbar").classList.add("navbar-hide");
-      document.querySelector(".toolbar").classList.add("toolbar-hide");
+      // // 添加无动画隐藏类
+      // document.querySelector(".navbar").classList.add("navbar-hide");
+      // document.querySelector(".toolbar").classList.add("toolbar-hide");
     };
 
     const hideSettings = () => {
