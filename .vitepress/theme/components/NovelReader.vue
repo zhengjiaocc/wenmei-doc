@@ -588,7 +588,7 @@ input[type="range"] {
 }
 
 .loading-spinner {
-  border: 4px solid rgba(128, 128, 128, 0.5); /* 浅灰色边框 */
+  border: 2px solid rgba(128, 128, 128, 0.5); /* 浅灰色边框 */
   border-left-color: gray; /* 左侧为深灰色 */
   border-radius: 50%;
   width: 16px; /* 圆圈的宽度 */
