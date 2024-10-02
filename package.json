@@ -10,12 +10,16 @@
     "docs:preview": "vitepress preview"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.6.0",
+    "@fortawesome/free-brands-svg-icons": "^6.6.0",
+    "@fortawesome/free-regular-svg-icons": "^6.6.0",
+    "@fortawesome/free-solid-svg-icons": "^6.6.0",
+    "@fortawesome/vue-fontawesome": "^3.0.8",
     "axios": "^1.7.5",
     "canvas-confetti": "^1.9.3",
     "hammerjs": "^2.0.8",
     "js-pinyin": "^0.2.7",
     "js-yaml": "^4.1.0",
-    "lodash": "^4.17.21",
     "lodash-es": "^4.17.21"
   }
 }

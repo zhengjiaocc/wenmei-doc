@@ -17,6 +17,21 @@ import Thanks from './components/Thanks.vue';
 import "vitepress-markdown-timeline/dist/theme/index.css";
 import './style/index.css'
 import Test from './components/Test.vue';
+
+/* import the fontawesome core */
+import { library } from '@fortawesome/fontawesome-svg-core'
+
+/* 引入图标库组件 */
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+/* import all icons, solid图标库的包名为fas、regular图标库的包名为far、brands图标库的包名为fab */
+import { fas } from '@fortawesome/free-solid-svg-icons'
+// import { far } from '@fortawesome/free-regular-svg-icons'
+// import { fab } from '@fortawesome/free-brands-svg-icons'
+
+/* 添加 fas 图标 在网站中的solid分类下面获取*/
+library.add(fas)
+
 /** @type {import('vitepress').Theme} */
 
 DefaultTheme.enhanceApp = ({ app, router, siteData }) => {
@@ -59,6 +74,7 @@ export default {
     app.component('NavVisitor',NavVisitor)
     app.component('Thanks',Thanks)
     app.component('Test',Test)
+    app.component('font-awesome-icon', FontAwesomeIcon)
 
   },
 }

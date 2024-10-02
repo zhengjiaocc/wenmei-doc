@@ -32,7 +32,9 @@
 
     <transition name="navbar-slide" @click.stop>
       <div class="navbar" v-if="isNavBarVisible">
-        <button @click="goToHome">主页</button>
+        <button @click="goToHome">
+          <font-awesome-icon :icon="['fas', 'house']" />
+        </button>
         <!-- 主页按钮 -->
         <div class="navbar-right">
           <button @click="toggleNavAndToolBar">更多</button>
@@ -43,9 +45,31 @@
 
     <transition name="toolbar-slide" @click.stop>
       <div class="toolbar" v-if="isToolBarVisible">
-        <button @click.stop="goToHomeAndExitFullscreen">返回</button>
-        <button @click.stop="showDirectory">目录</button>
-        <button @click.stop="showSettings">设置</button>
+        <button @click.stop="goToHomeAndExitFullscreen">
+          <div class="button-content">
+            <span class="button-icon">
+              <font-awesome-icon :icon="['fas', 'angle-left']"
+            /></span>
+            <span class="button-text">返回</span>
+          </div>
+        </button>
+        <button @click.stop="showDirectory">
+          <div class="button-content">
+            <span class="button-icon"
+              ><font-awesome-icon :icon="['fas', 'bars']"
+            /></span>
+            <span class="button-text">目录</span>
+          </div>
+        </button>
+        <button @click.stop="showSettings">
+          <div class="button-content">
+            <span class="button-icon"
+              ><font-awesome-icon :icon="['fas', 'a']"
+            /></span>
+            <!-- 设置图标 -->
+            <span class="button-text">设置</span>
+          </div>
+        </button>
       </div>
     </transition>
 
@@ -579,7 +603,7 @@ export default {
   top: 0;
   left: 0;
   right: 0;
-  height: 70px;
+  height: 71px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -944,13 +968,28 @@ input[type="range"] {
 
 .chapter-symbol {
   display: inline-block;
-  width: 11px; /* 符号宽度 */
-  height: 11px; /* 符号高度 */
+  width: 9px; /* 符号宽度 */
+  height: 9px; /* 符号高度 */
   background-color: transparent; /* 透明背景 */
-  border: 2px solid #666;; /* 符号边框颜色 */
+  border: 2px solid #666; /* 符号边框颜色 */
   clip-path: polygon(0 0, 100% 0, 0 100%); /* 创建镂空的形状 */
   margin-right: 3px; /* 与标题之间的间距 */
   transform: rotate(315deg); /* 旋转成类似小于号的直角 */
+}
+
+.button-content {
+  display: flex;
+  flex-direction: column; /* 垂直排列 */
+  align-items: center; /* 水平居中 */
+}
+
+.button-icon {
+  font-size: 17px; /* 调整图标大小 */
+  margin-bottom: 3px; /* 图标与文字之间的间距 */
+}
+
+.button-text {
+  font-size: 12px; /* 调整文字大小 */
 }
 </style>
 
