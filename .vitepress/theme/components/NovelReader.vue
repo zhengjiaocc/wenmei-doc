@@ -90,7 +90,7 @@
                 type="range"
                 min="12"
                 max="24"
-                step="2"
+                step="1"
                 v-model="fontSize"
               />
               <span class="font-size-label">A+</span>
