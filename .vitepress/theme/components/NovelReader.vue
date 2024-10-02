@@ -620,12 +620,13 @@ export default {
   top: 0;
   left: 0;
   right: 0;
-  height: 50px;
+  height: 10vh;
   background-color: rgb(255, 255, 255);
   display: flex;
   justify-content: space-between; /* 修改为space-between以将主页按钮放到左侧 */
   align-items: center;
   padding: 0 10px;
+  padding-top: 20px;
 }
 
 .toolbar {
@@ -633,7 +634,7 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 70px;
+  height: 14vh;
   background-color: rgb(255, 255, 255);
   display: flex;
   justify-content: space-around;
