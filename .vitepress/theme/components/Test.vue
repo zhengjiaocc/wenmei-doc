@@ -1,8 +1,7 @@
 <template>
     <div id="app">
       <div ref="fullScreenContainer" class="container">
-        <p>这是一个全屏的 Vue 组件示例</p>
-        <button @click="enterFullScreen">进入全屏</button>
+        <p>页面加载后会自动全屏</p>
         <button @click="exitFullScreen">退出全屏</button>
       </div>
     </div>
@@ -10,18 +9,19 @@
   
   <script>
   export default {
-    name: "FullScreenComponent",
+    name: "AutoFullScreenComponent",
+    
     methods: {
-      // 进入全屏
-      enterFullScreen() {
+      // 尝试自动全屏
+      tryFullScreen() {
         const element = this.$refs.fullScreenContainer;
         if (element.requestFullscreen) {
           element.requestFullscreen()
             .then(() => {
-              console.log("进入全屏成功");
+              console.log("自动进入全屏成功");
             })
             .catch((error) => {
-              console.error("进入全屏失败: ", error);
+              console.error("自动进入全屏失败: ", error);
             });
         }
       },
@@ -50,6 +50,9 @@
     },
     
     mounted() {
+      // 页面加载后尝试全屏
+      this.tryFullScreen();
+  
       // 监听全屏状态变化
       document.addEventListener("fullscreenchange", this.handleFullscreenChange);
     },
