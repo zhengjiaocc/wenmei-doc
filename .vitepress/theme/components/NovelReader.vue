@@ -3,14 +3,15 @@
     ref="fullScreenContainer"
     class="novel-container"
     @click="toggleNavAndToolBar"
+    :class="backgroundColor"
   >
-    <div v-if="!loading" class="chapter-info" :class="backgroundColor">
-      <div class="chapter-title-container">
+    <div  v-if="!loading" class="chapter-info" :class="backgroundColor">
+      <div class="chapter-title-container" >
         <span class="chapter-symbol"></span>
         <!-- 使用伪元素 -->
         <span class="chapter-title">{{ currentChapter.title.trim() }}</span>
       </div>
-      <span class="chapter-word-count">{{ currentChapter.wordCount }} 字</span>
+      <span class="chapter-word-count"  >{{ currentChapter.wordCount }} 字</span>
     </div>
 
     <div
@@ -598,6 +599,7 @@ export default {
 </script>
 
 <style scoped>
+
 .novel-container {
   position: fixed;
   top: 0;
@@ -1006,6 +1008,8 @@ input[type="range"] {
 .search-icon {
   margin-right: 10px; /* 添加5px的右边距 */
 }
+
+
 
 </style>
 
