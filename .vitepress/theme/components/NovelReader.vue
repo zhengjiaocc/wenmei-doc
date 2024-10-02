@@ -576,11 +576,12 @@ export default {
   top: 0;
   left: 0;
   right: 0;
-  height: 50px;
+  height: 70px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 10px;
+  padding-top: 20px;
 }
 
 .chapter-title {
@@ -593,7 +594,7 @@ export default {
 
 .content-area {
   position: absolute;
-  top: 50px;
+  top: 70px;
   bottom: 0;
   left: 0;
   right: 0;
