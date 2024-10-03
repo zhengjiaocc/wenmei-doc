@@ -498,10 +498,10 @@ export default {
 
       if (!loading.value) {
         // 确保没有在加载中
-        if (diffX > 40) {
+        if (diffX > 60) {
           // 右滑
           goToPreviousChapter(); // 切换到上一章
-        } else if (diffX < -40) {
+        } else if (diffX < 60) {
           // 左滑
           goToNextChapter(); // 切换到下一章
         }
