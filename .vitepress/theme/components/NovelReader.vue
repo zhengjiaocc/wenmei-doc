@@ -488,25 +488,34 @@ export default {
     };
 
     let startX = 0; // 记录触摸开始的位置
+let startY = 0; // 记录触摸开始的 Y 坐标
 
-    const handleTouchStart = (event) => {
-      startX = event.touches[0].clientX; // 记录触摸开始的 X 坐标
-    };
-    const handleTouchEnd = (event) => {
-      const endX = event.changedTouches[0].clientX; // 记录触摸结束的 X 坐标
-      const diffX = endX - startX; // 计算滑动的距离
+const handleTouchStart = (event) => {
+  startX = event.touches[0].clientX; // 记录触摸开始的 X 坐标
+  startY = event.touches[0].clientY; // 记录触摸开始的 Y 坐标
+};
 
-      if (!loading.value) {
-        // 确保没有在加载中
-        if (diffX > 60) {
-          // 右滑
-          goToPreviousChapter(); // 切换到上一章
-        } else if (diffX < 60) {
-          // 左滑
-          goToNextChapter(); // 切换到下一章
-        }
+const handleTouchEnd = (event) => {
+  const endX = event.changedTouches[0].clientX; // 记录触摸结束的 X 坐标
+  const endY = event.changedTouches[0].clientY; // 记录触摸结束的 Y 坐标
+  const diffX = endX - startX; // 计算水平方向滑动的距离
+  const diffY = endY - startY; // 计算垂直方向滑动的距离
+
+  if (!loading.value) {
+    // 确保没有在加载中
+    if (Math.abs(diffX) > 60 && Math.abs(diffY) < 50) {
+      // 水平方向滑动距离超过 60 且垂直方向滑动距离小于 30
+      if (diffX > 0) {
+        // 右滑
+        goToPreviousChapter(); // 切换到上一章
+      } else {
+        // 左滑
+        goToNextChapter(); // 切换到下一章
       }
-    };
+    }
+  }
+};
+
 
     const goToPreviousChapter = async () => {
       if (!currentChapter.value.id) return; // 确保有 id
