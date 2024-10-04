@@ -343,7 +343,7 @@ export default {
       if (event) {
         event.stopPropagation();
       }
-      loading.value = true;
+      loading.value = true; // 开始加载章节
       console.log(`开始加载章节: ${id}`);
 
       currentContent.value = "";
@@ -385,8 +385,16 @@ export default {
         const currentIndex = chapters.value.findIndex((chap) => chap.id === id);
         console.log(`当前章节索引: ${currentIndex}`);
 
-        // 调用更新预加载章节
-        await updatePreloadChapters(currentIndex); // 这里传入当前索引
+        // 检查是否进入了当前组的中间章节（第3章），并预加载下一组（第6-10章）
+        if (currentIndex % 5 === 2) {
+          // 当前章节是中间章节
+          const nextGroupStartIndex = currentIndex + 3; // 下一组的开始索引
+          if (nextGroupStartIndex < chapters.value.length) {
+            setTimeout(() => {
+              updatePreloadChapters(nextGroupStartIndex); // 异步预加载
+            }, 0);
+          }
+        }
 
         await nextTick();
         document.querySelector(".content-area").scrollTop = 0;
@@ -395,7 +403,7 @@ export default {
       } catch (error) {
         console.error(`获取章节 ${id} 失败:`, error);
       } finally {
-        loading.value = false;
+        loading.value = false; // 结束加载
       }
     };
 
@@ -409,7 +417,8 @@ export default {
         if (!chapterCache.value[chapterId]) {
           try {
             console.log(`预加载章节: ${chapterId}`);
-            chapterCache.value[chapterId] = await getChapter(chapterId);
+            const chapter = await getChapter(chapterId);
+            chapterCache.value[chapterId] = chapter;
             console.log(`章节 ${chapterId} 预加载成功`);
           } catch (error) {
             console.error(`预加载章节 ${chapterId} 失败:`, error);
