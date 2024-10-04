@@ -319,8 +319,11 @@ export default {
       }
     };
 
-    // 加载章节数据并初始化筛选列表
-    const fetchChapters = async () => {
+    let chapterDirectoryFetched = false; // 添加标志
+
+    const fetchChapterDirectory = async () => {
+      if (chapterDirectoryFetched) return; // 如果已经请求过，直接返回
+
       loading.value = true;
       try {
         const data = await getAllChapterDirectory();
@@ -331,6 +334,32 @@ export default {
           selectChapter(lastChapterId);
         } else if (chapters.value.length > 0) {
           selectChapter(chapters.value[0].id);
+        }
+        chapterDirectoryFetched = true; // 设置标志，表示目录已被请求
+      } catch (error) {
+        console.error("获取章节目录失败:", error);
+      } finally {
+        loading.value = false;
+      }
+    };
+
+    const initialGroupSize = 5; // 初始组大小
+    const preloadGroupSize = 5; // 预加载组大小
+
+    const fetchInitialChapters = async () => {
+      loading.value = true;
+      try {
+        // 加载初始组的章节
+        const data = await getAllChapterDirectory();
+        chapters.value = data;
+
+        // 加载默认的1-5章
+        for (
+          let i = 0;
+          i < Math.min(initialGroupSize, chapters.value.length);
+          i++
+        ) {
+          await selectChapter(chapters.value[i].id);
         }
       } catch (error) {
         console.error("获取章节目录失败:", error);
@@ -343,7 +372,7 @@ export default {
       if (event) {
         event.stopPropagation();
       }
-      loading.value = true; // 开始加载章节
+      loading.value = true;
       console.log(`开始加载章节: ${id}`);
 
       currentContent.value = "";
@@ -385,10 +414,12 @@ export default {
         const currentIndex = chapters.value.findIndex((chap) => chap.id === id);
         console.log(`当前章节索引: ${currentIndex}`);
 
-        // 检查是否进入了当前组的中间章节（第3章），并预加载下一组（第6-10章）
-        if (currentIndex % 5 === 2) {
-          // 当前章节是中间章节
-          const nextGroupStartIndex = currentIndex + 3; // 下一组的开始索引
+        // 检查是否进入了当前组的中间章节
+        if (
+          currentIndex % initialGroupSize ===
+          Math.floor(initialGroupSize / 2)
+        ) {
+          const nextGroupStartIndex = currentIndex + initialGroupSize; // 下一组的开始索引
           if (nextGroupStartIndex < chapters.value.length) {
             setTimeout(() => {
               updatePreloadChapters(nextGroupStartIndex); // 异步预加载
@@ -403,15 +434,19 @@ export default {
       } catch (error) {
         console.error(`获取章节 ${id} 失败:`, error);
       } finally {
-        loading.value = false; // 结束加载
+        loading.value = false;
       }
     };
 
     const updatePreloadChapters = async (currentIndex) => {
-      const startIndex = Math.floor(currentIndex / 5) * 5; // 计算当前组的开始索引
+      const startIndex =
+        Math.floor(currentIndex / preloadGroupSize) * preloadGroupSize;
       console.log(`更新预加载章节，从索引 ${startIndex} 开始`);
 
-      const endIndex = Math.min(startIndex + 5, chapters.value.length); // 确保不超出章节范围
+      const endIndex = Math.min(
+        startIndex + preloadGroupSize,
+        chapters.value.length
+      );
       for (let i = startIndex; i < endIndex; i++) {
         const chapterId = chapters.value[i].id;
         if (!chapterCache.value[chapterId]) {
@@ -573,7 +608,8 @@ export default {
 
     onMounted(() => {
       loadSettingsFromLocal(); // 恢复设置
-      fetchChapters(); // 获取章节目录
+      fetchChapterDirectory(); // 获取章节目录
+      fetchInitialChapters(); // 确保在组件挂载时调用
       document.addEventListener("input", saveFontSize); // 监听字体大小变化
       document.addEventListener("click", handleClickOutside); // 添加点击事件
       document.addEventListener("touchstart", handleTouchStart); // 监听触摸事件
