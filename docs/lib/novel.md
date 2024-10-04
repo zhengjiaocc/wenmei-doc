@@ -10,6 +10,9 @@ head:
   - - meta
     - name: author
       content: 负是非
+  - - meta
+    - name: screen-orientation
+    - content: portrait
 layout: false
 
 ---  
