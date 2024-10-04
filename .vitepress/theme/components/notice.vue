@@ -5,7 +5,6 @@ import { ref, onMounted } from "vue";
 const currentBulletinId = "202401004"; // 示例公告ID
 const visible = ref(false); // 控制公告的可见性
 const closeMessage = ref(false); // 控制是否显示关闭提示信息
-const showAccelerateButton = ref(true); // 控制是否显示加速访问按钮
 
 // 页面加载时执行
 onMounted(() => {
@@ -16,7 +15,7 @@ onMounted(() => {
     visible.value = true;
   }
 
-  
+});
 
 // 关闭公告并更新 localStorage
 function closeBulletin() {
@@ -77,10 +76,7 @@ function closeBulletin() {
         <div class="bulletin-content">
           <h3 class="bulletin-h3">本次更新：</h3>
           <p style="color: ">章节1901至1930已经更新</p>
-          <p style="color: red">香港机房挂了，在线阅读需要等恢复！！！</p>
-
-
-          <p><a href="/docs/resources/resources" style="text-decoration: underline">Bug反馈、建议请留言</a></p>
+          <p style="color: red">香港机房挂了，阅读需要等恢复！！！</p>
           <hr />
           <p>活动</p>
           <a href="https://tieba.baidu.com/p/8395119444" style="text-decoration: underline;">投票:选择你最喜爱的妹妹</a>
@@ -89,7 +85,7 @@ function closeBulletin() {
           <p>2群-->261599177</p>
           <p>4群-->546542165</p>
 
-        
+          <hr />
         </div>
       </div>
     </transition>
