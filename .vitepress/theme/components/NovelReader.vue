@@ -5,13 +5,13 @@
     @click="toggleNavAndToolBar"
     :class="backgroundColor"
   >
-    <div v-if="!loading" class="chapter-info" :class="backgroundColor">
-      <div class="chapter-title-container">
+    <div  v-if="!loading" class="chapter-info" :class="backgroundColor">
+      <div class="chapter-title-container" >
         <span class="chapter-symbol"></span>
         <!-- 使用伪元素 -->
         <span class="chapter-title">{{ currentChapter.title.trim() }}</span>
       </div>
-      <span class="chapter-word-count">{{ currentChapter.wordCount }} 字</span>
+      <span class="chapter-word-count"  >{{ currentChapter.wordCount }} 字</span>
     </div>
 
     <div
@@ -79,7 +79,7 @@
         <div class="directory-header">
           <div class="directory-title-container">
             <span class="directory-title">目录</span>
-
+     
             <input
               type="text"
               v-model="searchQuery"
@@ -87,14 +87,9 @@
               @input="handleSearch"
               class="search-input"
             />
-            <font-awesome-icon
-              class="search-icon"
-              :icon="['fas', 'magnifying-glass']"
-            />
+            <font-awesome-icon class="search-icon" :icon="['fas', 'magnifying-glass']" />
 
-            <button class="close-button" @click="hideDirectory">
-              <font-awesome-icon :icon="['fas', 'xmark']" />
-            </button>
+            <button class="close-button" @click="hideDirectory"><font-awesome-icon :icon="['fas', 'xmark']" /></button>
           </div>
           <div class="directory-controls">
             <span>共{{ filteredChapters.length }}章</span>
@@ -220,20 +215,17 @@ export default {
       goToHome(); // 跳转到主页
     };
     // 尝试进入全屏
-    const tryFullScreen = async () => {
+    const tryFullScreen = () => {
       const element = fullScreenContainer.value;
       if (element && element.requestFullscreen) {
-        try {
-          await element.requestFullscreen();
-          // 尝试将屏幕方向设置为竖屏
-          if (screen.orientation && screen.orientation.lock) {
-            await screen.orientation.lock("portrait");
-            console.log("已强制锁定为竖屏模式");
-          }
-          console.log("自动进入全屏成功");
-        } catch (error) {
-          console.error("自动进入全屏失败: ", error);
-        }
+        element
+          .requestFullscreen()
+          .then(() => {
+            console.log("自动进入全屏成功");
+          })
+          .catch((error) => {
+            console.error("自动进入全屏失败: ", error);
+          });
       }
     };
 
@@ -304,26 +296,23 @@ export default {
     };
 
     const toggleNavAndToolBar = () => {
-      if (!isSettingsVisible.value && !isDirectoryVisible.value) {
-        // 检查导航栏和工具栏的状态
-        if (isNavBarVisible.value !== isToolBarVisible.value) {
-          // 如果状态不一致，则都隐藏
-          isNavBarVisible.value = false;
-          isToolBarVisible.value = false;
-        } else {
-          // 如果状态一致，切换它们的可见性
-          const newState = !isNavBarVisible.value; // 切换状态
-          isNavBarVisible.value = newState;
-          isToolBarVisible.value = newState;
-        }
-      }
-    };
+  if (!isSettingsVisible.value && !isDirectoryVisible.value) {
+    // 检查导航栏和工具栏的状态
+    if (isNavBarVisible.value !== isToolBarVisible.value) {
+      // 如果状态不一致，则都隐藏
+      isNavBarVisible.value = false;
+      isToolBarVisible.value = false;
+    } else {
+      // 如果状态一致，切换它们的可见性
+      const newState = !isNavBarVisible.value; // 切换状态
+      isNavBarVisible.value = newState;
+      isToolBarVisible.value = newState;
+    }
+  }
+};
 
-    let chapterDirectoryFetched = false; // 添加标志
-
-    const fetchChapterDirectory = async () => {
-      if (chapterDirectoryFetched) return; // 如果已经请求过，直接返回
-
+    // 加载章节数据并初始化筛选列表
+    const fetchChapters = async () => {
       loading.value = true;
       try {
         const data = await getAllChapterDirectory();
@@ -334,32 +323,6 @@ export default {
           selectChapter(lastChapterId);
         } else if (chapters.value.length > 0) {
           selectChapter(chapters.value[0].id);
-        }
-        chapterDirectoryFetched = true; // 设置标志，表示目录已被请求
-      } catch (error) {
-        console.error("获取章节目录失败:", error);
-      } finally {
-        loading.value = false;
-      }
-    };
-
-    const initialGroupSize = 5; // 初始组大小
-    const preloadGroupSize = 5; // 预加载组大小
-
-    const fetchInitialChapters = async () => {
-      loading.value = true;
-      try {
-        // 加载初始组的章节
-        const data = await getAllChapterDirectory();
-        chapters.value = data;
-
-        // 加载默认的1-5章
-        for (
-          let i = 0;
-          i < Math.min(initialGroupSize, chapters.value.length);
-          i++
-        ) {
-          await selectChapter(chapters.value[i].id);
         }
       } catch (error) {
         console.error("获取章节目录失败:", error);
@@ -372,8 +335,7 @@ export default {
       if (event) {
         event.stopPropagation();
       }
-      loading.value = true;
-      console.log(`开始加载章节: ${id}`);
+      loading.value = true; // 开始加载
 
       currentContent.value = "";
       currentAdditionalInfo.value = "";
@@ -383,8 +345,8 @@ export default {
         isDirectoryVisible.value = false;
         isToolBarVisible.value = false;
 
+        // 检查缓存
         if (chapterCache.value[id]) {
-          console.log(`从缓存加载章节: ${id}`);
           const chapter = chapterCache.value[id];
           currentChapter.value = {
             id: chapter.id,
@@ -396,9 +358,8 @@ export default {
           currentContent.value = chapter.chapterContent || "";
           currentAdditionalInfo.value = chapter.additionalInfo || "";
         } else {
-          console.log(`从API获取章节: ${id}`);
-          const chapter = await getChapter(id);
-          chapterCache.value[id] = chapter;
+          const chapter = await getChapter(id); // 获取章节数据
+          chapterCache.value[id] = chapter; // 缓存章节内容
           currentChapter.value = {
             id: chapter.id,
             title: chapter.chapterTitle || "未命名章节",
@@ -408,66 +369,46 @@ export default {
           };
           currentContent.value = chapter.chapterContent || "";
           currentAdditionalInfo.value = chapter.additionalInfo || "";
-        }
 
-        // 获取当前章节索引
-        const currentIndex = chapters.value.findIndex((chap) => chap.id === id);
-        console.log(`当前章节索引: ${currentIndex}`);
-
-        // 检查是否进入了当前组的中间章节
-        if (
-          currentIndex % initialGroupSize ===
-          Math.floor(initialGroupSize / 2)
-        ) {
-          const nextGroupStartIndex = currentIndex + initialGroupSize; // 下一组的开始索引
-          if (nextGroupStartIndex < chapters.value.length) {
-            setTimeout(() => {
-              updatePreloadChapters(nextGroupStartIndex); // 异步预加载
-            }, 0);
+          // 预加载前一章和后一章
+          const currentIndex = chapters.value.findIndex(
+            (chap) => chap.id === id
+          );
+          if (currentIndex > 0) {
+            const previousChapterId = chapters.value[currentIndex - 1].id;
+            if (!chapterCache.value[previousChapterId]) {
+              chapterCache.value[previousChapterId] = await getChapter(
+                previousChapterId
+              );
+            }
+          }
+          if (currentIndex < chapters.value.length - 1) {
+            const nextChapterId = chapters.value[currentIndex + 1].id;
+            if (!chapterCache.value[nextChapterId]) {
+              chapterCache.value[nextChapterId] = await getChapter(
+                nextChapterId
+              );
+            }
           }
         }
 
         await nextTick();
         document.querySelector(".content-area").scrollTop = 0;
-        saveReadingProgress();
-        console.log(`章节 ${id} 加载完成`);
+        saveReadingProgress(); // 保存阅读进度
       } catch (error) {
         console.error(`获取章节 ${id} 失败:`, error);
       } finally {
-        loading.value = false;
-      }
-    };
-
-    const updatePreloadChapters = async (currentIndex) => {
-      const startIndex =
-        Math.floor(currentIndex / preloadGroupSize) * preloadGroupSize;
-      console.log(`更新预加载章节，从索引 ${startIndex} 开始`);
-
-      const endIndex = Math.min(
-        startIndex + preloadGroupSize,
-        chapters.value.length
-      );
-      for (let i = startIndex; i < endIndex; i++) {
-        const chapterId = chapters.value[i].id;
-        if (!chapterCache.value[chapterId]) {
-          try {
-            console.log(`预加载章节: ${chapterId}`);
-            const chapter = await getChapter(chapterId);
-            chapterCache.value[chapterId] = chapter;
-            console.log(`章节 ${chapterId} 预加载成功`);
-          } catch (error) {
-            console.error(`预加载章节 ${chapterId} 失败:`, error);
-          }
-        } else {
-          console.log(`章节已在缓存中: ${chapterId}`);
-        }
+        loading.value = false; // 结束加载
       }
     };
 
     const showDirectory = (event) => {
       event.stopPropagation();
+      // 隐藏导航栏和工具栏，应用无动画类
       isNavBarVisible.value = false;
       isToolBarVisible.value = false;
+      // document.querySelector(".navbar").classList.add("navbar-hide");
+      // document.querySelector(".toolbar").classList.add("toolbar-hide");
       isDirectoryVisible.value = true;
 
       nextTick(() => {
@@ -484,6 +425,8 @@ export default {
 
     const hideDirectory = () => {
       isDirectoryVisible.value = false;
+
+      // 恢复导航栏和工具栏的显示
       isToolBarVisible.value = true;
       isNavBarVisible.value = true;
     };
@@ -493,6 +436,9 @@ export default {
       isNavBarVisible.value = false;
       isToolBarVisible.value = false;
       isSettingsVisible.value = true;
+      // // 添加无动画隐藏类
+      // document.querySelector(".navbar").classList.add("navbar-hide");
+      // document.querySelector(".toolbar").classList.add("toolbar-hide");
     };
 
     const hideSettings = () => {
@@ -542,33 +488,34 @@ export default {
     };
 
     let startX = 0; // 记录触摸开始的位置
-    let startY = 0; // 记录触摸开始的 Y 坐标
+let startY = 0; // 记录触摸开始的 Y 坐标
 
-    const handleTouchStart = (event) => {
-      startX = event.touches[0].clientX; // 记录触摸开始的 X 坐标
-      startY = event.touches[0].clientY; // 记录触摸开始的 Y 坐标
-    };
+const handleTouchStart = (event) => {
+  startX = event.touches[0].clientX; // 记录触摸开始的 X 坐标
+  startY = event.touches[0].clientY; // 记录触摸开始的 Y 坐标
+};
 
-    const handleTouchEnd = (event) => {
-      const endX = event.changedTouches[0].clientX; // 记录触摸结束的 X 坐标
-      const endY = event.changedTouches[0].clientY; // 记录触摸结束的 Y 坐标
-      const diffX = endX - startX; // 计算水平方向滑动的距离
-      const diffY = endY - startY; // 计算垂直方向滑动的距离
+const handleTouchEnd = (event) => {
+  const endX = event.changedTouches[0].clientX; // 记录触摸结束的 X 坐标
+  const endY = event.changedTouches[0].clientY; // 记录触摸结束的 Y 坐标
+  const diffX = endX - startX; // 计算水平方向滑动的距离
+  const diffY = endY - startY; // 计算垂直方向滑动的距离
 
-      if (!loading.value) {
-        // 确保没有在加载中
-        if (Math.abs(diffX) > 60 && Math.abs(diffY) < 50) {
-          // 水平方向滑动距离超过 60 且垂直方向滑动距离小于 30
-          if (diffX > 0) {
-            // 右滑
-            goToPreviousChapter(); // 切换到上一章
-          } else {
-            // 左滑
-            goToNextChapter(); // 切换到下一章
-          }
-        }
+  if (!loading.value) {
+    // 确保没有在加载中
+    if (Math.abs(diffX) > 60 && Math.abs(diffY) < 50) {
+      // 水平方向滑动距离超过 60 且垂直方向滑动距离小于 30
+      if (diffX > 0) {
+        // 右滑
+        goToPreviousChapter(); // 切换到上一章
+      } else {
+        // 左滑
+        goToNextChapter(); // 切换到下一章
       }
-    };
+    }
+  }
+};
+
 
     const goToPreviousChapter = async () => {
       if (!currentChapter.value.id) return; // 确保有 id
@@ -608,8 +555,7 @@ export default {
 
     onMounted(() => {
       loadSettingsFromLocal(); // 恢复设置
-      fetchChapterDirectory(); // 获取章节目录
-      fetchInitialChapters(); // 确保在组件挂载时调用
+      fetchChapters(); // 获取章节目录
       document.addEventListener("input", saveFontSize); // 监听字体大小变化
       document.addEventListener("click", handleClickOutside); // 添加点击事件
       document.addEventListener("touchstart", handleTouchStart); // 监听触摸事件
@@ -662,6 +608,7 @@ export default {
 </script>
 
 <style scoped>
+
 .novel-container {
   position: fixed;
   top: 0;
@@ -1070,5 +1017,8 @@ input[type="range"] {
 .search-icon {
   margin-right: 10px; /* 添加5px的右边距 */
 }
+
+
+
 </style>
 
