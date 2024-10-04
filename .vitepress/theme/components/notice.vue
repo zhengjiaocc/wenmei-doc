@@ -16,11 +16,7 @@ onMounted(() => {
     visible.value = true;
   }
 
-  // 判断当前域名，如果是 wm.zhengjiao.cc，则不显示加速访问按钮
-  if (window.location.hostname === "wm.zhengjiao.cc") {
-    showAccelerateButton.value = false;
-  }
-});
+  
 
 // 关闭公告并更新 localStorage
 function closeBulletin() {
@@ -81,7 +77,7 @@ function closeBulletin() {
         <div class="bulletin-content">
           <h3 class="bulletin-h3">本次更新：</h3>
           <p style="color: ">章节1901至1930已经更新</p>
-          <p style="color: red">香港机房挂了，需要等恢复！！！</p>
+          <p style="color: red">香港机房挂了，在线阅读需要等恢复！！！</p>
 
 
           <p><a href="/docs/resources/resources" style="text-decoration: underline">Bug反馈、建议请留言</a></p>
@@ -93,11 +89,7 @@ function closeBulletin() {
           <p>2群-->261599177</p>
           <p>4群-->546542165</p>
 
-          <hr />
-          <!-- 加速访问按钮 -->
-          <div v-if="showAccelerateButton" class="btn-group">
-            <a class="btn" href="https://wm.zhengjiao.cc" target="_blank">加速访问</a>
-          </div>
+        
         </div>
       </div>
     </transition>
