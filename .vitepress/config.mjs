@@ -71,7 +71,7 @@ export default defineConfig({
       // { text: '小说', link: '/docs/lib/novel.md' },
       { text: '负是非', link: '/docs/info/author' },
       {
-        text: '资源/反馈', link: '/docs/resources/resources.md'
+        text: '资源', link: '/docs/resources/resources.md'
       },
       { text: '留言板', link: '/docs/info/message' },
       {
