@@ -60,7 +60,7 @@ export default {
 <style scoped>  
 .twikoo-container {  
   padding:  10px;  
-  margin: -20px auto;  
+  margin: 10px;  
   /* max-width: 800px;   */
   font-family: Arial, sans-serif;  
   background-color: #fff;  
