@@ -2,7 +2,7 @@
 import { ref, onMounted } from "vue";
 
 // 当前公告的ID
-const currentBulletinId = "202401004"; // 示例公告ID
+const currentBulletinId = "20240101801"; // 示例公告ID
 const visible = ref(false); // 控制公告的可见性
 const closeMessage = ref(false); // 控制是否显示关闭提示信息
 
@@ -75,7 +75,7 @@ function closeBulletin() {
 
         <div class="bulletin-content">
           <h3 class="bulletin-h3">本次更新：</h3>
-          <p style="color: ">章节1901至1930已经更新</p>
+          <p style="color: ">章节1930至1940已经更新</p>
           <p style="color: red">在线阅读已上线！！！</p>
           <hr />
           <p>活动</p>
