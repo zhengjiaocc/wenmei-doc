@@ -225,19 +225,16 @@ export default {
     };
     // 尝试进入全屏
     const tryFullScreen = () => {
-      if (!isDesktop.value) {
-        // 仅在非桌面设备上尝试全屏
-        const element = fullScreenContainer.value;
-        if (element && element.requestFullscreen) {
-          element
-            .requestFullscreen()
-            .then(() => {
-              console.log("自动进入全屏成功");
-            })
-            .catch((error) => {
-              console.error("自动进入全屏失败: ", error);
-            });
-        }
+      const element = fullScreenContainer.value;
+      if (element && element.requestFullscreen) {
+        element
+          .requestFullscreen()
+          .then(() => {
+            console.log("自动进入全屏成功");
+          })
+          .catch((error) => {
+            console.error("自动进入全屏失败: ", error);
+          });
       }
     };
 
