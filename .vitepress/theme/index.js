@@ -16,7 +16,7 @@ import NavVisitor  from './components/NavVisitor.vue';
 import Thanks from './components/Thanks.vue';
 import "vitepress-markdown-timeline/dist/theme/index.css";
 import './style/index.css'
-import Test from './components/Test.vue';
+import API from './components/API.vue';
 
 /* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -73,7 +73,7 @@ export default {
     app.component('Quote',Quote)
     app.component('NavVisitor',NavVisitor)
     app.component('Thanks',Thanks)
-    // app.component('Test',Test)
+    app.component('API',API)
     app.component('font-awesome-icon', FontAwesomeIcon)
 
   },

@@ -13,6 +13,9 @@ hero:
     - theme: brand
       text: 简介
       link: /docs/info/into
+    - theme: brand
+      text: 致谢
+      link: /docs/info/thanks
     - theme: alt
       text: 缘盟
       link: /docs/info/link
@@ -20,10 +23,10 @@ hero:
       text: 下载
       link: /docs/resources/resources
     - theme: alt
-      text: 经典语录
+      text: 语录
       link: /docs/lib/echoes/cy
     - theme: alt
-      text: 档案库
+      text: 资料
       link: /docs/lib/count
 
 
