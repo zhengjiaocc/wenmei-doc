@@ -67,9 +67,11 @@ export default defineConfig({
 
     logo: "https://pic.imgdb.cn/item/668fcf90d9c307b7e9673766.png",
     nav: [
+
       { text: '主页', link: '/' },
-      // { text: '小说', link: '/docs/lib/novel.md' },
+      { text: '小说', link: '/docs/lib/novel.md' },
       { text: '负是非', link: '/docs/info/author' },
+      
       {
         text: '资源', link: '/docs/resources/resources.md'
       },

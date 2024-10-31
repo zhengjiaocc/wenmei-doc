@@ -5,13 +5,13 @@
     @click="toggleNavAndToolBar"
     :class="backgroundColor"
   >
-    <div  v-if="!loading" class="chapter-info" :class="backgroundColor">
-      <div class="chapter-title-container" >
+    <div v-if="!loading" class="chapter-info" :class="backgroundColor">
+      <div class="chapter-title-container">
         <span class="chapter-symbol"></span>
         <!-- 使用伪元素 -->
         <span class="chapter-title">{{ currentChapter.title.trim() }}</span>
       </div>
-      <span class="chapter-word-count"  >{{ currentChapter.wordCount }} 字</span>
+      <span class="chapter-word-count">{{ currentChapter.wordCount }} 字</span>
     </div>
 
     <div
@@ -79,7 +79,7 @@
         <div class="directory-header">
           <div class="directory-title-container">
             <span class="directory-title">目录</span>
-     
+
             <input
               type="text"
               v-model="searchQuery"
@@ -87,9 +87,14 @@
               @input="handleSearch"
               class="search-input"
             />
-            <font-awesome-icon class="search-icon" :icon="['fas', 'magnifying-glass']" />
+            <font-awesome-icon
+              class="search-icon"
+              :icon="['fas', 'magnifying-glass']"
+            />
 
-            <button class="close-button" @click="hideDirectory"><font-awesome-icon :icon="['fas', 'xmark']" /></button>
+            <button class="close-button" @click="hideDirectory">
+              <font-awesome-icon :icon="['fas', 'xmark']" />
+            </button>
           </div>
           <div class="directory-controls">
             <span>共{{ filteredChapters.length }}章</span>
@@ -196,6 +201,10 @@ export default {
     const loading = ref(false); // 添加 loading 状态
     const pageTurningMode = ref("horizontal");
 
+
+
+
+    
     const colors = ref([
       { name: "White", class: "color-white", rgb: "rgb(245, 245, 245)" },
       { name: "Gray", class: "color-gray", rgb: "rgb(224, 224, 224)" },
@@ -216,16 +225,19 @@ export default {
     };
     // 尝试进入全屏
     const tryFullScreen = () => {
-      const element = fullScreenContainer.value;
-      if (element && element.requestFullscreen) {
-        element
-          .requestFullscreen()
-          .then(() => {
-            console.log("自动进入全屏成功");
-          })
-          .catch((error) => {
-            console.error("自动进入全屏失败: ", error);
-          });
+      if (!isDesktop.value) {
+        // 仅在非桌面设备上尝试全屏
+        const element = fullScreenContainer.value;
+        if (element && element.requestFullscreen) {
+          element
+            .requestFullscreen()
+            .then(() => {
+              console.log("自动进入全屏成功");
+            })
+            .catch((error) => {
+              console.error("自动进入全屏失败: ", error);
+            });
+        }
       }
     };
 
@@ -296,20 +308,20 @@ export default {
     };
 
     const toggleNavAndToolBar = () => {
-  if (!isSettingsVisible.value && !isDirectoryVisible.value) {
-    // 检查导航栏和工具栏的状态
-    if (isNavBarVisible.value !== isToolBarVisible.value) {
-      // 如果状态不一致，则都隐藏
-      isNavBarVisible.value = false;
-      isToolBarVisible.value = false;
-    } else {
-      // 如果状态一致，切换它们的可见性
-      const newState = !isNavBarVisible.value; // 切换状态
-      isNavBarVisible.value = newState;
-      isToolBarVisible.value = newState;
-    }
-  }
-};
+      if (!isSettingsVisible.value && !isDirectoryVisible.value) {
+        // 检查导航栏和工具栏的状态
+        if (isNavBarVisible.value !== isToolBarVisible.value) {
+          // 如果状态不一致，则都隐藏
+          isNavBarVisible.value = false;
+          isToolBarVisible.value = false;
+        } else {
+          // 如果状态一致，切换它们的可见性
+          const newState = !isNavBarVisible.value; // 切换状态
+          isNavBarVisible.value = newState;
+          isToolBarVisible.value = newState;
+        }
+      }
+    };
 
     // 加载章节数据并初始化筛选列表
     const fetchChapters = async () => {
@@ -488,34 +500,33 @@ export default {
     };
 
     let startX = 0; // 记录触摸开始的位置
-let startY = 0; // 记录触摸开始的 Y 坐标
+    let startY = 0; // 记录触摸开始的 Y 坐标
 
-const handleTouchStart = (event) => {
-  startX = event.touches[0].clientX; // 记录触摸开始的 X 坐标
-  startY = event.touches[0].clientY; // 记录触摸开始的 Y 坐标
-};
+    const handleTouchStart = (event) => {
+      startX = event.touches[0].clientX; // 记录触摸开始的 X 坐标
+      startY = event.touches[0].clientY; // 记录触摸开始的 Y 坐标
+    };
 
-const handleTouchEnd = (event) => {
-  const endX = event.changedTouches[0].clientX; // 记录触摸结束的 X 坐标
-  const endY = event.changedTouches[0].clientY; // 记录触摸结束的 Y 坐标
-  const diffX = endX - startX; // 计算水平方向滑动的距离
-  const diffY = endY - startY; // 计算垂直方向滑动的距离
+    const handleTouchEnd = (event) => {
+      const endX = event.changedTouches[0].clientX; // 记录触摸结束的 X 坐标
+      const endY = event.changedTouches[0].clientY; // 记录触摸结束的 Y 坐标
+      const diffX = endX - startX; // 计算水平方向滑动的距离
+      const diffY = endY - startY; // 计算垂直方向滑动的距离
 
-  if (!loading.value) {
-    // 确保没有在加载中
-    if (Math.abs(diffX) > 60 && Math.abs(diffY) < 50) {
-      // 水平方向滑动距离超过 60 且垂直方向滑动距离小于 30
-      if (diffX > 0) {
-        // 右滑
-        goToPreviousChapter(); // 切换到上一章
-      } else {
-        // 左滑
-        goToNextChapter(); // 切换到下一章
+      if (!loading.value) {
+        // 确保没有在加载中
+        if (Math.abs(diffX) > 60 && Math.abs(diffY) < 50) {
+          // 水平方向滑动距离超过 60 且垂直方向滑动距离小于 30
+          if (diffX > 0) {
+            // 右滑
+            goToPreviousChapter(); // 切换到上一章
+          } else {
+            // 左滑
+            goToNextChapter(); // 切换到下一章
+          }
+        }
       }
-    }
-  }
-};
-
+    };
 
     const goToPreviousChapter = async () => {
       if (!currentChapter.value.id) return; // 确保有 id
@@ -608,7 +619,6 @@ const handleTouchEnd = (event) => {
 </script>
 
 <style scoped>
-
 .novel-container {
   position: fixed;
   top: 0;
@@ -1017,8 +1027,5 @@ input[type="range"] {
 .search-icon {
   margin-right: 10px; /* 添加5px的右边距 */
 }
-
-
-
 </style>
 

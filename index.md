@@ -13,9 +13,9 @@ hero:
     - theme: brand
       text: 简介
       link: /docs/info/into
-    - theme: brand
-      text: 致谢
-      link: /docs/info/thanks
+    # - theme: brand
+    #   text: 致谢
+    #   link: /docs/info/thanks
     - theme: alt
       text: 缘盟
       link: /docs/info/link
