@@ -75,8 +75,8 @@ function closeBulletin() {
 
         <div class="bulletin-content">
           <h3 class="bulletin-h3">本次更新：</h3>
-          <p style="color: ">章节1930至1940已经更新</p>
-          <p style="color: red">在线阅读已上线！！！</p>
+          <p style="color: ">本站最新章节为1940</p>
+          <p style="color: red">本站暂停更新</p>
           <hr />
           <p>活动</p>
           <a href="https://tieba.baidu.com/p/8395119444" style="text-decoration: underline;">投票:选择你最喜爱的妹妹</a>
