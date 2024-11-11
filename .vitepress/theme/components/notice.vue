@@ -2,7 +2,7 @@
 import { ref, onMounted } from "vue";
 
 // 当前公告的ID
-const currentBulletinId = "20240101801"; // 示例公告ID
+const currentBulletinId = "20240111101"; // 示例公告ID
 const visible = ref(false); // 控制公告的可见性
 const closeMessage = ref(false); // 控制是否显示关闭提示信息
 
