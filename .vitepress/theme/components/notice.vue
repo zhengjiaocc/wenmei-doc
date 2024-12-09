@@ -2,7 +2,7 @@
 import { ref, onMounted } from "vue";
 
 // 当前公告的ID
-const currentBulletinId = "20240111101"; // 示例公告ID
+const currentBulletinId = "2024120801"; // 示例公告ID
 const visible = ref(false); // 控制公告的可见性
 const closeMessage = ref(false); // 控制是否显示关闭提示信息
 
@@ -82,7 +82,6 @@ function closeBulletin() {
           <a href="https://tieba.baidu.com/p/8395119444" style="text-decoration: underline;">投票:选择你最喜爱的妹妹</a>
           <hr />
           <p>粉丝加群,优先选择</p>
-          <p>2群-->261599177</p>
           <p>4群-->546542165</p>
 
           <hr />
