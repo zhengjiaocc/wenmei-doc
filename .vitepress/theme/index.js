@@ -7,7 +7,6 @@ import Comment from './components/Comment.vue';
 import NovelReader from './components/NovelReader.vue'
 import Danmaku from './components/Danmaku.vue'
 import Visit from './components/Visit.vue'
-import Team from './components/Team.vue'
 import confetti from "./components/confetti.vue"
 import notice from './components/notice.vue'
 import MyLayout from './components/MyLayout.vue'
@@ -17,6 +16,7 @@ import Thanks from './components/Thanks.vue';
 import "vitepress-markdown-timeline/dist/theme/index.css";
 import './style/index.css'
 import API from './components/API.vue';
+import MFriends from './components/MFriends.vue';
 
 /* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -67,7 +67,6 @@ export default {
     app.component('NovelReader', NovelReader)
     app.component('Danmaku', Danmaku)
     app.component('Visit', Visit)
-    app.component('Team', Team)
     app.component('confetti', confetti)
     app.component('notice',notice)
     app.component('Quote',Quote)
@@ -75,7 +74,8 @@ export default {
     app.component('Thanks',Thanks)
     app.component('API',API)
     app.component('font-awesome-icon', FontAwesomeIcon)
-
+    app.component('MFriends',MFriends)
+    
   },
 }
 

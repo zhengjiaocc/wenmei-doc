@@ -1,6 +1,7 @@
 ---
 title: 留言板
 description: 问题妹妹恋上我文档站的留言板，评论区，粉丝的各种评价
+layout: page
 head: 
   - - meta
     - name: description
