@@ -84,4 +84,3 @@ features:
 :::
 
 
-<!-- <confetti/> -->

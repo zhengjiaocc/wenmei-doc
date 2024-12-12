@@ -7,7 +7,6 @@ import Comment from './components/Comment.vue';
 import NovelReader from './components/NovelReader.vue'
 import Danmaku from './components/Danmaku.vue'
 import Visit from './components/Visit.vue'
-import confetti from "./components/confetti.vue"
 import notice from './components/notice.vue'
 import MyLayout from './components/MyLayout.vue'
 import Quote from './components/Quote.vue';
@@ -67,7 +66,6 @@ export default {
     app.component('NovelReader', NovelReader)
     app.component('Danmaku', Danmaku)
     app.component('Visit', Visit)
-    app.component('confetti', confetti)
     app.component('notice',notice)
     app.component('Quote',Quote)
     app.component('NavVisitor',NavVisitor)
