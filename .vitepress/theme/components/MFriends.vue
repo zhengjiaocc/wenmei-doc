@@ -1,11 +1,8 @@
 <script setup>
-import { computed } from 'vue';
 import { FRIEND_DATA } from '../data/friend-data';
-import { slugify } from '@mdit-vue/shared';
 
 const { title, items } = FRIEND_DATA;
 
-const formatTitle = computed(() => slugify(title));
 </script>
 
 <template>
