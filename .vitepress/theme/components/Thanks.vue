@@ -175,9 +175,15 @@ export default {
 
     // 点击时翻转成员卡片
     toggleFlip(member) {
+      if (member.flipped === false||member.flipped=='') {
+        // 如果成员不允许翻转，直接返回
+        return;
+      }
+
       if (this.flippedMember && this.flippedMember !== member) {
         this.flippedMember.flipped = false; // 将之前翻转的卡片翻转回去
       }
+
       member.flipped = !member.flipped; // 切换当前成员的翻转状态
       this.flippedMember = member.flipped ? member : null; // 更新当前翻转的成员
     },

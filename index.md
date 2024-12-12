@@ -13,22 +13,18 @@ hero:
     - theme: brand
       text: 简介
       link: /docs/info/into
-    # - theme: brand
-    #   text: 致谢
-    #   link: /docs/info/thanks
+    - theme: brand
+      text: 致谢
+      link: /docs/info/thanks
     - theme: alt
       text: 缘盟
       link: /docs/info/link
     - theme: alt
-      text: 下载
-      link: /docs/resources/resources
-    - theme: alt
-      text: 语录
-      link: /docs/lib/echoes/cy
+      text: 小说
+      link: /docs/lib/novel
     - theme: alt
       text: 资料
       link: /docs/lib/count
-
 
 
 features:
@@ -58,3 +54,31 @@ features:
 ---
 
 <confetti />
+
+
+## 友情链接
+
+<MFriends/>
+
+
+
+::: details 申请友链
+
+**友链要求**:
+
+- 网站应保持清洁，避免过多广告内容
+- 网站需要有良好的稳定性和可靠性
+
+**申请方式**:
+
+1. QQ群联系管理
+**本站信息**：
+
+- 网站名称: **问题妹妹恋上我**
+- 网站描述: **我最幸运的事是认识了你，最不幸的事是做了你的妹妹。**
+- 网站地址：**<https://wtmmlsw.cn>**
+- 网站图标：**<https://pic.imgdb.cn/item/668fcf90d9c307b7e9673766.png>**
+
+
+
+:::
