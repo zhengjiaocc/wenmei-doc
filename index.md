@@ -23,8 +23,11 @@ hero:
       text: 小说
       link: /docs/lib/novel
     - theme: alt
-      text: 资料
+      text: 文档
       link: /docs/lib/count
+    - theme: alt
+      text: 下载
+      link: docs/resources/resources
 
 
 features:
