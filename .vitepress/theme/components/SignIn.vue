@@ -160,9 +160,11 @@ const getUserDescription = (days, rank) => {
 /* 内容区域 */
 .sign-in-content {
   padding: 20px;
-  background: #f8f9ff;
+  background: linear-gradient(135deg, #f5f7ff, #f8f9ff);
   border-radius: 20px;
-  box-shadow: 0 4px 20px rgba(134, 168, 231, 0.08);
+  box-shadow: 
+    inset 0 2px 4px rgba(255, 255, 255, 0.9),
+    0 4px 20px rgba(134, 168, 231, 0.12);
 }
 
 /* 头部样式 */
@@ -206,13 +208,24 @@ const getUserDescription = (days, rank) => {
   border-radius: 12px;
   padding: 12px;
   display: flex;
-  align-items: center;
-  gap: 12px;
+  flex-direction: row;
+  align-items: flex-start;
   position: relative;
-  min-height: 72px;
-  border: 1px solid rgba(134, 168, 231, 0.1);
-  box-shadow: 0 2px 8px rgba(134, 168, 231, 0.05);
+  height: 85px;
+  border: 1px solid rgba(134, 168, 231, 0.15);
+  box-shadow: 
+    0 4px 6px rgba(134, 168, 231, 0.1),
+    0 8px 16px rgba(134, 168, 231, 0.08);
   transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.sign-in-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(134, 168, 231, 0.25);
+  box-shadow: 
+    0 6px 12px rgba(134, 168, 231, 0.15),
+    0 12px 24px rgba(134, 168, 231, 0.12);
 }
 
 .user-avatar {
@@ -233,11 +246,14 @@ const getUserDescription = (days, rank) => {
   position: absolute;
   top: 8px;
   right: 8px;
-  padding: 2px 8px;
+  padding: 1px 6px;
   font-size: 12px;
   color: #7F7FD5;
-  background: rgba(127, 127, 213, 0.1);
+  background: linear-gradient(135deg, rgba(127, 127, 213, 0.15), rgba(134, 168, 231, 0.15));
   border-radius: 6px;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 2px 4px rgba(127, 127, 213, 0.1);
+  font-size: 11px;
 }
 
 /* 前三名区域 */
@@ -252,16 +268,28 @@ const getUserDescription = (days, rank) => {
 /* 前三名卡片样式 */
 .top-user-card {
   flex: 1;
-  max-width: calc(33.33% - 11px); /* 考虑间距 */
+  max-width: calc(33.33% - 11px);
   background: white;
   border-radius: 12px;
   padding: 16px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: space-between;
   position: relative;
-  min-height: 180px;
-  box-shadow: 0 4px 20px rgba(134, 168, 231, 0.15);
+  height: 205px;
+  box-shadow: 
+    0 6px 16px rgba(134, 168, 231, 0.15),
+    0 12px 24px rgba(134, 168, 231, 0.1);
+  border: 1px solid rgba(134, 168, 231, 0.2);
+  overflow: hidden;
+}
+
+.top-user-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(134, 168, 231, 0.3);
+  box-shadow: 
+    0 8px 20px rgba(134, 168, 231, 0.2),
+    0 16px 32px rgba(134, 168, 231, 0.15);
 }
 
 .top-user-card .user-avatar {
@@ -271,8 +299,13 @@ const getUserDescription = (days, rank) => {
 }
 
 .top-user-card .user-info {
-  text-align: center;
-  width: 100%;
+  height: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 8px;
+  padding: 0 12px;
 }
 
 .rank-number {
@@ -304,12 +337,23 @@ const getUserDescription = (days, rank) => {
 }
 
 .user-stats {
+  height: 36px; /* 固定高度为两行文本 */
+  overflow: hidden;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 8px;
   font-size: 12px;
   color: #666;
-  line-height: 1.5;
+  line-height: 18px;
+}
+
+.user-stats > :last-child {
+  flex: 1;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-break: break-all;
 }
 
 .stats-badge {
@@ -321,14 +365,15 @@ const getUserDescription = (days, rank) => {
 }
 
 .user-description {
+  height: 40px; /* 固定高度为两行文本 */
   font-size: 13px;
   color: #666;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  line-height: 1.5;
-  margin-top: 8px;
+  line-height: 20px;
+  word-break: break-all;
 }
 
 /* 响应式布局 */
@@ -339,6 +384,10 @@ const getUserDescription = (days, rank) => {
   padding: 20px;
   background: white;
   border-radius: 16px;
+  box-shadow: 
+    inset 0 2px 4px rgba(255, 255, 255, 0.9),
+    0 2px 8px rgba(134, 168, 231, 0.08);
+  border: 1px solid rgba(134, 168, 231, 0.1);
 }
 
 /* 响应式调整 */
@@ -384,7 +433,6 @@ const getUserDescription = (days, rank) => {
     min-height: 100px;
     flex-direction: row;
     padding: 12px;
-    text-align: left;
   }
   
   .top-user-card .user-avatar {
@@ -393,11 +441,18 @@ const getUserDescription = (days, rank) => {
   }
   
   .top-user-card .user-info {
-    text-align: left;
+    height: 100%;
+    padding: 0;
+    justify-content: center;
   }
   
   .sign-in-card {
     min-height: 64px;
+  }
+
+  .user-description {
+    height: 20px; /* 移动端只显示一行 */
+    -webkit-line-clamp: 1;
   }
 }
 </style> 
