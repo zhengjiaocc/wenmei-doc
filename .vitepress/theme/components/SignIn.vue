@@ -347,16 +347,27 @@ const getUserDescription = (days, rank) => {
   height: 40px;
 }
 
+/* 添加呼吸效果 */
+@keyframes breathing {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 2px rgba(255, 182, 25, 0.3), 0 0 10px rgba(255, 182, 25, 0.2);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.4), 0 0 15px rgba(255, 215, 0, 0.3);
+  }
+}
+
 .top-user-card .user-avatar img {
   width: 40px;
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid #FFB619;
-  box-shadow: 
-    0 0 0 2px rgba(255, 182, 25, 0.3),
-    0 0 10px rgba(255, 182, 25, 0.2);
+  box-shadow: 0 0 0 2px rgba(255, 182, 25, 0.3), 0 0 10px rgba(255, 182, 25, 0.2);
   transition: all 0.3s ease;
+  animation: breathing 3s infinite;
 }
 
 .top-user-card:hover .user-avatar img {
