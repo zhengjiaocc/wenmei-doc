@@ -45,7 +45,7 @@ export const getSignInData = async (pageSize, currentPage) => {
 
         return response.data;
     } catch (error) {
-        console.error('获取���户签到数据失败:', error);
+        console.error('获取户签到数据失败:', error);
         // 如果请求失败但有缓存数据，返回缓存数据
         const cachedData = localStorage.getItem(CACHE_KEY);
         if (cachedData) {
