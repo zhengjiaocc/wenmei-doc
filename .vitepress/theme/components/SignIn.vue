@@ -33,15 +33,14 @@
             class="top-user-card"
             :class="`rank-${user.rank}`">
             <div class="rank-number">{{ user.rank }}</div>
-            <div class="shine"></div>
             <div class="user-avatar">
               <img :src="user.avatar" :alt="user.name" />
-              <div class="top-days">{{ user.days }}天</div>
+              <div class="days-badge">{{ user.days }}天</div>
             </div>
             <div class="user-info">
               <div class="user-name">{{ user.name }}</div>
-              <div class="user-stats">
-                <span class="top-level">Level {{ getLevelNumber(user.days) }}</span>
+              <div class="level-badge" :class="`level-${getLevelNumber(user.days)}`">
+                Level {{ getLevelNumber(user.days) }}
               </div>
               <div class="user-description">
                 {{ getUserDescription(user.days, user.rank) }}
@@ -305,70 +304,48 @@ const getUserDescription = (days, rank) => {
   max-width: calc(33.33% - 11px);
   background: white;
   border-radius: 12px;
-  padding: 16px;
+  padding: 12px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
+  align-items: flex-start;
   position: relative;
-  height: 180px;
-  box-shadow: 
-    0 6px 16px rgba(134, 168, 231, 0.15),
-    0 12px 24px rgba(134, 168, 231, 0.1);
+  height: 92px;
+  box-shadow: 0 6px 16px rgba(134, 168, 231, 0.15);
   border: 1px solid rgba(134, 168, 231, 0.2);
   overflow: hidden;
-  text-align: center;
+  gap: 16px;
 }
 
 .top-user-card .user-avatar {
-  width: 48px;
-  height: 48px;
-  margin-top: 24px;
-  margin-bottom: 8px;
+  width: 40px;
+  height: 40px;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(134, 168, 231, 0.2);
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
 }
 
 .top-user-card .user-info {
-  height: auto;
   flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   gap: 8px;
-  padding: 0 16px;
-  width: 100%;
+  padding-top: 4px;
 }
 
 .top-user-card .user-name {
   font-size: 15px;
   font-weight: 600;
   color: #333;
-}
-
-.top-user-card .user-stats {
-  justify-content: center;
-  margin-bottom: 4px;
-}
-
-.top-level {
-  padding: 2px 8px;
-  background: rgba(127, 127, 213, 0.1);
-  border-radius: 12px;
-  color: #7F7FD5;
-}
-
-.top-days {
-  position: absolute;
-  bottom: -16px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 12px;
-  color: #666;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .user-description {
-  height: 40px;
   font-size: 13px;
   color: #666;
   display: -webkit-box;
@@ -378,7 +355,6 @@ const getUserDescription = (days, rank) => {
   line-height: 20px;
   word-break: break-all;
   opacity: 0.8;
-  padding: 0 8px;
 }
 
 /* 排名样式优化 */
@@ -396,69 +372,6 @@ const getUserDescription = (days, rank) => {
   border-radius: 6px;
   font-size: 14px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* 前三名背景微调 */
-.rank-1 {
-  background: linear-gradient(to bottom, rgba(255, 182, 25, 0.05), white);
-}
-
-.rank-2 {
-  background: linear-gradient(to bottom, rgba(158, 158, 158, 0.05), white);
-}
-
-.rank-3 {
-  background: linear-gradient(to bottom, rgba(205, 127, 50, 0.05), white);
-}
-
-/* 用户信息样式 */
-.user-info {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  padding-top: 4px;
-  gap: 4px;
-}
-
-.user-stats {
-  height: 36px; /* 固定高度为两行文本 */
-  overflow: hidden;
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  font-size: 12px;
-  color: #666;
-  line-height: 18px;
-}
-
-.user-stats > :last-child {
-  flex: 1;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  word-break: break-all;
-}
-
-.stats-badge {
-  padding: 2px 8px;
-  background: rgba(134, 168, 231, 0.08);
-  border-radius: 6px;
-  color: #7F7FD5;
-  white-space: nowrap;
-}
-
-.user-description {
-  height: 40px; /* 固定高度为两行文本 */
-  font-size: 13px;
-  color: #666;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  line-height: 20px;
-  word-break: break-all;
 }
 
 /* 响应式布局 */
@@ -506,6 +419,9 @@ const getUserDescription = (days, rank) => {
 
   .top-user-card {
     max-width: none;
+    height: 92px;
+    padding: 12px;
+    flex-direction: row;
   }
 }
 
@@ -542,5 +458,96 @@ const getUserDescription = (days, rank) => {
   color: #666;
   font-weight: bold;
   font-style: italic;
+}
+
+.user-stats {
+  height: 36px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 11px;
+  color: #666;
+  line-height: 18px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  word-break: break-all;
+}
+
+/* 移除分隔点 */
+.time-divider {
+  margin: 0 4px;
+}
+
+/* 调整描述文本样式 */
+.user-description {
+  font-size: 13px;
+  color: #666;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.4;
+  word-break: break-all;
+  opacity: 0.8;
+  font-size: 11px;
+  max-height: 32px; /* 2行文本的最大高度 */
+}
+
+/* 用户信息区域 */
+.user-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 4px;
+  height: 100%;
+}
+
+/* 用户名样式 */
+.user-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 2px;
+}
+
+/* 描述文本样式 */
+.user-stats {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 11px;
+  color: #666;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  word-break: break-all;
+}
+
+/* 头像容器样式 */
+.user-avatar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 0;
+  flex-shrink: 0; /* 防止头像被压缩 */
+}
+
+.user-avatar img {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  object-fit: cover;
+  flex-shrink: 0; /* 防止图片被压缩 */
 }
 </style> 
