@@ -18,8 +18,8 @@
         </div>
         <div class="stat-item">
           <div class="stat-content">
-            <div class="stat-value">{{ fakeSignInCount }}</div>
-            <div class="stat-label">今日签到</div>
+            <div class="stat-value">{{ availableSlots }}</div>
+            <div class="stat-label">可加入人数</div>
           </div>
         </div>
       </div>
@@ -52,10 +52,15 @@ import { ref, computed, onMounted } from 'vue';
 import { getGroupInfo } from '../utils/api/sign.js';
 
 const groups = ref([]);
-const fakeSignInCount = ref(123); // 使用假数据
 
 const totalMembers = computed(() => {
   return groups.value.reduce((sum, group) => sum + parseInt(group.memberCount), 0);
+});
+
+const availableSlots = computed(() => {
+  return groups.value.reduce((sum, group) => {
+    return sum + (parseInt(group.maxMemberCount) - parseInt(group.memberCount));
+  }, 0);
 });
 
 const sortedGroups = computed(() => {
