@@ -85,7 +85,7 @@ const signInUsers = ref([]);
 const totalSignIns = ref(0);
 const totalUsers = ref(0);
 const currentPage = ref(1);
-const pageSize = ref(30);
+const pageSize = ref(50);
 const loading = ref(false);
 
 // 修改等级判断函数
