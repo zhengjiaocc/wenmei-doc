@@ -18,7 +18,7 @@ hero:
       link: /docs/info/thanks
     - theme: alt
       text: 缘盟
-      link: /docs/info/link
+      link: /docs/info/community
     - theme: alt
       text: 小说
       link: /docs/lib/novel

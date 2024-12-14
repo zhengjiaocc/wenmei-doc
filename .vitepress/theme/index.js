@@ -19,6 +19,8 @@ import './style/index.css'
 import API from './components/API.vue';
 import MFriends from './components/MFriends.vue';
 import SignIn from './components/SignIn.vue';
+import Community from './components/Community.vue';
+import GroupInfo from './components/GroupInfo.vue';
 
 /* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -79,6 +81,8 @@ export default {
     app.component('font-awesome-icon', FontAwesomeIcon)
     app.component('MFriends',MFriends)
     app.component('SignIn',SignIn)
+    app.component('Community',Community)
+    app.component('GroupInfo',GroupInfo)
 
   },
 }
