@@ -528,6 +528,8 @@ const getUserDescription = (days, rank) => {
 .days-badge {
   font-size: 12px;
   color: #666;
+  font-weight: bold;
+  font-style: italic;
 }
 
 /* 特殊卡片的天数样式 */
@@ -538,5 +540,7 @@ const getUserDescription = (days, rank) => {
   transform: translateX(-50%);
   font-size: 12px;
   color: #666;
+  font-weight: bold;
+  font-style: italic;
 }
 </style> 
