@@ -40,7 +40,7 @@
             <div class="user-info">
               <div class="user-name">{{ user.name }}</div>
               <div class="level-badge" :class="`level-${getLevelNumber(user.days)}`">
-                Level {{ getLevelNumber(user.days) }}
+                LV{{ getLevelNumber(user.days) }}
               </div>
               <div class="user-description">
                 {{ getUserDescription(user.days, user.rank) }}
@@ -63,7 +63,7 @@
               <div class="user-name-row">
                 <div class="user-name">{{ user.name }}</div>
                 <div class="level-badge" :class="`level-${getLevelNumber(user.days)}`">
-                  Level {{ getLevelNumber(user.days) }}
+                  LV{{ getLevelNumber(user.days) }}
                 </div>
               </div>
               <div class="user-stats">
@@ -260,6 +260,7 @@ const getUserDescription = (days, rank) => {
   display: flex;
   align-items: center;
   height: 14px;
+  font-weight: bold;
 }
 
 /* 不同等级的背景色 */
