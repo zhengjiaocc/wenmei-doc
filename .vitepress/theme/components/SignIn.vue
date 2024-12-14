@@ -55,18 +55,17 @@
             :key="user.id"
             class="sign-in-card"
             :class="`level-${getLevelNumber(user.days)}`">
-            <div class="level-badge" :class="`level-${getLevelNumber(user.days)}`">
-              Level {{ getLevelNumber(user.days) }}
-            </div>
             <div class="user-avatar">
-              <img 
-                :src="user.avatar"
-                :alt="user.name"
-              />
+              <img :src="user.avatar" :alt="user.name" />
               <div class="days-badge">{{ user.days }}天</div>
             </div>
             <div class="user-info">
-              <div class="user-name">{{ user.name }}</div>
+              <div class="user-name-row">
+                <div class="user-name">{{ user.name }}</div>
+                <div class="level-badge" :class="`level-${getLevelNumber(user.days)}`">
+                  Level {{ getLevelNumber(user.days) }}
+                </div>
+              </div>
               <div class="user-stats">
                 {{ user.description || '这个人很懒，什么都没写' }}
               </div>
@@ -206,15 +205,13 @@ const getUserDescription = (days, rank) => {
   border-radius: 12px;
   padding: 12px;
   display: flex;
-  gap: 16px;
   flex-direction: row;
   align-items: flex-start;
+  gap: 16px;
   position: relative;
   height: 92px;
   border: 1px solid rgba(134, 168, 231, 0.15);
-  box-shadow: 
-    0 4px 6px rgba(134, 168, 231, 0.1),
-    0 8px 16px rgba(134, 168, 231, 0.08);
+  box-shadow: 0 4px 6px rgba(134, 168, 231, 0.1);
   transition: all 0.3s ease;
   overflow: hidden;
   padding-bottom: 28px;
@@ -233,8 +230,8 @@ const getUserDescription = (days, rank) => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 0;
+  width: 40px;
+  flex-shrink: 0;
 }
 
 /* 头像图片容器 */
@@ -476,6 +473,8 @@ const getUserDescription = (days, rank) => {
   line-height: 1.4;
   word-break: break-all;
   margin-bottom: 4px;
+  height: calc(11px * 1.4 * 2); /* 强制两行高度：字体大小 * 行高 * 2行 */
+  min-height: calc(11px * 1.4 * 2);
 }
 
 /* 用户信息区域 */
@@ -484,9 +483,10 @@ const getUserDescription = (days, rank) => {
   min-width: 0;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-between;
   gap: 4px;
   height: 100%;
+  padding-right: 8px;
 }
 
 /* 用户名样式 */
@@ -497,7 +497,24 @@ const getUserDescription = (days, rank) => {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-bottom: 2px;
+  line-height: 1.2;
+  padding-top: 4px;
+}
+
+/* 描述文本样式 */
+.user-stats {
+  flex: 1;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  font-size: 11px;
+  color: #666;
+  line-height: 1.4;
+  word-break: break-all;
+  max-height: 32px;
+  margin-bottom: 8px;
+  margin-top: 4px;
 }
 
 /* 头像容器样式 */
@@ -528,5 +545,19 @@ const getUserDescription = (days, rank) => {
 /* 添加过渡效果 */
 .user-avatar img {
   transition: all 0.3s ease;
+}
+
+.user-description {
+  font-size: 13px;
+  color: #666;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.4;
+  word-break: break-all;
+  opacity: 0.8;
+  height: calc(13px * 1.4 * 2); /* 强制两行高度：字体大小 * 行高 * 2行 */
+  min-height: calc(13px * 1.4 * 2);
 }
 </style> 
