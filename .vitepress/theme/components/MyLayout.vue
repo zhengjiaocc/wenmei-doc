@@ -19,12 +19,6 @@ const { Layout } = DefaultTheme
           <NavVisitor/>
         </template>
 
-        <template #home-features-after>
-
-            <SignIn/>
-        </template>
-
-
     </Layout>
 </template>
 

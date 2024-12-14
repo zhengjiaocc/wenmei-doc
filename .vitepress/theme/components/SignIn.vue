@@ -156,7 +156,7 @@ const getUserDescription = (days, rank) => {
 
 /* 内容区域 */
 .sign-in-content {
-  padding: 20px;
+  padding: 20px 0;
   background: linear-gradient(135deg, #f5f7ff, #f8f9ff);
   border-radius: 20px;
   box-shadow: 
@@ -439,7 +439,7 @@ const getUserDescription = (days, rank) => {
 /* 响应式布局 */
 .sign-in-list {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 16px;
   padding: 20px;
   background: white;
@@ -451,6 +451,12 @@ const getUserDescription = (days, rank) => {
 }
 
 /* 响应式调整 */
+@media (max-width: 1400px) {
+  .sign-in-list {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
 @media (max-width: 1200px) {
   .sign-in-list {
     grid-template-columns: repeat(3, 1fr);
@@ -468,7 +474,7 @@ const getUserDescription = (days, rank) => {
   }
 
   .top-user-card {
-    max-width: calc(33.33% - 8px); /* 调整间距 */
+    max-width: calc(33.33% - 8px);
   }
 }
 
