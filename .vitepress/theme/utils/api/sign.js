@@ -59,3 +59,39 @@ export const getSignInData = async (pageSize, currentPage) => {
         throw error;
     }
 };
+
+
+/**
+ * 获取群组信息
+ * @returns {Promise<Object>} - 返回群组信息的 Promise
+ */
+export const getGroupInfo = async () => {
+    try {
+        const response = await axios.get(`${API_BASE_URL}/groupInfo`);
+
+        return response.data;
+    } catch (error) {
+        console.error('获取群组信息失败:', error);
+        throw error;
+    }
+};
+
+// 获取群组消息，响应示例
+// {
+//     "code": 200,
+//     "message": "群聊信息获取成功",
+//     "data": [
+//         {
+//             "groupId": "458281450",
+//             "groupName": "缘盟六群",
+//             "memberCount": "1985",
+//             "maxMemberCount": "2000"
+//         },
+//         {
+//             "groupId": "829327576",
+//             "groupName": "缘盟七群",
+//             "memberCount": "2000",
+//             "maxMemberCount": "2000"
+//         }
+//     ]
+// }
