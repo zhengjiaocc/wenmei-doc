@@ -5,21 +5,18 @@
       <h3 class="section-title">群组总览</h3>
       <div class="overview-stats">
         <div class="stat-item">
-          <div class="stat-icon">🏠</div>
           <div class="stat-content">
             <div class="stat-value">{{ groups.length }}</div>
             <div class="stat-label">群组数</div>
           </div>
         </div>
         <div class="stat-item">
-          <div class="stat-icon">👥</div>
           <div class="stat-content">
             <div class="stat-value">{{ totalMembers }}</div>
             <div class="stat-label">总人数</div>
           </div>
         </div>
         <div class="stat-item">
-          <div class="stat-icon">✨</div>
           <div class="stat-content">
             <div class="stat-value">{{ signInCount }}</div>
             <div class="stat-label">今日签到</div>
@@ -32,7 +29,7 @@
     <div class="groups-section">
       <h3 class="section-title">群组列表</h3>
       <div class="group-list">
-        <div v-for="group in groups" 
+        <div v-for="group in sortedGroups" 
           :key="group.groupId" 
           class="group-card">
           <div class="group-name">{{ group.groupName }}</div>
@@ -61,15 +58,21 @@ const totalMembers = computed(() => {
   return groups.value.reduce((sum, group) => sum + parseInt(group.memberCount), 0);
 });
 
+const sortedGroups = computed(() => {
+  return groups.value.sort((a, b) => {
+    const aFull = parseInt(a.memberCount) >= parseInt(a.maxMemberCount);
+    const bFull = parseInt(b.memberCount) >= parseInt(b.maxMemberCount);
+    return aFull - bFull;
+  });
+});
+
 const fetchData = async () => {
   try {
-    // 获取群组信息
     const groupResponse = await getGroupInfo();
     if (groupResponse.code === 200) {
       groups.value = groupResponse.data;
     }
 
-    // 获取签到信息
     const signInResponse = await getSignInData(1, 1);
     if (signInResponse.code === 200) {
       signInCount.value = signInResponse.data.length;
@@ -115,29 +118,14 @@ onMounted(() => {
 }
 
 .stat-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
   padding: 16px;
   background: linear-gradient(135deg, #f5f7ff, #f8f9ff);
   border-radius: 8px;
   border: 1px solid rgba(134, 168, 231, 0.15);
 }
 
-.stat-icon {
-  font-size: 24px;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(134, 168, 231, 0.1);
-}
-
 .stat-content {
-  flex: 1;
+  text-align: center;
 }
 
 .stat-value {
@@ -164,12 +152,12 @@ onMounted(() => {
 
 .group-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 16px;
 }
 
 .group-card {
-  padding: 16px;
+  padding: 12px;
   background: linear-gradient(135deg, #f5f7ff, #f8f9ff);
   border-radius: 8px;
   border: 1px solid rgba(134, 168, 231, 0.15);
@@ -182,10 +170,10 @@ onMounted(() => {
 }
 
 .group-name {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 500;
   color: #333;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
 .group-stats {
@@ -195,7 +183,7 @@ onMounted(() => {
 }
 
 .member-count {
-  font-size: 13px;
+  font-size: 12px;
   color: #666;
 }
 
@@ -214,7 +202,7 @@ onMounted(() => {
 }
 
 .group-id {
-  font-size: 13px;
+  font-size: 12px;
   color: #7F7FD5;
   font-weight: 500;
 }
@@ -253,4 +241,4 @@ onMounted(() => {
     width: 100%;
   }
 }
-</style> 
+</style>

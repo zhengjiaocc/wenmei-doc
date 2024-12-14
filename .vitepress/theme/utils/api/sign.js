@@ -3,6 +3,8 @@ import axios from 'axios';
 const API_BASE_URL = 'http://localhost:8080/ym';
 const CACHE_KEY = 'signInData';
 const CACHE_DURATION = 24 * 60 * 60 * 1000; // 1天缓存时间 (24小时 * 60分钟 * 60秒 * 1000毫秒)
+const GROUP_CACHE_KEY = 'groupInfoData';
+const GROUP_CACHE_DURATION = 24 * 60 * 60 * 1000; // 1天缓存时间
 
 /**
  * 批量查询用户签到数据
@@ -67,7 +69,31 @@ export const getSignInData = async (pageSize, currentPage) => {
  */
 export const getGroupInfo = async () => {
     try {
+        // 检查缓存
+        const cachedData = localStorage.getItem(GROUP_CACHE_KEY);
+        if (cachedData) {
+            const { data, timestamp } = JSON.parse(cachedData);
+            const now = new Date().getTime();
+            
+            // 如果缓存未过期，直接返回缓存数据
+            if (now - timestamp < GROUP_CACHE_DURATION) {
+                return {
+                    code: 200,
+                    message: "操作成功",
+                    data: data
+                };
+            }
+        }
+
         const response = await axios.get(`${API_BASE_URL}/groupInfo`);
+
+        // 缓存新数据
+        if (response.data.code === 200) {
+            localStorage.setItem(GROUP_CACHE_KEY, JSON.stringify({
+                data: response.data.data,
+                timestamp: new Date().getTime()
+            }));
+        }
 
         return response.data;
     } catch (error) {
@@ -85,13 +111,22 @@ export const getGroupInfo = async () => {
 //             "groupId": "458281450",
 //             "groupName": "缘盟六群",
 //             "memberCount": "1985",
-//             "maxMemberCount": "2000"
+//             "maxMemberCount": "2000",
+//             "avatar": "https://p.qlogo.cn/gh/458281450/458281450/640/\n"
 //         },
 //         {
 //             "groupId": "829327576",
 //             "groupName": "缘盟七群",
 //             "memberCount": "2000",
-//             "maxMemberCount": "2000"
+//             "maxMemberCount": "2000",
+//             "avatar": "https://p.qlogo.cn/gh/829327576/829327576/640/\n"
+//         },
+//         {
+//             "groupId": "17403522",
+//             "groupName": "缘盟一群",
+//             "memberCount": "1942",
+//             "maxMemberCount": "2000",
+//             "avatar": "https://p.qlogo.cn/gh/17403522/17403522/640/\n"
 //         }
 //     ]
 // }
