@@ -68,7 +68,6 @@
             <div class="user-info">
               <div class="user-name">{{ user.name }}</div>
               <div class="user-stats">
-                <span class="time-divider">·</span>
                 {{ user.description || '这个人很懒，什么都没写' }}
               </div>
             </div>
@@ -87,7 +86,7 @@ const signInUsers = ref([]);
 const totalSignIns = ref(0);
 const totalUsers = ref(0);
 const currentPage = ref(1);
-const pageSize = ref(30);
+const pageSize = ref(40);
 const loading = ref(false);
 
 // 修改等级判断函数
@@ -218,6 +217,7 @@ const getUserDescription = (days, rank) => {
     0 8px 16px rgba(134, 168, 231, 0.08);
   transition: all 0.3s ease;
   overflow: hidden;
+  padding-bottom: 28px;
 }
 
 .sign-in-card:hover {
@@ -241,8 +241,10 @@ const getUserDescription = (days, rank) => {
 .sign-in-card .user-avatar img {
   width: 40px;
   height: 40px;
-  border-radius: 8px;
+  border-radius: 50%;
   object-fit: cover;
+  border: 2px solid white;
+  box-shadow: 0 0 0 2px rgba(134, 168, 231, 0.2);
 }
 
 .level-badge {
@@ -295,7 +297,7 @@ const getUserDescription = (days, rank) => {
   justify-content: space-between;
   gap: 16px;
   margin-bottom: 24px;
-  padding: 0 20px;
+  padding: 0 ;
 }
 
 /* 前三名卡片样式 */
@@ -309,7 +311,7 @@ const getUserDescription = (days, rank) => {
   flex-direction: row;
   align-items: flex-start;
   position: relative;
-  height: 92px;
+  height: 100px;
   box-shadow: 0 6px 16px rgba(134, 168, 231, 0.15);
   border: 1px solid rgba(134, 168, 231, 0.2);
   overflow: hidden;
@@ -319,12 +321,10 @@ const getUserDescription = (days, rank) => {
 .top-user-card .user-avatar {
   width: 40px;
   height: 40px;
-  border-radius: 12px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid white;
+  box-shadow: 0 0 0 2px rgba(134, 168, 231, 0.2);
 }
 
 .top-user-card .user-info {
@@ -446,6 +446,11 @@ const getUserDescription = (days, rank) => {
   color: #666;
   font-weight: bold;
   font-style: italic;
+  position: absolute;
+  bottom: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
 }
 
 /* 特殊卡片的天数样式 */
@@ -461,38 +466,16 @@ const getUserDescription = (days, rank) => {
 }
 
 .user-stats {
-  height: 36px;
+  flex: 1;
   overflow: hidden;
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
   font-size: 11px;
   color: #666;
-  line-height: 18px;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  word-break: break-all;
-}
-
-/* 移除分隔点 */
-.time-divider {
-  margin: 0 4px;
-}
-
-/* 调整描述文本样式 */
-.user-description {
-  font-size: 13px;
-  color: #666;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
   line-height: 1.4;
   word-break: break-all;
-  opacity: 0.8;
-  font-size: 11px;
-  max-height: 32px; /* 2行文本的最大高度 */
+  margin-bottom: 4px;
 }
 
 /* 用户信息区域 */
@@ -517,30 +500,14 @@ const getUserDescription = (days, rank) => {
   margin-bottom: 2px;
 }
 
-/* 描述文本样式 */
-.user-stats {
-  flex: 1;
-  overflow: hidden;
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  font-size: 11px;
-  color: #666;
-  line-height: 1.4;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  word-break: break-all;
-}
-
 /* 头像容器样式 */
 .user-avatar {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
   gap: 8px;
-  margin-bottom: 0;
-  flex-shrink: 0; /* 防止头像被压缩 */
+  flex-shrink: 0;
 }
 
 .user-avatar img {
@@ -549,5 +516,17 @@ const getUserDescription = (days, rank) => {
   border-radius: 8px;
   object-fit: cover;
   flex-shrink: 0; /* 防止图片被压缩 */
+}
+
+/* 悬浮效果 */
+.sign-in-card:hover .user-avatar img,
+.top-user-card:hover .user-avatar img {
+  transform: scale(1.05);
+  box-shadow: 0 0 0 2px rgba(134, 168, 231, 0.3);
+}
+
+/* 添加过渡效果 */
+.user-avatar img {
+  transition: all 0.3s ease;
 }
 </style> 
