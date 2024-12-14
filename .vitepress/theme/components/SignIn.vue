@@ -246,12 +246,12 @@ const getUserDescription = (days, rank) => {
 
 .level-badge {
   position: absolute;
-  top: 8px;
-  right: 8px;
-  padding: 9px;
+  top: 0;
+  right: 0;
+  padding: 6px 12px;
   font-size: 9px;
   color: white;
-  border-radius: 12px;
+  border-radius: 0 0 0 8px;
   backdrop-filter: blur(4px);
   box-shadow: 0 2px 4px rgba(127, 127, 213, 0.1);
   opacity: 0.9;
@@ -259,8 +259,9 @@ const getUserDescription = (days, rank) => {
   line-height: 1;
   display: flex;
   align-items: center;
-  height: 14px;
+  height: 20px;
   font-weight: bold;
+  clip-path: polygon(100% 0, 100% 50%, 50% 100%, 0 50%, 0 0);
 }
 
 /* 不同等级的背景色 */
