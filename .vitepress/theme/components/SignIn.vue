@@ -447,7 +447,7 @@ const getUserDescription = (days, rank) => {
   font-weight: bold;
   font-style: italic;
   position: absolute;
-  bottom: -24px;
+  bottom: -34px;
   left: 50%;
   transform: translateX(-50%);
   white-space: nowrap;
