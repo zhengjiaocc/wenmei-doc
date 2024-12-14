@@ -18,7 +18,7 @@
         </div>
         <div class="stat-item">
           <div class="stat-content">
-            <div class="stat-value">{{ signInCount }}</div>
+            <div class="stat-value">{{ fakeSignInCount }}</div>
             <div class="stat-label">今日签到</div>
           </div>
         </div>
@@ -49,10 +49,10 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue';
-import { getGroupInfo, getSignInData } from '../utils/api/sign.js';
+import { getGroupInfo } from '../utils/api/sign.js';
 
 const groups = ref([]);
-const signInCount = ref(0);
+const fakeSignInCount = ref(123); // 使用假数据
 
 const totalMembers = computed(() => {
   return groups.value.reduce((sum, group) => sum + parseInt(group.memberCount), 0);
@@ -71,11 +71,6 @@ const fetchData = async () => {
     const groupResponse = await getGroupInfo();
     if (groupResponse.code === 200) {
       groups.value = groupResponse.data;
-    }
-
-    const signInResponse = await getSignInData(1, 1);
-    if (signInResponse.code === 200) {
-      signInCount.value = signInResponse.data.length;
     }
   } catch (error) {
     console.error('获取数据失败:', error);
