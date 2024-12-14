@@ -54,8 +54,11 @@
         <div class="sign-in-list">
           <div v-for="user in otherUsers"
             :key="user.id"
-            class="sign-in-card">
-            <div class="level-badge">Level {{ getLevelNumber(user.days) }}</div>
+            class="sign-in-card"
+            :class="`level-${getLevelNumber(user.days)}`">
+            <div class="level-badge" :class="`level-${getLevelNumber(user.days)}`">
+              Level {{ getLevelNumber(user.days) }}
+            </div>
             <div class="user-avatar">
               <img 
                 :src="user.avatar"
@@ -209,7 +212,7 @@ const getUserDescription = (days, rank) => {
   flex-direction: row;
   align-items: flex-start;
   position: relative;
-  height: 85px;
+  height: 92px;
   border: 1px solid rgba(134, 168, 231, 0.15);
   box-shadow: 
     0 4px 6px rgba(134, 168, 231, 0.1),
@@ -248,13 +251,39 @@ const getUserDescription = (days, rank) => {
   top: 8px;
   right: 8px;
   padding: 1px 6px;
-  font-size: 12px;
-  color: #7F7FD5;
-  background: linear-gradient(135deg, rgba(127, 127, 213, 0.15), rgba(134, 168, 231, 0.15));
-  border-radius: 6px;
+  font-size: 9px;
+  color: white;
+  border-radius: 12px;
   backdrop-filter: blur(4px);
   box-shadow: 0 2px 4px rgba(127, 127, 213, 0.1);
-  font-size: 11px;
+  opacity: 0.9;
+  transition: all 0.3s ease;
+}
+
+/* 不同等级的背景色 */
+.level-badge.level-5 {
+  background: #FFB619;
+}
+
+.level-badge.level-4 {
+  background: #7F7FD5;
+}
+
+.level-badge.level-3 {
+  background: #CD7F32;
+}
+
+.level-badge.level-2 {
+  background: #9E9E9E;
+}
+
+.level-badge.level-1 {
+  background: #86A8E7;
+}
+
+.sign-in-card:hover .level-badge {
+  opacity: 1;
+  transform: scale(1.05);
 }
 
 /* 前三名区域 */
@@ -482,7 +511,7 @@ const getUserDescription = (days, rank) => {
   }
 
   .sign-in-card {
-    height: 85px;
+    height: 92px;
     gap: 12px;
   }
 
