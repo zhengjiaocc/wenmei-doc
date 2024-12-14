@@ -37,25 +37,11 @@ function closeBulletin() {
       <div v-if="visible" class="bulletin-wrapper" style="width: 300px">
         <div class="bulletin-title">
           <span class="bulletin-icon left">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 32 32"
-              class="bulletin-icon"
-              style="width: 20px; height: 20px; color: white;"
-            >
-              <path
-                d="M27.16 8.08l-1.53 1.29a10 10 0 0 1-.29 13.23l1.47 1.4a12 12 0 0 0 .35-15.88z"
-                fill="currentColor"
-              ></path>
-              <path
-                d="M21.58 12a6 6 0 0 1-.18 7.94l1.47 1.36a8 8 0 0 0 .23-10.59z"
-                fill="currentColor"
-              ></path>
-              <path
-                d="M18 30a1 1 0 0 1-.71-.3L9.67 22H3a1 1 0 0 1-1-1V11a1 1 0 0 1 1-1h6.67l7.62-7.7a1 1 0 0 1 1.41 0a1 1 0 0 1 .3.7v26a1 1 0 0 1-1 1zM4 20h6.08a1 1 0 0 1 .71.3L17 26.57V5.43l-6.21 6.27a1 1 0 0 1-.71.3H4z"
-                fill="currentColor"
-              ></path>
-            </svg>
+            <img
+              src="https://pic.imgdb.cn/item/64a27f5d1ddac507ccc88b2b.jpg"
+              alt="蒸饺3"
+              class="notice-image"
+            />
             <span>公告</span>
           </span>
           <svg

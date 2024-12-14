@@ -18,6 +18,7 @@ import "vitepress-markdown-timeline/dist/theme/index.css";
 import './style/index.css'
 import API from './components/API.vue';
 import MFriends from './components/MFriends.vue';
+import SignIn from './components/SignIn.vue';
 
 /* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -77,6 +78,7 @@ export default {
     app.component('API',API)
     app.component('font-awesome-icon', FontAwesomeIcon)
     app.component('MFriends',MFriends)
+    app.component('SignIn',SignIn)
 
   },
 }

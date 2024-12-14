@@ -20,7 +20,11 @@
       :style="{ fontSize: fontSize + 'px' }"
     >
       <div v-if="loading" class="loading-container">
-        <div class="loading-spinner"></div>
+        <img 
+          src="https://pic.imgdb.cn/item/64a27f5d1ddac507ccc88b2b.jpg" 
+          alt="蒸饺1"
+          class="loading-image"
+        />
         <!-- 旋转的圆圈 -->
         <span class="loading-text">正在加载...</span>
         <!-- 加载文本 -->
@@ -564,7 +568,7 @@ export default {
     onMounted(() => {
       loadSettingsFromLocal(); // 恢复设置
       fetchChapters(); // 获取章节目录
-      document.addEventListener("input", saveFontSize); // 监听字体大小变化
+      document.addEventListener("input", saveFontSize); // 监听字体大小���化
       document.addEventListener("click", handleClickOutside); // 添加点击事件
       document.addEventListener("touchstart", handleTouchStart); // 监听触摸事件
       document.addEventListener("touchend", handleTouchEnd); // 监听触摸结束事件
