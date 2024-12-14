@@ -93,10 +93,10 @@ const loading = ref(false);
 
 // 修改等级判断函数
 const getLevelNumber = (days) => {
-  if (days >= 900) return 5;
-  if (days >= 600) return 4;
-  if (days >= 300) return 3;
-  if (days >= 100) return 2;
+  if (days >= 90) return 5;
+  if (days >= 80) return 4;
+  if (days >= 70) return 3;
+  if (days >= 60) return 2;
   return 1;
 };
 
@@ -258,6 +258,10 @@ const getUserDescription = (days, rank) => {
   box-shadow: 0 2px 4px rgba(127, 127, 213, 0.1);
   opacity: 0.9;
   transition: all 0.3s ease;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  height: 14px;
 }
 
 /* 不同等级的背景色 */
