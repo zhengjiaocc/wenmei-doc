@@ -313,15 +313,79 @@ const getUserDescription = (days, rank) => {
   border: 1px solid rgba(134, 168, 231, 0.2);
   overflow: hidden;
   gap: 16px;
+  position: relative;
+}
+
+/* 扫光动画 */
+.top-user-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 182, 25, 0.2),
+    transparent
+  );
+  animation: shine 3s infinite linear;
+}
+
+@keyframes shine {
+  to {
+    left: 200%;
+  }
 }
 
 .top-user-card .user-avatar {
+  position: relative;
+  z-index: 1;
+  width: 40px;
+  height: 40px;
+}
+
+.top-user-card .user-avatar img {
   width: 40px;
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid white;
-  box-shadow: 0 0 0 2px rgba(134, 168, 231, 0.2);
+  border: 2px solid #FFB619;
+  box-shadow: 
+    0 0 0 2px rgba(255, 182, 25, 0.3),
+    0 0 10px rgba(255, 182, 25, 0.2);
+  transition: all 0.3s ease;
+}
+
+.top-user-card:hover .user-avatar img {
+  transform: scale(1.05);
+  border-color: #FFD700;
+  box-shadow: 
+    0 0 0 2px rgba(255, 215, 0, 0.4),
+    0 0 15px rgba(255, 215, 0, 0.3);
+}
+
+/* 调整前三名不同的头像边框颜色 */
+.rank-1 .user-avatar img {
+  border-color: #FFB619;
+  box-shadow: 
+    0 0 0 2px rgba(255, 182, 25, 0.3),
+    0 0 10px rgba(255, 182, 25, 0.2);
+}
+
+.rank-2 .user-avatar img {
+  border-color: #9E9E9E;
+  box-shadow: 
+    0 0 0 2px rgba(158, 158, 158, 0.3),
+    0 0 10px rgba(158, 158, 158, 0.2);
+}
+
+.rank-3 .user-avatar img {
+  border-color: #CD7F32;
+  box-shadow: 
+    0 0 0 2px rgba(205, 127, 50, 0.3),
+    0 0 10px rgba(205, 127, 50, 0.2);
 }
 
 .top-user-card .user-info {
@@ -419,6 +483,12 @@ const getUserDescription = (days, rank) => {
     height: 92px;
     padding: 12px;
     flex-direction: row;
+  }
+
+  .top-user-card .user-avatar,
+  .top-user-card .user-avatar img {
+    width: 40px;
+    height: 40px;
   }
 }
 
