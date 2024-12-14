@@ -36,12 +36,12 @@
             <div class="shine"></div>
             <div class="user-avatar">
               <img :src="user.avatar" :alt="user.name" />
+              <div class="top-days">{{ user.days }}天</div>
             </div>
             <div class="user-info">
               <div class="user-name">{{ user.name }}</div>
               <div class="user-stats">
                 <span class="top-level">Level {{ getLevelNumber(user.days) }}</span>
-                <span class="top-days">{{ user.days }}天</span>
               </div>
               <div class="user-description">
                 {{ getUserDescription(user.days, user.rank) }}
@@ -61,14 +61,11 @@
                 :src="user.avatar"
                 :alt="user.name"
               />
+              <div class="days-badge">{{ user.days }}天</div>
             </div>
             <div class="user-info">
               <div class="user-name">{{ user.name }}</div>
               <div class="user-stats">
-                <span class="stats-badge">
-                  <span class="days-number">{{ user.days }}</span>
-                  <span class="days-label">天</span>
-                </span>
                 <span class="time-divider">·</span>
                 {{ user.description || '这个人很懒，什么都没写' }}
               </div>
@@ -116,7 +113,7 @@ const fetchSignInData = async () => {
     loading.value = true;
     const response = await getSignInData(pageSize.value, currentPage.value);
     if (response.code === 200 && response.data) {
-      // 转格式
+      // 转式
       signInUsers.value = response.data.map((item, index) => ({
         id: item.uid,
         name: item.nick,
@@ -208,6 +205,7 @@ const getUserDescription = (days, rank) => {
   border-radius: 12px;
   padding: 12px;
   display: flex;
+  gap: 16px;
   flex-direction: row;
   align-items: flex-start;
   position: relative;
@@ -228,17 +226,20 @@ const getUserDescription = (days, rank) => {
     0 12px 24px rgba(134, 168, 231, 0.12);
 }
 
-.user-avatar {
-  width: 40px;
-  height: 40px;
-  flex-shrink: 0;
-  border-radius: 8px;
-  overflow: hidden;
+/* 头像容器 */
+.sign-in-card .user-avatar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 0;
 }
 
-.user-avatar img {
-  width: 100%;
-  height: 100%;
+/* 头像图片容器 */
+.sign-in-card .user-avatar img {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
   object-fit: cover;
 }
 
@@ -274,28 +275,25 @@ const getUserDescription = (days, rank) => {
   padding: 16px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  align-items: center;
   position: relative;
-  height: 205px;
+  height: 180px;
   box-shadow: 
     0 6px 16px rgba(134, 168, 231, 0.15),
     0 12px 24px rgba(134, 168, 231, 0.1);
   border: 1px solid rgba(134, 168, 231, 0.2);
   overflow: hidden;
-}
-
-.top-user-card:hover {
-  transform: translateY(-3px);
-  border-color: rgba(134, 168, 231, 0.3);
-  box-shadow: 
-    0 8px 20px rgba(134, 168, 231, 0.2),
-    0 16px 32px rgba(134, 168, 231, 0.15);
+  text-align: center;
 }
 
 .top-user-card .user-avatar {
-  width: 56px;
-  height: 56px;
-  margin-bottom: 12px;
+  width: 48px;
+  height: 48px;
+  margin-top: 24px;
+  margin-bottom: 8px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(134, 168, 231, 0.2);
+  position: relative;
 }
 
 .top-user-card .user-info {
@@ -303,11 +301,54 @@ const getUserDescription = (days, rank) => {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   gap: 8px;
-  padding: 0 12px;
+  padding: 0 16px;
+  width: 100%;
 }
 
+.top-user-card .user-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+}
+
+.top-user-card .user-stats {
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+.top-level {
+  padding: 2px 8px;
+  background: rgba(127, 127, 213, 0.1);
+  border-radius: 12px;
+  color: #7F7FD5;
+}
+
+.top-days {
+  position: absolute;
+  bottom: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  color: #666;
+}
+
+.user-description {
+  height: 40px;
+  font-size: 13px;
+  color: #666;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 20px;
+  word-break: break-all;
+  opacity: 0.8;
+  padding: 0 8px;
+}
+
+/* 排名样式优化 */
 .rank-number {
   position: absolute;
   top: 12px;
@@ -320,12 +361,22 @@ const getUserDescription = (days, rank) => {
   font-weight: bold;
   background: white;
   border-radius: 6px;
+  font-size: 14px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.rank-1 .rank-number { color: #FFB619; }
-.rank-2 .rank-number { color: #9E9E9E; }
-.rank-3 .rank-number { color: #CD7F32; }
+/* 前三名背景微调 */
+.rank-1 {
+  background: linear-gradient(to bottom, rgba(255, 182, 25, 0.05), white);
+}
+
+.rank-2 {
+  background: linear-gradient(to bottom, rgba(158, 158, 158, 0.05), white);
+}
+
+.rank-3 {
+  background: linear-gradient(to bottom, rgba(205, 127, 50, 0.05), white);
+}
 
 /* 用户信息样式 */
 .user-info {
@@ -333,6 +384,7 @@ const getUserDescription = (days, rank) => {
   min-width: 0;
   display: flex;
   flex-direction: column;
+  padding-top: 4px;
   gap: 4px;
 }
 
@@ -429,30 +481,29 @@ const getUserDescription = (days, rank) => {
     grid-template-columns: 1fr;
   }
 
-  .top-user-card {
-    min-height: 100px;
-    flex-direction: row;
-    padding: 12px;
-  }
-  
-  .top-user-card .user-avatar {
-    margin-bottom: 0;
-    margin-right: 12px;
-  }
-  
-  .top-user-card .user-info {
-    height: 100%;
-    padding: 0;
-    justify-content: center;
-  }
-  
   .sign-in-card {
-    min-height: 64px;
+    height: 85px;
+    gap: 12px;
   }
 
-  .user-description {
-    height: 20px; /* 移动端只显示一行 */
-    -webkit-line-clamp: 1;
+  .sign-in-card .user-avatar {
+    gap: 6px;
   }
+}
+
+/* 普通卡片的天数样式 */
+.days-badge {
+  font-size: 12px;
+  color: #666;
+}
+
+/* 特殊卡片的天数样式 */
+.top-days {
+  position: absolute;
+  bottom: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  color: #666;
 }
 </style> 
