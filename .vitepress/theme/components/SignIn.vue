@@ -486,7 +486,6 @@ const getUserDescription = (days, rank) => {
   justify-content: space-between;
   gap: 4px;
   height: 100%;
-  padding-right: 8px;
 }
 
 /* 用户名样式 */
@@ -513,8 +512,7 @@ const getUserDescription = (days, rank) => {
   line-height: 1.4;
   word-break: break-all;
   max-height: 32px;
-  margin-bottom: 8px;
-  margin-top: 4px;
+  margin-top: 13px;
 }
 
 /* 头像容器样式 */
