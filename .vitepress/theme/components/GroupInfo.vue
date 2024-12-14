@@ -43,6 +43,7 @@ onMounted(() => {
 <style scoped>
 .group-info-container {
   margin-bottom: 24px;
+  padding: 20px ;
 }
 
 .group-list {

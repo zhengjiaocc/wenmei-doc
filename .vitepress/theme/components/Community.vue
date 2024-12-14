@@ -15,7 +15,7 @@ import SignIn from './SignIn.vue';
 
 <style scoped>
 .community-container {
-  padding: 20px;
+  padding:  20px 40px;
   max-width: 100%;
   margin: 0 auto;
 }
