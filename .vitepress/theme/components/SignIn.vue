@@ -250,7 +250,7 @@ const getUserDescription = (days, rank) => {
   position: absolute;
   top: 8px;
   right: 8px;
-  padding: 1px 6px;
+  padding: 9px;
   font-size: 9px;
   color: white;
   border-radius: 12px;
