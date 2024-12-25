@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'https://s.zhengjiao.cc/ym';
+const API_BASE_URL = 'https://s.zhengjiao.cc/ym/';
 const CACHE_KEY = 'signInData';
 const CACHE_DURATION = 10 * 60 * 1000; // 10分钟缓存时间 (10分钟 * 60秒 * 1000毫秒)
 const GROUP_CACHE_KEY = 'groupInfoData';
