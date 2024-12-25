@@ -37,11 +37,6 @@ function closeBulletin() {
       <div v-if="visible" class="bulletin-wrapper" style="width: 300px">
         <div class="bulletin-title">
           <span class="bulletin-icon left">
-            <img
-              src="https://pic.imgdb.cn/item/64a27f5d1ddac507ccc88b2b.jpg"
-              alt="蒸饺3"
-              class="notice-image"
-            />
             <span>公告</span>
           </span>
           <svg
@@ -61,8 +56,9 @@ function closeBulletin() {
 
         <div class="bulletin-content">
           <h3 class="bulletin-h3">本次更新：</h3>
-          <p style="color: ">本站最新章节为1940</p>
-          <p style="color: red">本站暂停更新</p>
+          <h2 style="color: red;font-weight: bold;">祝东方妹妹生日快乐！！！</h2>
+          <!-- <p style="color: ">本站最新章节为1940</p>
+          <p style="color: ">本站暂停更新</p> -->
           <hr />
           <p>活动</p>
           <a href="https://tieba.baidu.com/p/8395119444" style="text-decoration: underline;">投票:选择你最喜爱的妹妹</a>
