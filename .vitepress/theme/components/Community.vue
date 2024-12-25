@@ -4,7 +4,7 @@
     <GroupInfo />
     
     <!-- 签到榜 -->
-    <SignIn />
+    <!-- <SignIn /> -->
   </div>
 </template>
 
