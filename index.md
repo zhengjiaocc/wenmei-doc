@@ -19,9 +19,9 @@ hero:
     - theme: alt
       text: 缘盟
       link: /docs/info/community
-    - theme: alt
-      text: 小说
-      link: /docs/lib/novel
+#    - theme: alt
+#      text: 小说
+#      link: /docs/lib/novel
     - theme: alt
       text: 文档
       link: /docs/lib/count
