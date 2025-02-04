@@ -13,12 +13,6 @@ export const FRIEND_DATA = {
             link: 'https://www.honghuangwenxue.com/thread-6763-1-1.html',
             icon: 'https://pic.imgdb.cn/item/675b0f09d0e0a243d4e30b90.png',
         },
-                {
-            title: '青桔气球',
-            desc: '分享网络安全与科技生活',
-            link: 'https://blog.qjqq.cn',
-            icon: 'https://q2.qlogo.cn/headimg_dl?dst_uin=1645253&spec=640',
-        },
     ], // 随机排序
   };
   
