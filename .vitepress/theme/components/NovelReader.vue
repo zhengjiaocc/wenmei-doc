@@ -330,16 +330,38 @@ export default {
           wordCount: chapter.chapterContent?.length || 0,
         };
         
-        // 处理章节内容和附加信息，为每个段落添加缩进
+        // 处理章节内容，为第一个段落设置不同的样式
         if (chapter.chapterContent) {
-          currentContent.value = chapter.chapterContent.replace(/<p>/g, '<p>　　');
+          const paragraphs = chapter.chapterContent.split('</p>');
+          if (paragraphs.length > 0) {
+            // 处理第一个段落
+            paragraphs[0] = paragraphs[0].replace(/<p>/g, '<p style="margin-bottom: 1em; text-indent: 2em;">');
+            // 处理其他段落
+            for (let i = 1; i < paragraphs.length; i++) {
+              if (paragraphs[i].trim()) {
+                paragraphs[i] = paragraphs[i].replace(/<p>/g, '<p style="margin: 1em 0; text-indent: 2em;">');
+              }
+            }
+            currentContent.value = paragraphs.join('</p>');
+          }
         } else {
           currentContent.value = "";
         }
         
-        // 处理 PS 等附加信息
+        // 处理 PS 等附加信息，同样处理第一个段落
         if (chapter.additionalInfo) {
-          currentAdditionalInfo.value = chapter.additionalInfo.replace(/<p>/g, '<p>　　');
+          const psParagraphs = chapter.additionalInfo.split('</p>');
+          if (psParagraphs.length > 0) {
+            // 处理第一个段落
+            psParagraphs[0] = psParagraphs[0].replace(/<p>/g, '<p style="margin-bottom: 1em; text-indent: 2em;">');
+            // 处理其他段落
+            for (let i = 1; i < psParagraphs.length; i++) {
+              if (psParagraphs[i].trim()) {
+                psParagraphs[i] = psParagraphs[i].replace(/<p>/g, '<p style="margin: 1em 0; text-indent: 2em;">');
+              }
+            }
+            currentAdditionalInfo.value = psParagraphs.join('</p>');
+          }
         } else {
           currentAdditionalInfo.value = "";
         }
@@ -533,7 +555,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 @media screen and (orientation: landscape) {
   .novel-container {
     transform: rotate(-90deg);
@@ -585,19 +607,36 @@ export default {
   left: 0;
   right: 0;
   overflow-y: auto;
-  padding: 20px; /* 增加内边距 */
-  font-family: "Serif"; /* 使用 serif 字体 */
-  font-size: 16px; /* 字体大小 */
-  line-height: 1.6; /* 行间距 */
-  color: #333; /* 字体颜色 */
+  padding: 20px;
+  font-family: "Serif";
+  font-size: 16px;
+  line-height: 1.6;
+  color: #333;
 }
 
-.content-area p {
-  margin: 1em 0; /* 段落上下间距 */
+/* 移除 scoped，确保样式能应用到 v-html 内容 */
+:deep(.content-area p) {
+  margin: 2em 0;
+  text-align: justify;
+  line-height: 2;
+}
+
+:deep(.content-area p:first-child) {
+  margin-top: 0;
+}
+
+:deep(.additional-info p) {
+  margin: 2em 0;
+  text-align: justify;
+  line-height: 2;
+}
+
+:deep(.additional-info p:first-child) {
+  margin-top: 0;
 }
 
 .additional-info {
-  margin-top: 10px;
+  margin-top: 20px;
   font-size: 14px;
   color: #666;
 }
