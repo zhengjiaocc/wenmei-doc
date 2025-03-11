@@ -397,8 +397,7 @@ export default {
 
       nextTick(() => {
         document.querySelector(".current-chapter")?.scrollIntoView({
-          block: "center",
-          behavior: "smooth"
+          block: "center"
         });
       });
     };
