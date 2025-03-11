@@ -58,6 +58,14 @@
             <span class="button-text">目录</span>
           </div>
         </button>
+        <button @click.stop="toggleFullscreen">
+          <div class="button-content">
+            <span class="button-icon"
+              ><font-awesome-icon :icon="['fas', 'expand']"
+            /></span>
+            <span class="button-text">全屏</span>
+          </div>
+        </button>
         <button @click.stop="showSettings">
           <div class="button-content">
             <span class="button-icon"
@@ -454,6 +462,17 @@ export default {
       }
     };
 
+    // 添加全屏切换方法
+    const toggleFullscreen = () => {
+      if (document.fullscreenElement) {
+        exitFullScreen();
+      } else {
+        tryFullScreen();
+      }
+      isToolBarVisible.value = false;
+      isNavBarVisible.value = false;
+    };
+
     // 生命周期钩子
     onMounted(() => {
       loadSettings();
@@ -508,6 +527,7 @@ export default {
       fullScreenContainer,
       exitFullScreen,
       goToHomeAndExitFullscreen,
+      toggleFullscreen,
     };
   },
 };
