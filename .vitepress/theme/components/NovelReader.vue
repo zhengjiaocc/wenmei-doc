@@ -183,7 +183,7 @@
 </template>
 
 <script>
-import { ref, onMounted, onUnmounted, nextTick, computed } from "vue";
+import { ref, onMounted, onUnmounted, nextTick, computed, watch } from "vue";
 import { getAllChapterDirectory, getChapter } from "../utils/api";
 import { debounce } from "lodash-es";
 import { useChapterCache } from "../composables/useChapterCache";
@@ -248,6 +248,15 @@ export default {
       exitFullScreen();
       goToHome();
     };
+
+    // 监听设置变化并保存
+    watch(fontSize, (newValue) => {
+      saveSettings({ fontSize: newValue, backgroundColor: backgroundColor.value, pageTurningMode: pageTurningMode.value });
+    });
+
+    watch(pageTurningMode, (newValue) => {
+      saveSettings({ fontSize: fontSize.value, backgroundColor: backgroundColor.value, pageTurningMode: newValue });
+    });
 
     const changeBackgroundColor = (colorClass) => {
       backgroundColor.value = colorClass;
@@ -497,7 +506,14 @@ export default {
 
     // 生命周期钩子
     onMounted(() => {
-      loadSettings();
+      // 加载本地保存的设置
+      const savedSettings = loadSettings();
+      if (savedSettings) {
+        fontSize.value = savedSettings.fontSize ?? 16;
+        backgroundColor.value = savedSettings.backgroundColor ?? "color-white";
+        pageTurningMode.value = savedSettings.pageTurningMode ?? "horizontal";
+      }
+
       fetchChapters();
       document.addEventListener("click", handleClickOutside);
       document.addEventListener("touchstart", handleTouchStart);
@@ -612,6 +628,12 @@ export default {
   font-size: 16px;
   line-height: 1.6;
   color: #333;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.content-area::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
 }
 
 /* 移除 scoped，确保样式能应用到 v-html 内容 */
@@ -682,6 +704,12 @@ export default {
   overflow-y: auto;
   padding: 0 20px 20px 20px;
   border-radius: 35px 35px 0 0;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.directory::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
 }
 
 .directory-header {

@@ -19,10 +19,9 @@ export function useLocalStorage() {
     const savedSettings = localStorage.getItem('readerSettings')
     if (savedSettings) {
       const settings = JSON.parse(savedSettings)
-      fontSize.value = settings.fontSize
-      backgroundColor.value = settings.backgroundColor
-      pageTurningMode.value = settings.pageTurningMode
+      return settings
     }
+    return null
   }
 
   const saveProgress = (chapterId: string) => {
