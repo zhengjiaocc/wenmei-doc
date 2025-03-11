@@ -20,14 +20,7 @@
       :style="{ fontSize: fontSize + 'px' }"
     >
       <div v-if="loading" class="loading-container">
-        <img 
-          src="https://pic.imgdb.cn/item/64a27f5d1ddac507ccc88b2b.jpg" 
-          alt="蒸饺1"
-          class="loading-image"
-        />
-        <!-- 旋转的圆圈 -->
-        <span class="loading-text">正在加载...</span>
-        <!-- 加载文本 -->
+        <span class="loading-text">正在加载中，请稍候...</span>
       </div>
       <div v-html="currentContent" v-else></div>
       <div v-if="currentAdditionalInfo" class="additional-info">
@@ -183,263 +176,185 @@
 </template>
 
 <script>
-import { ref, onMounted, onUnmounted, nextTick } from "vue";
+import { ref, onMounted, onUnmounted, nextTick, computed } from "vue";
 import { getAllChapterDirectory, getChapter } from "../utils/api";
 import { debounce } from "lodash-es";
+import { useChapterCache } from "../composables/useChapterCache";
+import { useFullscreen } from "../composables/useFullscreen";
+import { useLocalStorage } from "../composables/useLocalStorage";
+import { useSwipeGesture } from "../composables/useSwipeGesture";
 
 export default {
   setup() {
-    const chapterCache = ref({}); // 用于缓存章节内容
+    // 使用组合式函数
+    const { 
+      cache: chapterCache, 
+      addToCache, 
+      getFromCache,
+      addToPreloadQueue,
+      startPreload 
+    } = useChapterCache();
+    const { tryFullScreen, exitFullScreen, handleFullscreenChange } = useFullscreen();
+    const { saveSettings, loadSettings, saveProgress, loadProgress } = useLocalStorage();
+    const { startX, startY, handleTouchStart, handleTouchEnd } = useSwipeGesture();
 
+    // 状态管理
     const isNavBarVisible = ref(false);
     const isToolBarVisible = ref(false);
     const isDirectoryVisible = ref(false);
     const isSettingsVisible = ref(false);
     const chapters = ref([]);
     const currentChapter = ref({ id: "", title: "", wordCount: 0 });
-
     const currentContent = ref("");
     const currentAdditionalInfo = ref("");
     const fontSize = ref(16);
     const backgroundColor = ref("color-white");
-    const loading = ref(false); // 添加 loading 状态
+    const loading = ref(false);
     const pageTurningMode = ref("horizontal");
+    const retryCount = ref(0);
+    const maxRetries = 3;
 
+    // 计算属性
+    const filteredChapters = computed(() => {
+      if (!searchQuery.value) return chapters.value;
+      return chapters.value.filter((chapter) =>
+        chapter.chapterTitle
+          .trim()
+          .toLowerCase()
+          .includes(searchQuery.value.toLowerCase())
+      );
+    });
 
-
-
-    
     const colors = ref([
       { name: "White", class: "color-white", rgb: "rgb(245, 245, 245)" },
       { name: "Gray", class: "color-gray", rgb: "rgb(224, 224, 224)" },
       { name: "Peach", class: "color-peach", rgb: "rgb(252, 237, 208)" },
       { name: "Orange", class: "color-orange", rgb: "rgb(239, 198, 144)" },
       { name: "Green", class: "color-green", rgb: "rgb(201, 232, 200)" },
-      {
-        name: "Light Pink",
-        class: "color-light-pink",
-        rgb: "rgb(240, 218, 220)",
-      },
+      { name: "Light Pink", class: "color-light-pink", rgb: "rgb(240, 218, 220)" },
     ]);
 
-    const fullScreenContainer = ref(null); // 用于获取 DOM 引用
+    const fullScreenContainer = ref(null);
+
+    // 方法
     const goToHomeAndExitFullscreen = () => {
-      exitFullScreen(); // 退出全屏
-      goToHome(); // 跳转到主页
-    };
-    // 尝试进入全屏
-    const tryFullScreen = () => {
-      const element = fullScreenContainer.value;
-      if (element && element.requestFullscreen) {
-        element
-          .requestFullscreen()
-          .then(() => {
-            console.log("自动进入全屏成功");
-          })
-          .catch((error) => {
-            console.error("自动进入全屏失败: ", error);
-          });
-      }
-    };
-
-    // 退出全屏
-    const exitFullScreen = () => {
-      if (document.exitFullscreen) {
-        document
-          .exitFullscreen()
-          .then(() => {
-            console.log("退出全屏成功");
-          })
-          .catch((error) => {
-            console.error("退出全屏失败: ", error);
-          });
-      }
-    };
-
-    // 监听全屏状态变化
-    const handleFullscreenChange = () => {
-      if (document.fullscreenElement) {
-        console.log("当前全屏的元素: ", document.fullscreenElement);
-      } else {
-        console.log("已退出全屏模式");
-      }
-    };
-    const saveSettingsToLocal = () => {
-      const settings = {
-        fontSize: fontSize.value,
-        backgroundColor: backgroundColor.value,
-        pageTurningMode: pageTurningMode.value,
-      };
-      localStorage.setItem("readerSettings", JSON.stringify(settings));
-    };
-
-    const loadSettingsFromLocal = () => {
-      const savedSettings = localStorage.getItem("readerSettings");
-      if (savedSettings) {
-        const settings = JSON.parse(savedSettings);
-        fontSize.value = settings.fontSize;
-        backgroundColor.value = settings.backgroundColor;
-        pageTurningMode.value = settings.pageTurningMode;
-      }
-    };
-
-    const saveReadingProgress = () => {
-      const progress = {
-        chapterId: currentChapter.value.id,
-      };
-      localStorage.setItem("readingProgress", JSON.stringify(progress));
-    };
-
-    const loadReadingProgress = () => {
-      const savedProgress = localStorage.getItem("readingProgress");
-      if (savedProgress) {
-        const progress = JSON.parse(savedProgress);
-        return progress.chapterId;
-      }
-      return null;
+      exitFullScreen();
+      goToHome();
     };
 
     const changeBackgroundColor = (colorClass) => {
       backgroundColor.value = colorClass;
-      saveSettingsToLocal();
-    };
-
-    const saveFontSize = () => {
-      saveSettingsToLocal();
+      saveSettings({ fontSize: fontSize.value, backgroundColor: colorClass, pageTurningMode: pageTurningMode.value });
     };
 
     const toggleNavAndToolBar = () => {
       if (!isSettingsVisible.value && !isDirectoryVisible.value) {
-        // 检查导航栏和工具栏的状态
-        if (isNavBarVisible.value !== isToolBarVisible.value) {
-          // 如果状态不一致，则都隐藏
-          isNavBarVisible.value = false;
-          isToolBarVisible.value = false;
-        } else {
-          // 如果状态一致，切换它们的可见性
-          const newState = !isNavBarVisible.value; // 切换状态
-          isNavBarVisible.value = newState;
-          isToolBarVisible.value = newState;
-        }
+        const newState = !(isNavBarVisible.value && isToolBarVisible.value);
+        isNavBarVisible.value = newState;
+        isToolBarVisible.value = newState;
       }
     };
 
-    // 加载章节数据并初始化筛选列表
+    // 加载章节数据
     const fetchChapters = async () => {
       loading.value = true;
       try {
         const data = await getAllChapterDirectory();
         chapters.value = data;
-        filteredChapters.value = data; // 初始时所有章节都显示
-        const lastChapterId = loadReadingProgress();
+        const lastChapterId = loadProgress();
         if (lastChapterId) {
-          selectChapter(lastChapterId);
-        } else if (chapters.value.length > 0) {
-          selectChapter(chapters.value[0].id);
+          await selectChapter(lastChapterId);
+        } else if (data.length > 0) {
+          await selectChapter(data[0].id);
         }
       } catch (error) {
         console.error("获取章节目录失败:", error);
+        if (retryCount.value < maxRetries) {
+          retryCount.value++;
+          setTimeout(fetchChapters, 1000 * retryCount.value);
+        }
       } finally {
         loading.value = false;
       }
     };
 
+    // 预加载相邻章节
+    const preloadAdjacentChapters = async (currentId) => {
+      const currentIndex = chapters.value.findIndex((chap) => chap.id === currentId);
+      const chaptersToPreload = [];
+
+      // 预加载前后各两章
+      for (let i = 1; i <= 2; i++) {
+        if (currentIndex - i >= 0) {
+          chaptersToPreload.push(chapters.value[currentIndex - i].id);
+        }
+        if (currentIndex + i < chapters.value.length) {
+          chaptersToPreload.push(chapters.value[currentIndex + i].id);
+        }
+      }
+
+      // 添加到预加载队列
+      if (chaptersToPreload.length > 0) {
+        addToPreloadQueue(chaptersToPreload);
+        startPreload(getChapter);
+      }
+    };
+
+    // 选择章节
     const selectChapter = async (id, event) => {
       if (event) {
         event.stopPropagation();
       }
-      loading.value = true; // 开始加载
-
-      currentContent.value = "";
-      currentAdditionalInfo.value = "";
-      currentChapter.value = { id: "", title: "", wordCount: 0 };
+      loading.value = true;
 
       try {
         isDirectoryVisible.value = false;
         isToolBarVisible.value = false;
 
-        // 检查缓存
-        if (chapterCache.value[id]) {
-          const chapter = chapterCache.value[id];
-          currentChapter.value = {
-            id: chapter.id,
-            title: chapter.chapterTitle || "未命名章节",
-            wordCount: chapter.chapterContent
-              ? chapter.chapterContent.length
-              : 0,
-          };
-          currentContent.value = chapter.chapterContent || "";
-          currentAdditionalInfo.value = chapter.additionalInfo || "";
-        } else {
-          const chapter = await getChapter(id); // 获取章节数据
-          chapterCache.value[id] = chapter; // 缓存章节内容
-          currentChapter.value = {
-            id: chapter.id,
-            title: chapter.chapterTitle || "未命名章节",
-            wordCount: chapter.chapterContent
-              ? chapter.chapterContent.length
-              : 0,
-          };
-          currentContent.value = chapter.chapterContent || "";
-          currentAdditionalInfo.value = chapter.additionalInfo || "";
-
-          // 预加载前一章和后一章
-          const currentIndex = chapters.value.findIndex(
-            (chap) => chap.id === id
-          );
-          if (currentIndex > 0) {
-            const previousChapterId = chapters.value[currentIndex - 1].id;
-            if (!chapterCache.value[previousChapterId]) {
-              chapterCache.value[previousChapterId] = await getChapter(
-                previousChapterId
-              );
-            }
-          }
-          if (currentIndex < chapters.value.length - 1) {
-            const nextChapterId = chapters.value[currentIndex + 1].id;
-            if (!chapterCache.value[nextChapterId]) {
-              chapterCache.value[nextChapterId] = await getChapter(
-                nextChapterId
-              );
-            }
-          }
+        let chapter = getFromCache(id);
+        if (!chapter) {
+          chapter = await getChapter(id);
+          addToCache(id, chapter);
         }
 
+        currentChapter.value = {
+          id: chapter.id,
+          title: chapter.chapterTitle || "未命名章节",
+          wordCount: chapter.chapterContent?.length || 0,
+        };
+        currentContent.value = chapter.chapterContent || "";
+        currentAdditionalInfo.value = chapter.additionalInfo || "";
+        
         await nextTick();
-        document.querySelector(".content-area").scrollTop = 0;
-        saveReadingProgress(); // 保存阅读进度
+        document.querySelector(".content-area")?.scrollTo({ top: 0, behavior: "smooth" });
+        saveProgress(id);
+
+        // 选择完章节后立即开始预加载
+        preloadAdjacentChapters(id);
       } catch (error) {
         console.error(`获取章节 ${id} 失败:`, error);
       } finally {
-        loading.value = false; // 结束加载
+        loading.value = false;
       }
     };
 
+    // 章节导航
     const showDirectory = (event) => {
       event.stopPropagation();
-      // 隐藏导航栏和工具栏，应用无动画类
       isNavBarVisible.value = false;
       isToolBarVisible.value = false;
-      // document.querySelector(".navbar").classList.add("navbar-hide");
-      // document.querySelector(".toolbar").classList.add("toolbar-hide");
       isDirectoryVisible.value = true;
 
       nextTick(() => {
-        const currentChapterElement =
-          document.querySelector(".current-chapter");
-        if (currentChapterElement) {
-          currentChapterElement.scrollIntoView({
-            block: "center",
-            behavior: "auto",
-          });
-        }
+        document.querySelector(".current-chapter")?.scrollIntoView({
+          block: "center",
+          behavior: "smooth"
+        });
       });
     };
 
     const hideDirectory = () => {
       isDirectoryVisible.value = false;
-
-      // 恢复导航栏和工具栏的显示
       isToolBarVisible.value = true;
       isNavBarVisible.value = true;
     };
@@ -449,9 +364,6 @@ export default {
       isNavBarVisible.value = false;
       isToolBarVisible.value = false;
       isSettingsVisible.value = true;
-      // // 添加无动画隐藏类
-      // document.querySelector(".navbar").classList.add("navbar-hide");
-      // document.querySelector(".toolbar").classList.add("toolbar-hide");
     };
 
     const hideSettings = () => {
@@ -461,76 +373,48 @@ export default {
     };
 
     const goToHome = () => {
-      window.location.href = "/"; // 跳转到主页
+      window.location.href = "/";
     };
 
     const reverseChapters = () => {
       chapters.value.reverse();
       nextTick(() => {
-        const currentChapterElement =
-          document.querySelector(".current-chapter");
-        if (currentChapterElement) {
-          currentChapterElement.scrollIntoView({
-            block: "center",
-            behavior: "auto",
-          });
-        }
+        document.querySelector(".current-chapter")?.scrollIntoView({
+          block: "center",
+          behavior: "smooth"
+        });
       });
     };
 
-    // 点击事件处理函数
+    // 事件处理
     const handleClickOutside = (event) => {
       const directory = document.querySelector(".directory");
       const settings = document.querySelector(".settings");
-      const toolbar = document.querySelector(".toolbar");
 
-      if (
-        directory &&
-        !directory.contains(event.target) &&
-        isDirectoryVisible.value
-      ) {
+      if (directory && !directory.contains(event.target) && isDirectoryVisible.value) {
         hideDirectory();
       }
-      if (
-        settings &&
-        !settings.contains(event.target) &&
-        isSettingsVisible.value
-      ) {
+      if (settings && !settings.contains(event.target) && isSettingsVisible.value) {
         hideSettings();
       }
     };
 
-    let startX = 0; // 记录触摸开始的位置
-    let startY = 0; // 记录触摸开始的 Y 坐标
-
-    const handleTouchStart = (event) => {
-      startX = event.touches[0].clientX; // 记录触摸开始的 X 坐标
-      startY = event.touches[0].clientY; // 记录触摸开始的 Y 坐标
-    };
-
-    const handleTouchEnd = (event) => {
-      const endX = event.changedTouches[0].clientX; // 记录触摸结束的 X 坐标
-      const endY = event.changedTouches[0].clientY; // 记录触摸结束的 Y 坐标
-      const diffX = endX - startX; // 计算水平方向滑动的距离
-      const diffY = endY - startY; // 计算垂直方向滑动的距离
-
-      if (!loading.value) {
-        // 确保没有在加载中
-        if (Math.abs(diffX) > 60 && Math.abs(diffY) < 50) {
-          // 水平方向滑动距离超过 60 且垂直方向滑动距离小于 30
-          if (diffX > 0) {
-            // 右滑
-            goToPreviousChapter(); // 切换到上一章
-          } else {
-            // 左滑
-            goToNextChapter(); // 切换到下一章
-          }
+    // 添加触摸事件处理
+    const handleTouchEndWrapper = async (event) => {
+      if (loading.value) return; // 如果正在加载，不处理滑动
+      
+      const swipeResult = handleTouchEnd(event);
+      if (swipeResult.isHorizontalSwipe) {
+        if (swipeResult.direction === 'right') {
+          await goToPreviousChapter();
+        } else {
+          await goToNextChapter();
         }
       }
     };
 
     const goToPreviousChapter = async () => {
-      if (!currentChapter.value.id) return; // 确保有 id
+      if (!currentChapter.value.id) return;
       const currentIndex = chapters.value.findIndex(
         (chapter) => chapter.id === currentChapter.value.id
       );
@@ -540,7 +424,7 @@ export default {
     };
 
     const goToNextChapter = async () => {
-      if (!currentChapter.value.id) return; // 确保有 id
+      if (!currentChapter.value.id) return;
       const currentIndex = chapters.value.findIndex(
         (chapter) => chapter.id === currentChapter.value.id
       );
@@ -549,40 +433,36 @@ export default {
       }
     };
 
-    const filteredChapters = ref([]); // 筛选后的章节列表
-    const searchQuery = ref(""); // 搜索关键字
+    const searchQuery = ref("");
+    const handleSearch = debounce(() => {}, 300);
 
-    const handleSearch = debounce(() => {
-      if (searchQuery.value) {
-        filteredChapters.value = chapters.value.filter((chapter) =>
-          chapter.chapterTitle
-            .trim()
-            .toLowerCase()
-            .includes(searchQuery.value.toLowerCase())
-        );
-      } else {
-        filteredChapters.value = chapters.value;
+    const handleOrientationChange = () => {
+      if (window.orientation === 90 || window.orientation === -90) {
+        // 如果是横屏，显示提示
+        alert('请使用竖屏阅读以获得最佳体验');
       }
-    }, 100); // 使用 lodash 防抖，300 毫秒延迟
+    };
 
+    // 生命周期钩子
     onMounted(() => {
-      loadSettingsFromLocal(); // 恢复设置
-      fetchChapters(); // 获取章节目录
-      document.addEventListener("input", saveFontSize); // 监听字体大小���化
-      document.addEventListener("click", handleClickOutside); // 添加点击事件
-      document.addEventListener("touchstart", handleTouchStart); // 监听触摸事件
-      document.addEventListener("touchend", handleTouchEnd); // 监听触摸结束事件
-      tryFullScreen();
-
-      // 监听全屏状态变化
+      loadSettings();
+      fetchChapters();
+      document.addEventListener("click", handleClickOutside);
+      document.addEventListener("touchstart", handleTouchStart);
+      document.addEventListener("touchend", handleTouchEndWrapper);
       document.addEventListener("fullscreenchange", handleFullscreenChange);
+      window.addEventListener("orientationchange", handleOrientationChange);
+      // 初始检查屏幕方向
+      handleOrientationChange();
+      tryFullScreen();
     });
 
     onUnmounted(() => {
-      document.removeEventListener("input", saveFontSize);
       document.removeEventListener("click", handleClickOutside);
       document.removeEventListener("touchstart", handleTouchStart);
-      document.removeEventListener("touchend", handleTouchEnd);
+      document.removeEventListener("touchend", handleTouchEndWrapper);
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+      window.removeEventListener("orientationchange", handleOrientationChange);
     });
 
     return {
@@ -595,7 +475,7 @@ export default {
       currentContent,
       currentAdditionalInfo,
       fontSize,
-      loading, // 返回 loading 状态
+      loading,
       toggleNavAndToolBar,
       selectChapter,
       showDirectory,
@@ -620,6 +500,18 @@ export default {
 </script>
 
 <style scoped>
+@media screen and (orientation: landscape) {
+  .novel-container {
+    transform: rotate(-90deg);
+    transform-origin: left top;
+    width: 100vh;
+    height: 100vw;
+    position: absolute;
+    top: 100%;
+    left: 0;
+  }
+}
+
 .novel-container {
   position: fixed;
   top: 0;
