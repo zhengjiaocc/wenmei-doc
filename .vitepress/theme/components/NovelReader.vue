@@ -68,6 +68,15 @@
             <span class="button-text">设置</span>
           </div>
         </button>
+        <button @click.stop="toggleFullScreen">
+          <div class="button-content">
+            <span class="button-icon">
+              <font-awesome-icon :icon="['fas', 'expand']" v-if="!isFullscreen"/>
+              <font-awesome-icon :icon="['fas', 'compress']" v-else/>
+            </span>
+            <span class="button-text">{{ isFullscreen ? '退出全屏' : '全屏' }}</span>
+          </div>
+        </button>
       </div>
     </transition>
 
@@ -194,7 +203,12 @@ export default {
       addToPreloadQueue,
       startPreload 
     } = useChapterCache();
-    const { tryFullScreen, exitFullScreen, handleFullscreenChange } = useFullscreen();
+    const { 
+      isFullscreen,
+      tryFullScreen, 
+      exitFullScreen, 
+      handleFullscreenChange 
+    } = useFullscreen();
     const { saveSettings, loadSettings, saveProgress, loadProgress } = useLocalStorage();
     const { startX, startY, handleTouchStart, handleTouchEnd } = useSwipeGesture();
 
@@ -454,7 +468,10 @@ export default {
       window.addEventListener("orientationchange", handleOrientationChange);
       // 初始检查屏幕方向
       handleOrientationChange();
-      tryFullScreen();
+      // 延迟一下再尝试进入全屏，确保DOM已经完全加载
+      setTimeout(() => {
+        tryFullScreen();
+      }, 100);
     });
 
     onUnmounted(() => {
