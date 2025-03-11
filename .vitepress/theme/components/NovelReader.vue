@@ -23,8 +23,7 @@
         <span class="loading-text">正在加载中，请稍候...</span>
       </div>
       <div v-html="currentContent" v-else></div>
-      <div v-if="currentAdditionalInfo" class="additional-info">
-        {{ currentAdditionalInfo }}
+      <div v-if="currentAdditionalInfo" class="additional-info" v-html="currentAdditionalInfo">
       </div>
     </div>
 
@@ -66,15 +65,6 @@
             /></span>
             <!-- 设置图标 -->
             <span class="button-text">设置</span>
-          </div>
-        </button>
-        <button @click.stop="toggleFullScreen">
-          <div class="button-content">
-            <span class="button-icon">
-              <font-awesome-icon :icon="['fas', 'expand']" v-if="!isFullscreen"/>
-              <font-awesome-icon :icon="['fas', 'compress']" v-else/>
-            </span>
-            <span class="button-text">{{ isFullscreen ? '退出全屏' : '全屏' }}</span>
           </div>
         </button>
       </div>
@@ -203,12 +193,7 @@ export default {
       addToPreloadQueue,
       startPreload 
     } = useChapterCache();
-    const { 
-      isFullscreen,
-      tryFullScreen, 
-      exitFullScreen, 
-      handleFullscreenChange 
-    } = useFullscreen();
+    const { tryFullScreen, exitFullScreen, handleFullscreenChange } = useFullscreen();
     const { saveSettings, loadSettings, saveProgress, loadProgress } = useLocalStorage();
     const { startX, startY, handleTouchStart, handleTouchEnd } = useSwipeGesture();
 
@@ -336,8 +321,20 @@ export default {
           title: chapter.chapterTitle || "未命名章节",
           wordCount: chapter.chapterContent?.length || 0,
         };
-        currentContent.value = chapter.chapterContent || "";
-        currentAdditionalInfo.value = chapter.additionalInfo || "";
+        
+        // 处理章节内容和附加信息，为每个段落添加缩进
+        if (chapter.chapterContent) {
+          currentContent.value = chapter.chapterContent.replace(/<p>/g, '<p>　　');
+        } else {
+          currentContent.value = "";
+        }
+        
+        // 处理 PS 等附加信息
+        if (chapter.additionalInfo) {
+          currentAdditionalInfo.value = chapter.additionalInfo.replace(/<p>/g, '<p>　　');
+        } else {
+          currentAdditionalInfo.value = "";
+        }
         
         await nextTick();
         document.querySelector(".content-area")?.scrollTo({ top: 0, behavior: "smooth" });
