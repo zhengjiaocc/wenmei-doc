@@ -21,9 +21,9 @@ head:
 
 <div class="linkcard">
   <a href="https://pan.baidu.com/s/1su8HozOWD5txVSVKfNEUWw?pwd=1u8p" target="_blank">
-    <p class="description">点击访问<br><span>问题妹妹恋上我-百度云盘</span></p>
+    <p class="description">点击下载<br><span>问题妹妹恋上我1-2000合集</span></p>
     <div class="logo">
-        <img alt="Logo" width="70px" height="70px" src="https://pic1.imgdb.cn/item/67792a4bd0e0a243d4eefcce.jpg" />
+        <img alt="Logo" width="70px" height="70px" src="https://quwenjian.cc/assets/logo.png" />
     </div>
   </a>
 </div>
